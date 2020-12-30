@@ -1,0 +1,1 @@
+# Briqpay for WooCommerce
