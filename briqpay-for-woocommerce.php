@@ -165,6 +165,8 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 * @return void
 		 */
 		public function include_files() {
+			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-fields.php';
+			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-gateway.php';
 		}
 
 		/**
