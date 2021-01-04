@@ -35,10 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Constants
  */
-define( 'BRIQ_WC_MAIN_FILE', __FILE__ );
-define( 'BRIQ_WC_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'BRIQ_WC_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
-define( 'BRIQ_WC_PLUGIN_VERSION', '0.4.1' );
+define( 'BRIQPAY_WC_MAIN_FILE', __FILE__ );
+define( 'BRIQPAY_WC_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'BRIQPAY_WC_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'BRIQPAY_WC_PLUGIN_VERSION', '0.4.1' );
 
 if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 	/**
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 * @return string Setting link
 		 */
 		public function get_setting_link() {
-			$section_slug = 'briq';
+			$section_slug = 'briqpay';
 
 			$params = array(
 				'page'    => 'wc-settings',
@@ -178,6 +178,6 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
  *
  * @return Briqpay_For_WooCommerce
  */
-function BRIQ() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
+function BRIQPAY() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
 	return Briqpay_For_WooCommerce::get_instance();
 }
