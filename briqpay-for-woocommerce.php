@@ -109,6 +109,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		public function init() {
 			load_plugin_textdomain( 'briqpay-for-woocommerce', false, plugin_basename( __DIR__ ) . '/languages' );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
+			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateways' ) );
 			$this->include_files();
 		}
 
@@ -158,13 +159,25 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 				echo '</p></div>';
 			}
 		}
-
 		/**
 		 * Includes the files for the plugin
 		 *
 		 * @return void
 		 */
 		public function include_files() {
+		}
+
+		/**
+		 *
+		 * Adds new gateway.
+		 *
+		 * @param array $methods list of supported methods.
+		 *
+		 * @return array
+		 */
+		public function add_gateways( $methods ) {
+			$methods[] = Briqpay_Gateway::class;
+			return $methods;
 		}
 
 	}
