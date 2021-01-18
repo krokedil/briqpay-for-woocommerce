@@ -64,14 +64,14 @@ class Briqpay_Logger {
 	 */
 	public static function format_log( $briqpay_order_id, $method, $title, $request_args, $response, $code ) {
 		// Unset the snippet to prevent issues in the response.
-		if ( isset( $response['html_snippet'] ) ) {
-			unset( $response['html_snippet'] );
+		if ( isset( $response['snippet'] ) ) {
+			unset( $response['snippet'] );
 		}
 		// Unset the snippet to prevent issues in the request body.
 		if ( isset( $request_args['body'] ) ) {
 			$request_body = json_decode( $request_args['body'], true );
-			if ( isset( $request_body['html_snippet'] ) && $request_body['snippet'] ) {
-				unset( $request_body['html_snippet'] );
+			if ( isset( $request_body['snippet'] ) && $request_body['snippet'] ) {
+				unset( $request_body['snippet'] );
 				$request_args['body'] = wp_json_encode( $request_body );
 			}
 		}
