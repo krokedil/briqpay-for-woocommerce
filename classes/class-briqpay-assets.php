@@ -96,8 +96,6 @@ class Briqpay_Assets {
 			'shipping_company',
 			'terms',
 			'terms-field',
-			'account_username',
-			'account_password',
 			'_wp_http_referer',
 		);
 
