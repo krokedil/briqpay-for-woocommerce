@@ -53,6 +53,13 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 */
 		protected static $instance;
 
+		/**
+		 *  Reference to API class.
+		 *
+		 * @var Briqpay_API
+		 */
+		public $api;
+
 
 		/**
 		 * Returns the *Singleton* instance of this class.
@@ -165,10 +172,26 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 * @return void
 		 */
 		public function include_files() {
-			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-fields.php';
-			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-gateway.php';
-			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-assets.php';
-			include BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-logger.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-fields.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-gateway.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-assets.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-logger.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request-get.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request-post.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/get/class-briqpay-request-auth.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-create.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-read.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-customer.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-cart.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-ajax.php';
+
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-api.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-templates.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/includes/briqpay-functions.php';
+
+			$this->api = new Briqpay_API();
+
 		}
 
 		/**
