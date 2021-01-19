@@ -52,8 +52,8 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
 		return array(
-			'result'   => 'success',
-			'redirect' => $this->get_return_url( $order ),
+			'result' => 'success',
+		// 'redirect' => $this->get_return_url( $order ),
 		);
 	}
 
