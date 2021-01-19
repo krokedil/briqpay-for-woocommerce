@@ -105,6 +105,9 @@ class Briqpay_Assets {
 			'timeoutMessage'            => __( 'Please try again, something went wrong with processing your order.', 'briqpay-for-woocommerce' ),
 			'timeoutTime'               => apply_filters( 'briqpay_checkout_timeout_duration', 20 ),
 			'standardWooCheckoutFields' => $standard_woo_checkout_fields,
+			'submitOrder'               => WC_AJAX::get_endpoint( 'checkout' ),
+			'get_order_url'             => WC_AJAX::get_endpoint( 'briqpay_get_order' ),
+			'get_order_nonce'           => wp_create_nonce( 'briqpay_get_order' ),
 		);
 
 		if ( version_compare( WC_VERSION, '3.9', '>=' ) ) {
