@@ -43,14 +43,12 @@ class Briqpay_Ajax extends WC_AJAX {
 	 *
 	 */
 	public static function briqpay_get_order() {
-		error_log( var_export( WC()->session->get( 'briqpay_session_id' ), true ) );
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order(
 			array(
 				'session_id' => WC()->session->get( 'briqpay_session_id' ),
 			)
 		);
 
-		error_log( var_export( $briqpay_order, true ) );
 		wp_send_json_success(
 			array(
 				'billing_address'  => $briqpay_order['billingaddress'],
