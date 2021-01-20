@@ -27,11 +27,11 @@ class Briqpay_API {
 
 		WC()->session->set( 'briqpay_session_id', $response['sessionid'] );
 
-//		if ( empty( get_transient( 'briqpay_bearer_token_read_session' ) ) ) {
+		// if ( empty( get_transient( 'briqpay_bearer_token_read_session' ) ) ) {
 			// NOTE: The Bearer Token is good for 48 hours (172800 seconds).
 			// TODO save token to the wc session.
 			set_transient( 'briqpay_bearer_token_read_session', $response['token'], 172600 );
-//		}
+		// }
 
 		return $this->check_for_api_error( $response );
 	}
@@ -44,7 +44,7 @@ class Briqpay_API {
 	 * @return mixed
 	 */
 	public function get_briqpay_order( array $args ) {
-		$request  = new Briqpay_Request_Read( $args );
+		$request  = new Briqpay_Request_Read( $args, true );
 		$response = $request->request();
 		return $this->check_for_api_error( $response );
 	}

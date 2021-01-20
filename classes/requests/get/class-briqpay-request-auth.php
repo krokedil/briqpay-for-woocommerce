@@ -10,6 +10,28 @@
  */
 class Briqpay_Request_Auth extends Briqpay_Request_Get {
 
+
+	/**
+	 * Briqpay_Request_Auth constructor.
+	 *
+	 * @param  array $arguments  The request arguments.
+	 * @param  bool  $generate_token Checks whether generating the token based on an existing session is needed.
+	 */
+	public function __construct( $arguments = array(), $generate_token = false ) {
+		parent::__construct( $arguments );
+		$this->generate_token = $generate_token;
+
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function get_request_headers() {
+		return array(
+			'Authorization' => 'Basic ' . base64_encode( $this->get_merchant_id() . ':' . $this->get_secret() ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions -- Base64 used to calculate auth header.
+		);
+	}
+
 	/**
 	 * Empty authorization header for authentication POSTs
 	 * Returns nothing so there is no Authorization header. The actual authentication is done in the request body.
@@ -38,15 +60,11 @@ class Briqpay_Request_Auth extends Briqpay_Request_Get {
 	 * @return string|void
 	 */
 	protected function get_request_url() {
+		if ( true === $this->generate_token ) {
+			$session_id = WC()->session->get( 'briqpay_session_id' );
+			return $this->get_api_url_base() . 'auth/' . $session_id;
+		}
 		return $this->get_api_url_base() . 'auth';
 	}
 
-	/**
-	 *  Get the request args.
-	 *
-	 * @return array
-	 */
-	protected function get_request_args() {
-		return $this->arguments;
-	}
 }

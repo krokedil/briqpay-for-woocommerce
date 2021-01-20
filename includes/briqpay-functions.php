@@ -25,7 +25,7 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	$md5_session = $session->get( 'briqpay_md5_hash' );
 	// $briqpay_order = $api->create_briqpay_order();
 	$a = 10;
-	if ( $a === 111 ) {
+	if ( $md5_session === $md5 ) {
 		// $briqpay_order = $api->update_briqpay_order( $session->get( 'briqpay_session_id' ) );
 		// TODO get existing session from briqpay api.
 		$args          = array(

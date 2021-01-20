@@ -24,11 +24,13 @@ abstract class Briqpay_Request_Post extends Briqpay_Request {
 	/**
 	 * Briqpay_Request_Post constructor.
 	 *
-	 * @param  array $arguments The request arguments.
+	 * @param  array $arguments  The request arguments.
+	 * @param  bool  $generate_token Checks whether generating the token based on an existing session is needed.
 	 */
-	public function __construct( $arguments = array() ) {
+	public function __construct( $arguments = array(), $generate_token = false ) {
 		parent::__construct( $arguments );
-		$this->method = 'POST';
+		$this->method         = 'POST';
+		$this->generate_token = $generate_token;
 	}
 
 	/**

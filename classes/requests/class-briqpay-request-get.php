@@ -20,4 +20,18 @@ abstract class Briqpay_Request_Get extends Briqpay_Request {
 		parent::__construct( $arguments );
 		$this->method = 'GET';
 	}
+
+	/**
+	 *  Get the request args.
+	 *
+	 * @return array
+	 */
+	protected function get_request_args() {
+		return array(
+			'headers'    => $this->get_request_headers(),
+			'user-agent' => $this->get_user_agent(),
+			'method'     => $this->method,
+			'timeout'    => apply_filters( 'briqpay_request_timeout', 10 ),
+		);
+	}
 }

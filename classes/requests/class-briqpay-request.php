@@ -50,9 +50,16 @@ abstract class Briqpay_Request {
 	private $settings;
 
 	/**
+	 * Checks whether generating the token based on an existing session is needed.
+	 *
+	 * @var bool
+	 */
+	protected $generate_token;
+
+	/**
 	 * Class constructor.
 	 *
-	 * @param array $arguments The request args.
+	 * @param  array $arguments  The request args.
 	 */
 	public function __construct( $arguments = array() ) {
 		$this->arguments = $arguments;
@@ -132,20 +139,23 @@ abstract class Briqpay_Request {
 	 * @return string
 	 */
 	protected function calculate_auth() {
-		$token = get_transient( 'briqpay_bearer_token' );
-
-		if ( empty( $token ) ) {
-			// todo create auth request class like we have in Briqpay.
-			$auth_request = new Briqpay_Request_Auth(
-				array(
-					'headers' => array(
-						'Authorization' => 'Basic ' . base64_encode( $this->get_merchant_id() . ':' . $this->get_secret() ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions -- Base64 used to calculate auth header.
-					),
-				)
+		$response = null;
+		if ( true === $this->generate_token ) {
+			$auth_request    = new Briqpay_Request_Auth(
+				array(),
+				true
 			);
+			$response        = $auth_request->request();
+			$generated_token = $response['token'];
+
+			return 'Bearer ' . $generated_token;
+		}
+		$token = get_transient( 'briqpay_bearer_token' );
+		if ( empty( $token ) ) {
+			$auth_request = new Briqpay_Request_Auth();
 			$response     = $auth_request->obtain_token();
 
-			if ( isset( $response['token'] ) && ! is_wp_error( $response ) ) {
+			if ( ! is_wp_error( $response ) && isset( $response['token'] ) ) {
 				$token = $response['token'];
 				// NOTE: The Bearer Token is good for 24 hours (86400 seconds).
 				set_transient( 'briqpay_bearer_token', $token, 86200 );
