@@ -36,7 +36,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<?php woocommerce_order_review(); ?>
 			<?php do_action( 'briqpay_wc_after_order_review' ); ?>
 		</div>
-		<div id="briqpay-iframe">
+		<div id="briqpay-iframe-wrapper">
 			<?php do_action( 'briqpay_wc_before_snippet' ); ?>
 			<?php briqpay_wc_show_snippet(); ?>
 			<?php do_action( 'briqpay_wc_after_snippet' ); ?>
