@@ -3,10 +3,7 @@ jQuery(function ($) {
     var briqpayForWooCommerce = {
         init: function () {
             window._briqpay.subscribe("purchasepressed", function (data) {
-                console.log(22);
-                window._briqpay.checkout.purchaseDecision(false);
-                console.log(22);
-                // briqpayForWooCommerce.getBriqpayOrder();
+                briqpayForWooCommerce.getBriqpayOrder();
 
             });
         },
@@ -35,8 +32,8 @@ jQuery(function ($) {
 		 * Sets the WooCommerce form field data.
 		 */
         setAddressData: function (addressData) {
-            if ( 0 < $( 'form.checkout #terms' ).length ) {
-                $( 'form.checkout #terms' ).prop( 'checked', true );
+            if (0 < $('form.checkout #terms').length) {
+                $('form.checkout #terms').prop('checked', true);
             }
             // Billing fields.
             $('#billing_first_name').val(addressData.billing_address.firstname);
@@ -113,6 +110,23 @@ jQuery(function ($) {
                     window._briqpay.checkout.purchaseDecision(false);
                 }
             });
+        },
+        /**
+         * Logs the message to the Briqpay log in WooCommerce.
+         * @param {string} message
+         */
+        logToFile: function (message) {
+            $.ajax(
+                {
+                    url: briqpayParams.log_to_file_url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        message: message,
+                        nonce: briqpayParams.get_log_nonce
+                    }
+                }
+            );
         },
     };
 
