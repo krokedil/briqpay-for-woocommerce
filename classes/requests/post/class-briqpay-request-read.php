@@ -20,17 +20,6 @@ class Briqpay_Request_Read extends Briqpay_Request_Post {
 		);
 	}
 
-	/**
-	 * Returns the token for Bearer auth.
-	 *
-	 * @return string
-	 */
-	protected function calculate_auth() {
-		$token = get_transient( 'briqpay_bearer_token_read_session' );
-		if ( ! empty( $token ) ) {
-			return 'Bearer ' . $token;
-		}
-	}
 
 	/**
 	 * Returns the request url.
