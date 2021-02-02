@@ -60,6 +60,13 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 */
 		public $api;
 
+		/**
+		 *  Reference to Order management class.
+		 *
+		 * @var Briqpay_Order_Management
+		 */
+		public $order_management;
+
 
 		/**
 		 * Returns the *Singleton* instance of this class.
@@ -176,12 +183,19 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-gateway.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-assets.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-logger.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-merchanturls.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-order-lines.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-confirmation.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-order-management.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request-get.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/class-briqpay-request-post.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/get/class-briqpay-request-auth.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-create.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-read.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-update.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-capture.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-refund.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-customer.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-cart.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-ajax.php';
@@ -190,7 +204,8 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-templates.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/includes/briqpay-functions.php';
 
-			$this->api = new Briqpay_API();
+			$this->api              = new Briqpay_API();
+			$this->order_management = new Briqpay_Order_Management();
 
 		}
 
