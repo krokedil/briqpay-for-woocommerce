@@ -110,6 +110,8 @@ class Briqpay_Assets {
 			'get_order_nonce'           => wp_create_nonce( 'briqpay_get_order' ),
 			'log_to_file_url'           => WC_AJAX::get_endpoint( 'briqpay_wc_log_js' ),
 			'get_log_nonce'             => wp_create_nonce( 'briqpay_wc_log_js' ),
+			'update_order_url'          => WC_AJAX::get_endpoint( 'briqpay_wc_update_checkout' ),
+			'update_order_nonce'        => wp_create_nonce( 'briqpay_wc_update_checkout' ),
 		);
 
 		if ( version_compare( WC_VERSION, '3.9', '>=' ) ) {
