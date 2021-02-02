@@ -82,11 +82,6 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 * @return bool|void
 	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
-		$order = wc_get_order( $order_id );
-		if ( $amount !== $order->get_total() ) {
-			$order->add_order_note( __( 'Briqpay only supports full refunds.', 'briqpay-for-woocommerce' ) );
-			return false;
-		}
 		return BRIQPAY()->order_management->refund( $order_id, $amount );
 	}
 
