@@ -21,6 +21,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 			'briqpay_gateway_supports',
 			array(
 				'products',
+				'refunds',
 			)
 		);
 		$this->has_fields         = false;
@@ -31,9 +32,10 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 		$this->title       = $this->get_option( 'title' );
 		$this->description = $this->get_option( 'description' );
 
-		$this->enabled  = $this->get_option( 'enabled' );
-		$this->testmode = 'yes' === $this->get_option( 'testmode' );
-		$this->logging  = 'yes' === $this->get_option( 'logging' );
+		$this->enabled          = $this->get_option( 'enabled' );
+		$this->testmode         = 'yes' === $this->get_option( 'testmode' );
+		$this->logging          = 'yes' === $this->get_option( 'logging' );
+		$this->order_management = 'yes' === $this->get_option( 'order_management' );
 		add_action(
 			'woocommerce_update_options_payment_gateways_briqpay',
 			array(
@@ -50,12 +52,44 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		$order = wc_get_order( $order_id );
+		$order    = wc_get_order( $order_id );
+		$response = BRIQPAY()->api->update_briqpay_order(
+			array(
+				'session_id' => WC()->session->get( 'briqpay_session_id' ),
+				'order_id'   => $order_id,
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			return array(
+				'result'  => 'error',
+				'message' => 'api error', // TODO chng mess.
+			);
+		}
+
 		return array(
 			'result' => 'success',
 		// 'redirect' => $this->get_return_url( $order ),
 		);
+
 	}
+
+	/** Process refund request.
+	 *
+	 * @param int    $order_id The WooCommerce order ID.
+	 * @param float  $amount The amount to be refunded.
+	 * @param string $reason The reason given for the refund.
+	 *
+	 * @return bool|void
+	 */
+	public function process_refund( $order_id, $amount = null, $reason = '' ) {
+		$order = wc_get_order( $order_id );
+		if ( $amount !== $order->get_total() ) {
+			$order->add_order_note( __( 'Briqpay only supports full refunds.', 'briqpay-for-woocommerce' ) );
+			return false;
+		}
+		return BRIQPAY()->order_management->refund( $order_id, $amount );
+	}
+
 
 	/**
 	 * Initialise settings fields.
