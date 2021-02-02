@@ -142,7 +142,7 @@ abstract class Briqpay_Request {
 		$response = null;
 		if ( true === $this->generate_token ) {
 			$auth_request    = new Briqpay_Request_Auth(
-				array(),
+				$this->arguments,
 				true
 			);
 			$response        = $auth_request->request();
@@ -179,7 +179,7 @@ abstract class Briqpay_Request {
 		return apply_filters(
 			'http_headers_useragent',
 			'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' )
-		) . ' - WooCommerce: ' . WC()->version . ' - KUS: ' . BRIQPAY_WC_PLUGIN_VERSION . ' - PHP Version: ' . PHP_VERSION . ' - Krokedil';
+		) . ' - WooCommerce: ' . WC()->version . ' - BPC: ' . BRIQPAY_WC_PLUGIN_VERSION . ' - PHP Version: ' . PHP_VERSION . ' - Krokedil';
 	}
 
 	/**
@@ -226,26 +226,20 @@ abstract class Briqpay_Request {
 			$data          = 'URL: ' . $request_url . ' - ' . wp_json_encode( $request_args );
 			$error_message = '';
 			// TODO fix.
-
-			// error_log(var_export( $response['body'], true));
-			// error_log('ovo je body');
 			// Get the error messages.
-			// if ( null !== json_decode( $response['body'], true ) ) {
-			// $errors = json_decode( $response['body'], true );
-			// error_log('ovo je error');
-			// error_log(var_export($error, true));
-			// error_log('ovo je error');
-			// foreach ( $errors as $error ) {
-			// $error_message .= ' ' . $error;
-			// }
-			// }
-			$return = new WP_Error( wp_remote_retrieve_response_code( $response ), $response['body'] . 'something', $data );
+			if ( null !== json_decode( $response['body'], true ) ) {
+				$errors = json_decode( $response['body'], true );
+
+				foreach ( $errors as $error ) {
+					$error_message .= ' ' . $error;
+				}
+			}
+			$code   = wp_remote_retrieve_response_code( $response );
+			$return = new WP_Error( $code, json_decode( $response['body'], true ), $data );
 		} else {
 			$return = json_decode( wp_remote_retrieve_body( $response ), true );
 		}
-
 		$this->log_response( json_decode( wp_remote_retrieve_body( $response ), true ), $request_args, $request_url );
-
 		return $return;
 	}
 
