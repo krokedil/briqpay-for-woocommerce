@@ -25,11 +25,6 @@ class Briqpay_API {
 		$request  = new Briqpay_Request_Create();
 		$response = $request->request();
 
-		if ( is_wp_error( $response ) ) {
-			// error_log($response['message']);
-		}
-		WC()->session->set( 'briqpay_session_id', $response['sessionid'] );
-
 		return $this->check_for_api_error( $response );
 	}
 
