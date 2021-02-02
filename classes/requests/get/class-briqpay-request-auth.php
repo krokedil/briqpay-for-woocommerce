@@ -24,6 +24,8 @@ class Briqpay_Request_Auth extends Briqpay_Request_Get {
 	}
 
 	/**
+	 * Get the request headers.
+	 *
 	 * @return array
 	 */
 	protected function get_request_headers() {
@@ -61,8 +63,7 @@ class Briqpay_Request_Auth extends Briqpay_Request_Get {
 	 */
 	protected function get_request_url() {
 		if ( true === $this->generate_token ) {
-			$session_id = WC()->session->get( 'briqpay_session_id' );
-			return $this->get_api_url_base() . 'auth/' . $session_id;
+			return $this->get_api_url_base() . 'auth/' . $this->arguments['session_id'];
 		}
 		return $this->get_api_url_base() . 'auth';
 	}
