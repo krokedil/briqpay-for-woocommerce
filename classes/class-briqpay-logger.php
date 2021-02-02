@@ -75,18 +75,22 @@ class Briqpay_Logger {
 				$request_args['body'] = wp_json_encode( $request_body );
 			}
 		}
-		return array(
-			'id'             => $briqpay_order_id,
-			'type'           => $method,
-			'title'          => $title,
-			'request'        => $request_args,
-			'response'       => array(
-				'body' => $response,
-				'code' => $code,
-			),
-			'timestamp'      => date( 'Y-m-d H:i:s' ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions -- Date is not used for display.
-			'stack'          => self::get_stack(),
-			'plugin_version' => BRIQPAY_WC_PLUGIN_VERSION,
+		self::log(
+			wp_json_encode(
+				array(
+					'id'         => $briqpay_order_id,
+					'type'       => $method,
+					'title'      => $title,
+					'request'    => $request_args,
+					'response'   => array(
+					'body' => $response,
+					'code' => $code,
+					),
+					'timestamp'  => date( 'Y-m-d H:i:s' ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions -- Date is not used for display.
+				'stack'          => self::get_stack(),
+				'plugin_version' => BRIQPAY_WC_PLUGIN_VERSION,
+				)
+			)
 		);
 	}
 
