@@ -114,6 +114,12 @@ class Briqpay_Fields {
 					'autocomplete' => 'new-password',
 				),
 			),
+			'order_management'           => array(
+				'title'   => __( 'Enable Order Management', 'briqpay-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Enable Briqpay order capture on WooCommerce order completion and Briqpay order cancellation on WooCommerce order cancellation', 'briqpay-for-woocommerce' ),
+				'default' => 'yes',
+			),
 			// Shipping.
 			'shipping_section'           => array(
 				'title' => __( 'Shipping settings', 'briqpay-for-woocommerce' ),
@@ -124,6 +130,7 @@ class Briqpay_Fields {
 				'title' => __( 'Checkout settings', 'briqpay-for-woocommerce' ),
 				'type'  => 'title',
 			),
+
 		);
 		return apply_filters( 'briqpay_gateway_settings', $settings );
 	}
