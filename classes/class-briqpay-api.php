@@ -25,13 +25,10 @@ class Briqpay_API {
 		$request  = new Briqpay_Request_Create();
 		$response = $request->request();
 
+		if ( is_wp_error( $response ) ) {
+			// error_log($response['message']);
+		}
 		WC()->session->set( 'briqpay_session_id', $response['sessionid'] );
-
-		// if ( empty( get_transient( 'briqpay_bearer_token_read_session' ) ) ) {
-			// NOTE: The Bearer Token is good for 48 hours (172800 seconds).
-			// TODO save token to the wc session.
-			set_transient( 'briqpay_bearer_token_read_session', $response['token'], 172600 );
-		// }
 
 		return $this->check_for_api_error( $response );
 	}
@@ -47,6 +44,39 @@ class Briqpay_API {
 		$request  = new Briqpay_Request_Read( $args, true );
 		$response = $request->request();
 		return $this->check_for_api_error( $response );
+	}
+
+	/**Updates  a Briqpay Checkout order
+	 *
+	 * @param  array $args The request arguments.
+	 */
+	public function update_briqpay_order( array $args = array() ) {
+		$response = ( new Briqpay_Request_Update( $args, true ) )->request();
+		return $this->check_for_api_error( $response );
+	}
+
+	/**
+	 * Capture a placed order.
+	 *
+	 * @param  array $args  .
+	 *
+	 * @return array|false
+	 */
+	public function capture_briqpay_order( array $args = array() ) {
+		$response = ( new Briqpay_Request_Capture( $args, true ) )->request();
+		return $response;
+	}
+
+	/**
+	 * Refunding a captured order
+	 *
+	 * @param  array $args The request args.
+	 *
+	 * @return array|object|WP_Error
+	 */
+	public function refund_briqpay_order( array $args = array() ) {
+		$response = ( new Briqpay_Request_Refund( $args, true ) )->request();
+		return $response;
 	}
 
 	/**
