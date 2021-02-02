@@ -24,41 +24,34 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	$md5         = md5( wp_json_encode( $session->get( 'cart' ) ) );
 	$md5_session = $session->get( 'briqpay_md5_hash' );
 	// $briqpay_order = $api->create_briqpay_order();
-	$a = 10;
-	if ( $md5_session === $md5 ) {
-		// $briqpay_order = $api->update_briqpay_order( $session->get( 'briqpay_session_id' ) );
-		// TODO get existing session from briqpay api.
+	$a                  = 10;
+	$briqpay_session_id = $session->get( 'briqpay_session_id' );
+	if ( $briqpay_session_id ) {
 		$args          = array(
 			'session_id' => $session->get( 'briqpay_session_id' ),
 		);
-		$briqpay_order = $api->get_briqpay_order( $args );
-		error_log( 'read' );
-		error_log( var_export( $briqpay_order, true ) );
-		// if ( ! $briqpay_order ) {
-		// If update order failed try to create new order.
-		// $briqpay_order = $api->create_briqpay_order();
-		// if ( ! $briqpay_order ) {
-		// If failed then bail.
-		// return;
-		// }
-		// $session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
-		// $session->set( 'briqpay_md5_hash', $md5 );
-		// return $briqpay_order;
-		// }
-		return $briqpay_order;
-	} else {
-		$briqpay_order = $api->create_briqpay_order();
-		error_log( 'create' );
-		 error_log( var_export( $briqpay_order, true ) );
-
+		$briqpay_order = $api->update_briqpay_order( $args );
 		if ( ! $briqpay_order ) {
-			return;
+			// If update order failed try to create new order.
+			$briqpay_order = $api->create_briqpay_order();
+			if ( ! $briqpay_order ) {
+				// If failed then bail.
+				return;
+			}
+			$session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
+			return $briqpay_order;
 		}
-		$session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
-		$session->set( 'briqpay_md5_hash', $md5 );
-
 		return $briqpay_order;
 	}
+
+	$briqpay_order = $api->create_briqpay_order();
+
+	if ( ! $briqpay_order ) {
+		return;
+	}
+	$session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
+
+	return $briqpay_order;
 }
 
 /**
@@ -75,4 +68,13 @@ function is_briqpay_confirmation() {
 
 function briqpay_extract_error_message( $wp_error ) {
 	wc_print_notice( $wp_error->get_error_message(), 'error' );
+}
+
+/**
+ * Unsets all sessions for the plugin.
+ *
+ * @return void
+ */
+function briqpay_wc_unset_sessions() {
+	WC()->session->__unset( 'briqpay_session_id' );
 }
