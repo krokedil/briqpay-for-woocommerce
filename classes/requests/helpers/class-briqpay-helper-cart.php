@@ -37,7 +37,7 @@ class Briqpay_Helper_Cart {
 		// Get cart fees.
 		$cart_fees = WC()->cart->get_fees();
 		foreach ( $cart_fees as $fee ) {
-			// $formatted_cart_items[] = self::get_fee( $fee );
+			$formatted_cart_items[] = self::get_fee( $fee );
 		}
 
 		// Get cart shipping.
@@ -64,7 +64,7 @@ class Briqpay_Helper_Cart {
 			$product = wc_get_product( $cart_item['product_id'] );
 		}
 		return array(
-			'producttype'  => 'physical',
+			'producttype'  => self::get_product_type( $product ),
 			'reference'    => self::get_product_sku( $product ), // String.
 			'name'         => self::get_product_name( $cart_item ), // String.
 			'quantity'     => $cart_item['quantity'], // Float.
@@ -96,7 +96,7 @@ class Briqpay_Helper_Cart {
 	 * @return float
 	 */
 	public static function get_product_unit_price( $cart_item ) {
-		$item_subtotal = ( $cart_item['line_total'] + $cart_item['line_tax'] ) / $cart_item['quantity'];
+		$item_subtotal = ( $cart_item['line_total'] ) / $cart_item['quantity'];
 		return intval( round( $item_subtotal, 2 ) * 100 );
 	}
 
@@ -110,7 +110,7 @@ class Briqpay_Helper_Cart {
 		if ( 0 === intval( $cart_item['line_total'] ) ) {
 			return 0;
 		}
-		return intval( round( $cart_item['line_tax'] / $cart_item['line_total'], 2 ) ) * 100;
+		return intval( round( $cart_item['line_tax'] / $cart_item['line_total'], 2 ) * 10000 );
 	}
 
 	/**
@@ -137,11 +137,14 @@ class Briqpay_Helper_Cart {
 	 */
 	public static function get_fee( $fee ) {
 		return array(
-			'name'      => $fee->name, // String.
-			'unitPrice' => $fee->amount + $fee->tax, // Float.
-			'quantity'  => 1, // Float.
-			'taxRate'   => $fee->tax / $fee->amount, // Float.
-			'reference' => 'fee|' . $fee->id, // String.
+			'producttype'  => 'digital',
+			'name'         => $fee->name,
+			'unitprice'    => intval( round( $fee->amount, 2 ) * 100 ),
+			'quantityunit' => 'pc',
+			'quantity'     => 1,
+			'taxrate'      => intval( ( $fee->tax / $fee->amount ) * 10000 ),
+			'reference'    => 'fee|' . $fee->id,
+			'discount'     => 0,
 		);
 	}
 
@@ -162,9 +165,9 @@ class Briqpay_Helper_Cart {
 						return array(
 							'producttype'  => 'shipping_fee',
 							'name'         => $method->label, // String.
-							'unitprice'    => intval( round( WC()->cart->shipping_total + WC()->cart->shipping_tax_total * 100 ) ),
+							'unitprice'    => intval( round( WC()->cart->shipping_total * 100 ) ),
 							'quantityunit' => 'pc',
-							'quantity'     => 1, // Float.
+							'quantity'     => 1,
 							'taxrate'      => intval( ( WC()->cart->shipping_tax_total / WC()->cart->shipping_total ) * 10000 ),
 							'reference'    => 'shipping|' . $method->id, // String.
 							'discount'     => 0,
@@ -174,15 +177,26 @@ class Briqpay_Helper_Cart {
 					return array(
 						'producttype'  => 'shipping_fee',
 						'name'         => $method->label, // String.
-						'unitprice'    => 0, // Float.
+						'unitprice'    => 0,
 						'quantityunit' => 'pc',
-						'quantity'     => 1, // Float.
-						'taxrate'      => 0, // Float.
-						'reference'    => 'shipping|' . $method->id, // String.
+						'quantity'     => 1,
+						'taxrate'      => 0,
+						'reference'    => 'shipping|' . $method->id,
 						'discount'     => 0,
 					);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Returns a product type.
+	 *
+	 * @param WC_Product $product WC product.
+	 *
+	 * @return string
+	 */
+	public static function get_product_type( $product ) {
+		return $product->is_virtual() ? 'digital' : 'physical';
 	}
 }
