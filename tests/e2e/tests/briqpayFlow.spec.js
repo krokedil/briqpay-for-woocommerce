@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 
-describe("KCO", () => {
+describe("Briqpay test", () => {
 	beforeAll(async () => {
 		browser = await puppeteer.launch(options);
 		context = await browser.createIncognitoBrowserContext();

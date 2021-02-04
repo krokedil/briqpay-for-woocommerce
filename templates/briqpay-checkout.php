@@ -14,7 +14,7 @@
  */
 wc_print_notices();
 
-do_action( 'briqpay_wc_before_checkout_form' );
+do_action( 'woocommerce_before_checkout_form', WC()->checkout() );
 
 // if checkout registration is disabled and not logged in, the user cannot checkout.
 if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_required() && ! is_user_logged_in() ) {
