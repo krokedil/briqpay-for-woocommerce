@@ -254,7 +254,7 @@ class Briqpay_Helper_Order_Lines {
 	}
 
 	/**
-	 * Formats a number to the expected format for Klarna.
+	 * Formats a number to the expected format for Briqpay.
 	 *
 	 * @param int|float $number The number to be formatted.
 	 * @return int
