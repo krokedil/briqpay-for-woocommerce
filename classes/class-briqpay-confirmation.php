@@ -82,8 +82,10 @@ class Briqpay_Confirmation {
 	public function confirm_briqpay_order( $order_id ) {
 		$order      = wc_get_order( $order_id );
 		$session_id = WC()->session->get( 'briqpay_session_id' );
+		$response   = BRIQPAY()->api->get_briqpay_order( array( 'session_id' => $session_id ) );
 		// Set post meta and complete order.
 		update_post_meta( $order_id, '_briqpay_session_id', $session_id );
+		update_post_meta( $order_id, '_briqpay_payment_method', $response['purchasepaymentmethod']['name'] );
 		$order->add_order_note( __( 'Payment via Briqpay, session ID: ', 'briqpay-for-woocommerce' ) . $session_id );
 		$order->payment_complete( $session_id );
 	}
