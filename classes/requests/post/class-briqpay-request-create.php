@@ -9,7 +9,13 @@
  */
 class Briqpay_Request_Create extends Briqpay_Request_Post {
 
-
+	/**
+	 * Class constructor.
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->log_title = 'Create a session';
+	}
 	/**
 	 * Returns the arguments request.
 	 *

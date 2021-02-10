@@ -9,6 +9,16 @@
  */
 class Briqpay_Request_Update extends Briqpay_Request_Post {
 
+	/**
+	 * Class constructor.
+	 *
+	 * @param array $arguments The request arguments.
+	 * @param  bool  $generate_token Checks whether generating the token based on an existing session is needed.
+	 */
+	public function __construct( $arguments, $generate_token ) {
+		parent::__construct( $arguments, $generate_token );
+		$this->log_title = 'Update a session';
+	}
 
 	/**
 	 * Returns the arguments request.

@@ -1,5 +1,6 @@
 <?php
 /**
+ * Briqpay_Request_Capture class file.
  * @package Briqpay_For_WooCommerce/Classes/Requests/Post
  */
 
@@ -10,6 +11,16 @@
 class Briqpay_Request_Capture extends Briqpay_Request_Post {
 
 
+	/**
+	 * Class constructor.
+	 *
+	 * @param array $arguments The request arguments.
+	 * @param  bool  $generate_token Checks whether generating the token based on an existing session is needed.
+	 */
+	public function __construct( $arguments, $generate_token ) {
+		parent::__construct( $arguments, $generate_token );
+		$this->log_title = 'Capture an order';
+	}
 	/**
 	 * Returns the arguments request.
 	 *
