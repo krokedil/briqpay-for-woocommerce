@@ -3,15 +3,15 @@ jQuery(function ($) {
 	var briqpayForWooCommerce = {
 		bodyEl: $('body'),
 		init: function () {
-			window._briqpay.subscribe("purchasepressed", function (data) {
-				briqpayForWooCommerce.getBriqpayOrder();
-
-			});
+			window._briqpay.subscribe("purchasepressed", briqpayForWooCommerce.getBriqpayOrder);
 			window._briqpay.subscribe("addressupdate", function (data) {
 				briqpayForWooCommerce.updateAddress(data);
 			})
 			// Update Checkout.
 			briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
+			briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
+				briqpayForWooCommerce.suspend();
+			});
 
 		},
 		updateAddress: function (data) {
@@ -153,6 +153,12 @@ jQuery(function ($) {
 					// TODO error handling.
 				}
 			});
+		},
+		resume: function () {
+			window._briqpay.checkout.resume();
+		},
+		suspend: function () {
+			window._briqpay.checkout.suspend();
 		},
 	};
 
