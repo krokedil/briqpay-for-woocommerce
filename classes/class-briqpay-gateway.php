@@ -60,8 +60,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $response ) ) {
 			return array(
-				'result'  => 'error',
-				'message' => 'api error', // TODO chng mess.
+				'result' => 'error',
 			);
 		}
 
