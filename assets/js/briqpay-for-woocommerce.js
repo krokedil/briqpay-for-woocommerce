@@ -2,6 +2,7 @@
 jQuery(function ($) {
 	var briqpayForWooCommerce = {
 		bodyEl: $('body'),
+		checkoutFormSelector: 'form.checkout',
 		init: function () {
 			window._briqpay.subscribe("purchasepressed", briqpayForWooCommerce.getBriqpayOrder);
 			window._briqpay.subscribe("addressupdate", function (data) {
@@ -140,9 +141,7 @@ jQuery(function ($) {
 					}
 				},
 				error: function (data) {
-					// logToFile('AJAX error | ' + data);
-					// failOrder('ajax-error', data);
-					window._briqpay.checkout.purchaseDecision(false);
+					briqpayForWooCommerce.failOrder();
 				}
 			});
 		},
