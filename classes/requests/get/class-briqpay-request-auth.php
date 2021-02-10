@@ -20,6 +20,7 @@ class Briqpay_Request_Auth extends Briqpay_Request_Get {
 	public function __construct( $arguments = array(), $generate_token = false ) {
 		parent::__construct( $arguments );
 		$this->generate_token = $generate_token;
+		$this->log_title      = 'Auth request';
 
 	}
 
