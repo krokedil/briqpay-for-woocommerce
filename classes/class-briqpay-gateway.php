@@ -52,8 +52,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		$order    = wc_get_order( $order_id );
-		$response = BRIQPAY()->api->update_briqpay_order(
+		$response = BRIQPAY()->api->patch_briqpay_order(
 			array(
 				'session_id' => WC()->session->get( 'briqpay_session_id' ),
 				'order_id'   => $order_id,
