@@ -103,11 +103,13 @@ jQuery(function ($) {
 						}
 					} catch (err) {
 						if (data.messages) {
-							window._briqpay.checkout.purchaseDecision(false);
+							briqpayForWooCommerce.logToFile( 'Checkout error | ' + data.messages );
+							briqpayForWooCommerce.failOrder( 'submission', data.messages );
 						} else {
-							// logToFile('Checkout error | No message');
-							// failOrder('submission', '<div class="woocommerce-error">' + 'Checkout error' + '</div>');
-							window._briqpay.checkout.purchaseDecision(false);
+
+							// window._briqpay.checkout.purchaseDecision(false);
+							briqpayForWooCommerce.logToFile( 'Checkout error | No message' );
+							briqpayForWooCommerce.failOrder( 'submission', '<div class="woocommerce-error">' + 'Checkout error' + '</div>' );
 						}
 					}
 				},
@@ -149,10 +151,29 @@ jQuery(function ($) {
 				},
 				complete: function (data) {
 					let result = data.responseJSON;
-					// TODO Update iframe.
-					// TODO error handling.
+					briqpayForWooCommerce.resume();
 				}
 			});
+		},
+		failOrder: function( event, error_message ) {
+			// Send false and cancel
+			window._briqpay.checkout.purchaseDecision(false);
+
+			// Renable the form.
+			$( 'body' ).trigger( 'updated_checkout' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).removeClass( 'processing' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).unblock();
+			$( '.woocommerce-checkout-review-order-table' ).unblock();
+
+			// Print error messages, and trigger checkout_error, and scroll to notices.
+			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();
+			$( 'form.checkout' ).prepend( '<div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">' + error_message + '</div>' ); // eslint-disable-line max-len
+			$( 'form.checkout' ).removeClass( 'processing' ).unblock();
+			$( 'form.checkout' ).find( '.input-text, select, input:checkbox' ).trigger( 'validate' ).blur();
+			$( document.body ).trigger( 'checkout_error' , [ error_message ] );
+			$( 'html, body' ).animate( {
+				scrollTop: ( $( 'form.checkout' ).offset().top - 100 )
+			}, 1000 );
 		},
 		resume: function () {
 			window._briqpay.checkout.resume();
