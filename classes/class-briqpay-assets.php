@@ -53,6 +53,14 @@ class Briqpay_Assets {
 			true
 		);
 
+		wp_register_script(
+			'devbriqpay',
+			'https://api.briqpay.com/briq.min.js',
+			array(),
+			null,
+			false
+		);
+
 		wp_register_style(
 			'briqpay',
 			plugins_url( 'assets/css/briqpay-for-woocommerce.css', BRIQPAY_WC_MAIN_FILE ),
@@ -117,6 +125,8 @@ class Briqpay_Assets {
 		if ( version_compare( WC_VERSION, '3.9', '>=' ) ) {
 			$checkout_localize_params['force_update'] = true;
 		}
+
+//		wp_enqueue_script( 'devbriqpay' );
 		wp_localize_script( 'briqpay', 'briqpayParams', $checkout_localize_params );
 
 		wp_enqueue_script( 'briqpay' );
