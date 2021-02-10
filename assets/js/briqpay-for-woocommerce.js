@@ -12,7 +12,33 @@ jQuery(function ($) {
 			briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
 				briqpayForWooCommerce.suspend();
 			});
+			$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
+		},
+		/**
+		 * Moves all non standard fields to the extra checkout fields.
+		 */
+		moveExtraCheckoutFields: function() {
+			// Move order comments.
+			$('.woocommerce-additional-fields').appendTo('#briqpay-extra-checkout-fields');
 
+			let form = $('form[name="checkout"] input, form[name="checkout"] select, textarea');
+			for ( i = 0; i < form.length; i++ ) {
+				let name = form[i].name;
+				// Check if field is inside the order review.
+				if( $( 'table.woocommerce-checkout-review-order-table' ).find( form[i] ).length ) {
+					continue;
+				}
+
+				// Check if this is a standard field.
+				if ( -1 === $.inArray( name, briqpayParams.standardWooCheckoutFields ) ) {
+					// This is not a standard Woo field, move to our div.
+					if ( 0 < $( 'p#' + name + '_field' ).length ) {
+						$( 'p#' + name + '_field' ).appendTo( '#briqpay-extra-checkout-fields' );
+					} else {
+						$( 'input[name="' + name + '"]' ).closest( 'p' ).appendTo( '#briqpay-extra-checkout-fields' );
+					}
+				}
+			}
 		},
 		updateAddress: function (data) {
 			let billingCountry = (('country' in data.billingaddress) ? data.billingaddress.country : null);
