@@ -51,6 +51,18 @@ class Briqpay_API {
 	}
 
 	/**
+	 * Updates merchant urls and ref.
+	 *
+	 * @param  array $args  The request arguments.
+	 *
+	 * @return array|false|mixed
+	 */
+	public function patch_briqpay_order( array $args = array() ) {
+		$response = ( new Briqpay_Request_Patch( $args, true ) )->request();
+		return $this->check_for_api_error( $response );
+	}
+
+	/**
 	 * Capture a placed order.
 	 *
 	 * @param  array $args  .
