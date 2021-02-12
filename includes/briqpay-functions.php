@@ -21,10 +21,6 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	$cart->calculate_fees();
 	$cart->calculate_shipping();
 	$cart->calculate_totals();
-	$md5         = md5( wp_json_encode( $session->get( 'cart' ) ) );
-	$md5_session = $session->get( 'briqpay_md5_hash' );
-	// $briqpay_order = $api->create_briqpay_order();
-	$a                  = 10;
 	$briqpay_session_id = $session->get( 'briqpay_session_id' );
 	if ( $briqpay_session_id ) {
 		$args          = array(
