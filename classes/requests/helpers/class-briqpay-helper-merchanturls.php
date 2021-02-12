@@ -26,9 +26,10 @@ class Briqpay_Helper_MerchantUrls {
 	 */
 	public static function get_urls( $order_id = null ) {
 		$urls = array(
-			'terms'         => get_permalink( wc_get_page_id( 'terms' ) ),
-			'notifications' => home_url( '/wc-api/BRIQPAY_WC_NOTIFICATION' ),
-			'redirecturl'   => home_url( '?briqpay-success' ),
+			'terms'          => get_permalink( wc_get_page_id( 'terms' ) ),
+			'notifications'  => home_url( '/wc-api/BRIQPAY_WC_NOTIFICATION' ),
+			'redirecturl'    => home_url( '?briqpay-success' ),
+			'backtocheckout' => wc_get_checkout_url(),
 		);
 		if ( null !== $order_id ) {
 			$order            = wc_get_order( $order_id );
