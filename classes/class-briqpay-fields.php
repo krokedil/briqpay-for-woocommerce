@@ -117,7 +117,7 @@ class Briqpay_Fields {
 			'order_management'           => array(
 				'title'   => __( 'Enable Order Management', 'briqpay-for-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable Briqpay order capture on WooCommerce order completion and Briqpay order cancellation on WooCommerce order cancellation', 'briqpay-for-woocommerce' ),
+				'label'   => __( 'Enable Briqpay order capture on WooCommerce order completion.', 'briqpay-for-woocommerce' ),
 				'default' => 'yes',
 			),
 

@@ -15,8 +15,8 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 		$this->id                 = 'briqpay';
-		$this->method_title       = __( 'Briqpay Payment Gateway', 'briqpay-for-woocommerce' );
-		$this->method_description = __( 'The current Briqpay Checkout replaces standard WooCommerce checkout page.', 'briqpay-for-woocommerce' );
+		$this->method_title       = __( 'Briqpay', 'briqpay-for-woocommerce' );
+		$this->method_description = __( 'Briqpay replaces the standard WooCommerce checkout page.', 'briqpay-for-woocommerce' );
 		$this->supports           = apply_filters(
 			'briqpay_gateway_supports',
 			array(
