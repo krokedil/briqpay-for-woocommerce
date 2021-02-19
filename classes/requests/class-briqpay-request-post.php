@@ -44,7 +44,7 @@ abstract class Briqpay_Request_Post extends Briqpay_Request {
 			'user-agent' => $this->get_user_agent(),
 			'method'     => $this->method,
 			'timeout'    => apply_filters( 'briqpay_request_timeout', 10 ),
-			'body'       => wp_json_encode( $this->get_body() ),
+			'body'       => wp_json_encode( apply_filters( 'briqpay_request_args', $this->get_body() ) ),
 		);
 	}
 
