@@ -1,9 +1,9 @@
 <?php
 /**
  * Briqpay_Request_Capture class file.
+ *
  * @package Briqpay_For_WooCommerce/Classes/Requests/Post
  */
-
 
 /**
  * Class Briqpay_Request_Create
