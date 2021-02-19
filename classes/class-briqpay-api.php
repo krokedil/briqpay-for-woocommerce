@@ -41,9 +41,12 @@ class Briqpay_API {
 		return $this->check_for_api_error( $response );
 	}
 
-	/**Updates  a Briqpay Checkout order
+	/**
+	 * Updates a Briqpay Checkout order
 	 *
-	 * @param  array $args The request arguments.
+	 * @param  array $args  The request arguments.
+	 *
+	 * @return array|false|mixed
 	 */
 	public function update_briqpay_order( array $args = array() ) {
 		$response = ( new Briqpay_Request_Update( $args, true ) )->request();
