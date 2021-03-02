@@ -9,3 +9,5 @@
 /vendor/
 /node_modules/
 /tests/
+Dockerfile
+docker-compose-yml

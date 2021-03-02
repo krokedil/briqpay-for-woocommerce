@@ -74,3 +74,25 @@ function briqpay_extract_error_message( $wp_error ) {
 function briqpay_wc_unset_sessions() {
 	WC()->session->__unset( 'briqpay_session_id' );
 }
+
+/**
+ * Prints the HTML for the show another gateway button.
+ *
+ * @return void
+ */
+function briqpay_wc_show_another_gateway_button() {
+	$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
+
+	if ( count( $available_gateways ) > 1 ) {
+		$settings                   = get_option( 'woocommerce_briqpay_settings' );
+		$select_another_method_text = isset( $settings['select_another_method_text'] ) && '' !== $settings['select_another_method_text'] ? $settings['select_another_method_text'] : __( 'Select another payment method', 'briqpay-for-woocommerce' );
+
+		?>
+		<p class="briqpay-select-other-wrapper">
+			<a class="checkout-button button" href="#" id="briqpay-select-other">
+				<?php echo esc_html( $select_another_method_text ); ?>
+			</a>
+		</p>
+		<?php
+	}
+}

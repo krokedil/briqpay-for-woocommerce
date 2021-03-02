@@ -43,7 +43,7 @@ class Briqpay_Templates {
 		// add_action( 'wp_footer', array( $this, 'check_that_briqpay_template_has_loaded' ) );
 		//
 		// Template hooks.
-		// add_action( 'briqpay_wc_after_order_review', 'briqpay_wc_show_another_gateway_button', 20 );
+		add_action( 'briqpay_wc_after_order_review', 'briqpay_wc_show_another_gateway_button', 20 );
 		add_action( 'briqpay_wc_after_order_review', array( $this, 'add_extra_checkout_fields' ), 10 );
 		// add_action( 'briqpay_wc_before_snippet', 'briqpay_wc_prefill_consent', 10 );
 		add_action(
@@ -178,10 +178,10 @@ class Briqpay_Templates {
 	 */
 	public function add_wc_form() {
 		?>
-<div aria-hidden="true" id="briqpay-wc-form" style="position:absolute; top:-99999px; left:-99999px;">
-		<?php do_action( 'woocommerce_checkout_billing' ); ?>
-		<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-<div id="briqpay-nonce-wrapper">
+		<div aria-hidden="true" id="briqpay-wc-form" style="position:absolute; top:-99999px; left:-99999px;">
+			<?php do_action( 'woocommerce_checkout_billing' ); ?>
+			<?php do_action( 'woocommerce_checkout_shipping' ); ?>
+		<div id="briqpay-nonce-wrapper">
 		<?php
 		if ( version_compare( WOOCOMMERCE_VERSION, '3.4', '<' ) ) {
 			wp_nonce_field( 'woocommerce-process_checkout' );
@@ -190,9 +190,8 @@ class Briqpay_Templates {
 		}
 		wc_get_template( 'checkout/terms.php' );
 		?>
-</div>
-<input id="payment_method_briqpay" type="radio" class="input-radio" name="payment_method" value="briqpay"
-checked="checked"/></div>
+		</div>
+		<input id="payment_method_briqpay" type="radio" class="input-radio" name="payment_method" value="briqpay" checked="checked"/></div>
 		<?php
 	}
 
