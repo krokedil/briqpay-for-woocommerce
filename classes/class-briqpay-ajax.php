@@ -25,9 +25,10 @@ class Briqpay_Ajax extends WC_AJAX {
 	 */
 	public static function add_ajax_events() {
 		$ajax_events = array(
-			'briqpay_get_order'          => true,
-			'briqpay_wc_log_js'          => true,
-			'briqpay_wc_update_checkout' => true,
+			'briqpay_get_order'                => true,
+			'briqpay_wc_log_js'                => true,
+			'briqpay_wc_update_checkout'       => true,
+			'briqpay_wc_change_payment_method' => true,
 		);
 		foreach ( $ajax_events as $ajax_event => $nopriv ) {
 			add_action( 'wp_ajax_woocommerce_' . $ajax_event, array( __CLASS__, $ajax_event ) );
@@ -133,7 +134,42 @@ class Briqpay_Ajax extends WC_AJAX {
 			)
 		);
 		wp_die();
+	}
 
+	/**
+	 * Refresh checkout fragment.
+	 */
+	public static function briqpay_wc_change_payment_method() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_key( $_POST['nonce'] ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'briqpay_wc_change_payment_method' ) ) {
+			wp_send_json_error( 'bad_nonce' );
+			exit;
+		}
+		$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
+		$switch_to_klarna   = isset( $_POST['briqpay'] ) ? sanitize_text_field( wp_unslash( $_POST['briqpay'] ) ) : '';
+
+		if ( 'false' === $switch_to_klarna ) {
+			// Set chosen payment method to first gateway that is not Klarna Checkout for WooCommerce.
+			$first_gateway = reset( $available_gateways );
+			if ( 'kco' !== $first_gateway->id ) {
+				WC()->session->set( 'chosen_payment_method', $first_gateway->id );
+			} else {
+				$second_gateway = next( $available_gateways );
+				WC()->session->set( 'chosen_payment_method', $second_gateway->id );
+			}
+		} else {
+			WC()->session->set( 'chosen_payment_method', 'briqpay' );
+		}
+
+		WC()->payment_gateways()->set_current_gateway( $available_gateways );
+
+		$redirect = wc_get_checkout_url();
+		$data     = array(
+			'redirect' => $redirect,
+		);
+
+		wp_send_json_success( $data );
+		wp_die();
 	}
 }
 Briqpay_Ajax::init();

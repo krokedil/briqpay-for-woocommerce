@@ -43,6 +43,8 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 				'process_admin_options',
 			)
 		);
+
+		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'add_billing_org_nr' ) );
 	}
 
 	/**
@@ -98,5 +100,26 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 */
 	public function is_available() {
 		return ! ( 'yes' !== $this->enabled );
+	}
+
+	/**
+	 * Maybe adds the billing org number to the address in an order.
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 * @return void
+	 */
+	public function add_billing_org_nr( $order ) {
+		if ( $this->id === $order->get_payment_method() ) {
+			$order_id = $order->get_id();
+			$org_nr   = get_post_meta( $order_id, '_billing_org_nr', true );
+			if ( $org_nr ) {
+				?>
+				<p>
+					<strong><?php esc_html_e( 'Organisation number:', 'briqpay-for-woocommerce' ); ?></strong>
+					<?php echo esc_html( $org_nr ); ?>
+				</p>
+				<?php
+			}
+		}
 	}
 }

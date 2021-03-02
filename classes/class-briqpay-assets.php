@@ -108,25 +108,27 @@ class Briqpay_Assets {
 		);
 
 		$checkout_localize_params = array(
-			'requiredFieldsText'        => __( 'Please fill in all required checkout fields.', 'briqpay-for-woocommerce' ),
-			'mustLoginMessage'          => apply_filters( 'woocommerce_registration_error_email_exists', __( 'An account is already registered with your email address. Please log in.', 'woocommerce' ) ),
-			'timeoutMessage'            => __( 'Please try again, something went wrong with processing your order.', 'briqpay-for-woocommerce' ),
-			'timeoutTime'               => apply_filters( 'briqpay_checkout_timeout_duration', 20 ),
-			'standardWooCheckoutFields' => $standard_woo_checkout_fields,
-			'submitOrder'               => WC_AJAX::get_endpoint( 'checkout' ),
-			'get_order_url'             => WC_AJAX::get_endpoint( 'briqpay_get_order' ),
-			'get_order_nonce'           => wp_create_nonce( 'briqpay_get_order' ),
-			'log_to_file_url'           => WC_AJAX::get_endpoint( 'briqpay_wc_log_js' ),
-			'get_log_nonce'             => wp_create_nonce( 'briqpay_wc_log_js' ),
-			'update_order_url'          => WC_AJAX::get_endpoint( 'briqpay_wc_update_checkout' ),
-			'update_order_nonce'        => wp_create_nonce( 'briqpay_wc_update_checkout' ),
+			'requiredFieldsText'          => __( 'Please fill in all required checkout fields.', 'briqpay-for-woocommerce' ),
+			'mustLoginMessage'            => apply_filters( 'woocommerce_registration_error_email_exists', __( 'An account is already registered with your email address. Please log in.', 'woocommerce' ) ),
+			'timeoutMessage'              => __( 'Please try again, something went wrong with processing your order.', 'briqpay-for-woocommerce' ),
+			'timeoutTime'                 => apply_filters( 'briqpay_checkout_timeout_duration', 20 ),
+			'standardWooCheckoutFields'   => $standard_woo_checkout_fields,
+			'submitOrder'                 => WC_AJAX::get_endpoint( 'checkout' ),
+			'get_order_url'               => WC_AJAX::get_endpoint( 'briqpay_get_order' ),
+			'get_order_nonce'             => wp_create_nonce( 'briqpay_get_order' ),
+			'log_to_file_url'             => WC_AJAX::get_endpoint( 'briqpay_wc_log_js' ),
+			'get_log_nonce'               => wp_create_nonce( 'briqpay_wc_log_js' ),
+			'update_order_url'            => WC_AJAX::get_endpoint( 'briqpay_wc_update_checkout' ),
+			'update_order_nonce'          => wp_create_nonce( 'briqpay_wc_update_checkout' ),
+			'change_payment_method_url'   => WC_AJAX::get_endpoint( 'briqpay_wc_change_payment_method' ),
+			'change_payment_method_nonce' => wp_create_nonce( 'briqpay_wc_change_payment_method' ),
 		);
 
 		if ( version_compare( WC_VERSION, '3.9', '>=' ) ) {
 			$checkout_localize_params['force_update'] = true;
 		}
 
-//		wp_enqueue_script( 'devbriqpay' );
+		// wp_enqueue_script( 'devbriqpay' );
 		wp_localize_script( 'briqpay', 'briqpayParams', $checkout_localize_params );
 
 		wp_enqueue_script( 'briqpay' );

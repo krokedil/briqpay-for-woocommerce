@@ -3,17 +3,26 @@ jQuery(function ($) {
 	var briqpayForWooCommerce = {
 		bodyEl: $('body'),
 		checkoutFormSelector: 'form.checkout',
+		preventPaymentMethodChange: false,
+		selectAnotherSelector: '#briqpay-select-other',
+		paymentMethodEl: $('input[name="payment_method"]'),
+
 		init: function () {
-			window._briqpay.subscribe("purchasepressed", briqpayForWooCommerce.getBriqpayOrder);
-			window._briqpay.subscribe("addressupdate", function (data) {
-				briqpayForWooCommerce.updateAddress(data);
-			})
-			// Update Checkout.
-			briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
-			briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
-				briqpayForWooCommerce.suspend();
-			});
-			$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
+			if( this.checkIfBriqpaySelected() ) {
+				window._briqpay.subscribe("purchasepressed", briqpayForWooCommerce.getBriqpayOrder);
+				window._briqpay.subscribe("addressupdate", function (data) {
+					briqpayForWooCommerce.updateAddress(data);
+				})
+				// Update Checkout.
+				briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
+				briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
+					briqpayForWooCommerce.suspend();
+				});
+				$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
+				briqpayForWooCommerce.bodyEl.on( 'click', briqpayForWooCommerce.selectAnotherSelector, briqpayForWooCommerce.changeFromBriqpay );
+			}
+			briqpayForWooCommerce.bodyEl.on( 'change', 'input[name="payment_method"]', briqpayForWooCommerce.maybeChangeToBriqpay );
+
 		},
 		/**
 		 * Moves all non standard fields to the extra checkout fields.
@@ -72,7 +81,6 @@ jQuery(function ($) {
 				}
 			});
 		},
-
 		/*
 		 * Sets the WooCommerce form field data.
 		 */
@@ -80,18 +88,23 @@ jQuery(function ($) {
 			if (0 < $('form.checkout #terms').length) {
 				$('form.checkout #terms').prop('checked', true);
 			}
+			console.log( addressData );
+
 			// Billing fields.
 			$('#billing_first_name').val(addressData.billing_address.firstname);
 			$('#billing_last_name').val(addressData.billing_address.lastname);
+			$('#billing_company').val(addressData.billing_address.companyname);
 			$('#billing_address_1').val(addressData.billing_address.streetaddress);
 			$('#billing_city').val(addressData.billing_address.city);
 			$('#billing_postcode').val(addressData.billing_address.zip);
-			$('#billing_phone').val(addressData.billing_address.cellno)
+			$('#billing_phone').val(addressData.billing_address.cellno);
 			$('#billing_email').val(addressData.billing_address.email);
 
 			// Shipping fields.
+			$('#ship-to-different-address-checkbox').prop( 'checked', true);
 			$('#shipping_first_name').val(addressData.shipping_address.firstname);
 			$('#shipping_last_name').val(addressData.shipping_address.lastname);
+			$('#shipping_company').val(addressData.billing_address.companyname);
 			$('#shipping_address_1').val(addressData.shipping_address.streetaddress);
 			$('#shipping_city').val(addressData.shipping_address.city);
 			$('#shipping_postcode').val(addressData.shipping_address.zip);
@@ -205,6 +218,83 @@ jQuery(function ($) {
 		},
 		suspend: function () {
 			window._briqpay.checkout.suspend();
+		},
+		/**
+		 * When the customer changes from Briqpay to other payment methods.
+		 * @param {Event} e 
+		 */
+		changeFromBriqpay: function( e ) {
+			e.preventDefault();
+
+			$( briqpayForWooCommerce.checkoutFormSelector ).block({
+				message: null,
+				overlayCSS: {
+					background: '#fff',
+					opacity: 0.6
+				}
+			});
+
+			$.ajax({
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					briqpay: false,
+					nonce: briqpayParams.change_payment_method_nonce
+				},
+				url: briqpayParams.change_payment_method_url,
+				success: function( data ) {},
+				error: function( data ) {},
+				complete: function( data ) {
+					window.location.href = data.responseJSON.data.redirect;
+				}
+			});
+		},
+
+		/**
+		 * When the customer changes to Briqpay from other payment methods.
+		 */
+		maybeChangeToBriqpay: function() {
+			if ( ! briqpayForWooCommerce.preventPaymentMethodChange ) {
+
+			if ( 'briqpay' === $( this ).val() ) {
+				$( '.woocommerce-info' ).remove();
+
+				$( briqpayForWooCommerce.checkoutFormSelector ).block({
+					message: null,
+					overlayCSS: {
+						background: '#fff',
+						opacity: 0.6
+					}
+				});
+
+				$.ajax({
+					type: 'POST',
+					data: {
+						briqpay: true,
+						nonce: briqpayParams.change_payment_method_nonce
+					},
+					dataType: 'json',
+					url: briqpayParams.change_payment_method_url,
+					success: function( data ) {},
+					error: function( data ) {},
+					complete: function( data ) {
+						window.location.href = data.responseJSON.data.redirect;
+					}
+				});
+			}
+		}
+		},
+		/*
+		 * Check if Briqpay is the selected gateway.
+		 */
+		checkIfBriqpaySelected: function() {
+			if (briqpayForWooCommerce.paymentMethodEl.length > 0) {
+				briqpayForWooCommerce.paymentMethod = briqpayForWooCommerce.paymentMethodEl.filter(':checked').val();
+				if( 'briqpay' === briqpayForWooCommerce.paymentMethod ) {
+					return true;
+				}
+			} 
+			return false;
 		},
 	};
 
