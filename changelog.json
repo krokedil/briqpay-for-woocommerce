@@ -4,5 +4,11 @@
 		"requires" : "4.0.0",
 		"tested" : "5.6.1",
 		"upgrade_notice" : ""
+  },
+  "1.0.1": {
+	"description" : "<ul><li>Enhancement - Add change payment method button.</li><li>Enhancement - We now save and display the org nr in the order.</li><li>Fix - We now save the company name to the order.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.6.1",
+	"upgrade_notice" : ""
   }
 }

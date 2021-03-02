@@ -27,5 +27,10 @@ With Briqpay, you are always in control of risk exposure.
 
 == Changelog ==
 
+= 2021.03.02    - version 1.0.1 =
+* Enhancement   - Add change payment method button.
+* Enhancement   - We now save and display the org nr in the order.
+* Fix           - We now save the company name to the order.
+
 = 2021.03.02    - version 1.0.0 =
 * Initial release.

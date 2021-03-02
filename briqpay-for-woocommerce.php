@@ -5,14 +5,14 @@
  * Description: Briqpay for WooCommerce.
  * Author: Krokedil
  * Author URI: https://krokedil.com/
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text Domain: briqpay-for-woocommerce
  * Domain Path: /languages
  *
  * WC requires at least: 3.8.0
  * WC tested up to: 5.1.0
  *
- * Copyright (c) 2020 Krokedil
+ * Copyright (c) 2021 Krokedil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'BRIQPAY_WC_MAIN_FILE', __FILE__ );
 define( 'BRIQPAY_WC_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'BRIQPAY_WC_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
-define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.0.0' );
+define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.0.1' );
 
 if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 	/**
