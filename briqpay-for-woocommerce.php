@@ -115,6 +115,8 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		protected function __construct() {
 			add_action( 'admin_notices', array( $this, 'admin_notices' ), 15 );
 			add_action( 'plugins_loaded', array( $this, 'init' ) );
+
+			$this->check_version();
 		}
 
 		/**
@@ -222,6 +224,15 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		public function add_gateways( $methods ) {
 			$methods[] = Briqpay_Gateway::class;
 			return $methods;
+		}
+
+		public function check_version() {
+			require 'kernl-update-checker/kernl-update-checker.php';
+			$update_checker = Puc_v4_Factory::buildUpdateChecker(
+				'https://kernl.us/api/v1/updates/603e1c23b163b9779f3c63b0/',
+				__FILE__,
+				'briqpay-for-woocommerce'
+			);
 		}
 
 	}
