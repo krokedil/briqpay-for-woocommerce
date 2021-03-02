@@ -38,7 +38,7 @@ class Briqpay_Order_Management {
 	 */
 	public function activate_reservation( $order_id ) {
 		$order = wc_get_order( $order_id );
-		// If this order wasn't created using BriqpayCheckout payment method, bail.
+		// If this order wasn't created using Briqpay payment method, bail.
 		if ( 'briqpay' !== $order->get_payment_method() ) {
 			return;
 		}
@@ -54,7 +54,7 @@ class Briqpay_Order_Management {
 		if ( empty( $session_id ) ) {
 			$order->add_order_note(
 				__(
-					'BriqpayCheckout reservation could not be activated. Missing Briqpay session id.',
+					'Briqpay reservation could not be activated. Missing Briqpay session id.',
 					'briqpay-for-woocommerce'
 				)
 			);
@@ -68,7 +68,7 @@ class Briqpay_Order_Management {
 		if ( get_post_meta( $order_id, '_capture_id_', true ) ) {
 			$order->add_order_note(
 				__(
-					'Could not activate BriqpayCheckout reservation, BriqpayCheckout reservation is already activated.',
+					'Could not activate Briqpay reservation, Briqpay reservation is already activated.',
 					'briqpay-for-woocommerce'
 				)
 			);
@@ -90,14 +90,14 @@ class Briqpay_Order_Management {
 			update_post_meta( $order_id, '_capture_id_', $capture_id );
 			$order->add_order_note(
 				__(
-					'BriqpayCheckout reservation was successfully activated.',
+					'Briqpay reservation was successfully activated.',
 					'briqpay-for-woocommerce'
 				)
 			);
 		} else {
 			$order->add_order_note(
 				__(
-					'BriqpayCheckout reservation could not be activated.',
+					'Briqpay reservation could not be activated.',
 					'briqpay-for-woocommerce'
 				)
 			);
@@ -136,11 +136,11 @@ class Briqpay_Order_Management {
 
 		if ( is_wp_error( $response ) ) {
 			// TODO add error handler.
-			$order->add_order_note( __( 'Fail to refund the order with Briqpay', 'briqpay-for-woocommerce' ) );
+			$order->add_order_note( __( 'Failed to refund the order with Briqpay', 'briqpay-for-woocommerce' ) );
 			return false;
 		}
 		// translators: refund amount, refund id.
-		$text           = __( 'Order refunded for %1$s with Briqpay. RefundID: %2$s', 'briqpay-for-woocommerce' );
+		$text           = __( '%1$s successfully refunded in Briqpay.. RefundID: %2$s', 'briqpay-for-woocommerce' );
 		$formatted_text = sprintf( $text, wc_price( $amount ), $response['refundid'] );
 		$order->add_order_note( $formatted_text );
 		return true;

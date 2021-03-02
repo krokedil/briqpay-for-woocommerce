@@ -10,4 +10,10 @@
 /node_modules/
 /tests/
 Dockerfile
-docker-compose-yml
+docker-compose.yml
+gulpfile.js
+package-lock.json
+package.json
+README.md
+composer.json
+composer.lock

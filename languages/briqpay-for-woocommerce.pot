@@ -1,146 +1,170 @@
-# Copyright (C) 2021 Krokedil
-# This file is distributed under the same license as the Briqpay for WooCommerce plugin.
+# Copyright (C) 2021 briqpay-for-woocommerce
+# This file is distributed under the same license as the briqpay-for-woocommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Briqpay for WooCommerce 0.0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/briqpay-for-woocommerce\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: briqpay-for-woocommerce\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-01-04T14:15:47+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.2.0\n"
-"X-Domain: briqpay-for-woocommerce\n"
+"Language-Team: Krokedil <info@krokedil.se>\n"
+"Last-Translator: Krokedil <info@krokedil.se>\n"
+"Report-Msgid-Bugs-To: http://krokedil.se\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Plugin Name of the plugin
-msgid "Briqpay for WooCommerce"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://krokedil.com/briqpay-for-woocommerce/"
-msgstr ""
-
-#. Description of the plugin
-msgid "Briqpay for WooCommerce."
-msgstr ""
-
-#. Author of the plugin
-msgid "Krokedil"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://krokedil.com/"
-msgstr ""
-
-#: classes/class-briqpay-gateway.php:18
-msgid "Briqpay Payment Gateway"
-msgstr ""
-
-#: classes/class-briqpay-gateway.php:19
-msgid "The current Briqpay Checkout replaces standard WooCommerce checkout page."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:25
-msgid "Enable/Disable"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:26
-msgid "Enable Briqpay payment"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:32
-msgid "Title"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:34
-msgid "Payment method title."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:39
-msgid "Description"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:41
-msgid "Payment method description."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:46
-msgid "Other payment method button text"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:48
-msgid "Customize the <em>Select another payment method</em> button text that is displayed in checkout if using other payment methods than Briqpay Checkout. Leave blank to use the default (and translatable) text."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:57
-msgid "Test mode"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:58
-msgid "Enable Test Mode"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:60
-msgid "Place the payment gateway in test mode using test API keys."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:65
-msgid "Logging"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:66
-msgid "Log debug messages"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:68
-msgid "Save debug messages to the WooCommerce System Status log."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:78
-msgid "Production Briqpay API Username"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:80
-#: classes/class-briqpay-fields.php:90
-#: classes/class-briqpay-fields.php:100
-#: classes/class-briqpay-fields.php:110
-msgid "Use API username and API password you downloaded in the Briqpay Merchant Portal. Don’t use your email address."
-msgstr ""
-
-#: classes/class-briqpay-fields.php:88
-msgid "Production Briqpay API Password"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:98
-msgid "Test Briqpay API Username"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:108
-msgid "Test Briqpay API Password"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:119
-msgid "Shipping settings"
-msgstr ""
-
-#: classes/class-briqpay-fields.php:124
-msgid "Checkout settings"
-msgstr ""
-
-#: classes/class-briqpay-assets.php:105
-msgid "Please fill in all required checkout fields."
-msgstr ""
-
-#: classes/class-briqpay-assets.php:107
-msgid "Please try again, something went wrong with processing your order."
-msgstr ""
-
-#: briqpay-for-woocommerce.php:126
+#: ../briqpay-for-woocommerce.php:142
 msgid "Settings"
 msgstr ""
 
-#: briqpay-for-woocommerce.php:127
+#: ../briqpay-for-woocommerce.php:143
 msgid "Support"
+msgstr ""
+
+#: ../classes/class-briqpay-ajax.php:114
+msgid "Briqpay API Error: "
+msgstr ""
+
+#: ../classes/class-briqpay-assets.php:111
+msgid "Please fill in all required checkout fields."
+msgstr ""
+
+#: ../classes/class-briqpay-assets.php:113
+msgid "Please try again, something went wrong with processing your order."
+msgstr ""
+
+#: ../classes/class-briqpay-confirmation.php:90
+msgid "Payment via Briqpay, session ID: "
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:25
+msgid "Enable/Disable"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:26
+msgid "Enable Briqpay payment"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:32
+msgid "Title"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:34
+msgid "Payment method title."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:39
+msgid "Description"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:41
+msgid "Payment method description."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:46
+msgid "Other payment method button text"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:48
+msgid "Customize the <em>Select another payment method</em> button text that is displayed in checkout if using other payment methods than Briqpay Checkout. Leave blank to use the default (and translatable) text."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:57
+msgid "Test mode"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:58
+msgid "Enable Test Mode"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:60
+msgid "Place the payment gateway in test mode using test API keys."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:65
+msgid "Logging"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:66
+msgid "Log debug messages"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:68
+msgid "Save debug messages to the WooCommerce System Status log."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:78
+msgid "Production Briqpay API Username"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:80, ../classes/class-briqpay-fields.php:90, ../classes/class-briqpay-fields.php:100, ../classes/class-briqpay-fields.php:110
+msgid "Use API username and API password you downloaded in the Briqpay Merchant Portal. Don’t use your email address."
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:88
+msgid "Production Briqpay API Password"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:98
+msgid "Test Briqpay API Username"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:108
+msgid "Test Briqpay API Password"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:118
+msgid "Enable Order Management"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:120
+msgid "Enable Briqpay order capture on WooCommerce order completion."
+msgstr ""
+
+#: ../classes/class-briqpay-gateway.php:18
+msgid "Briqpay"
+msgstr ""
+
+#: ../classes/class-briqpay-gateway.php:19
+msgid "Briqpay replaces the standard WooCommerce checkout page."
+msgstr ""
+
+#: ../classes/class-briqpay-gateway.php:118
+msgid "Organisation number:"
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:56
+msgid "Briqpay reservation could not be activated. Missing Briqpay session id."
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:70
+msgid "Could not activate Briqpay reservation, Briqpay reservation is already activated."
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:99
+msgid "Briqpay reservation could not be activated."
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:92
+msgid "Briqpay reservation was successfully activated."
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:139
+msgid "Failed to refund the order with Briqpay"
+msgstr ""
+
+#. translators: refund amount, refund id.
+#: ../classes/class-briqpay-order-management.php:143
+msgid "%1$s successfully refunded in Briqpay.. RefundID: %2$s"
+msgstr ""
+
+#: ../classes/class-briqpay-templates.php:160
+msgid "Failed to load Briqpay Checkout template file."
+msgstr ""
+
+#: ../includes/briqpay-functions.php:88
+msgid "Select another payment method"
 msgstr ""
