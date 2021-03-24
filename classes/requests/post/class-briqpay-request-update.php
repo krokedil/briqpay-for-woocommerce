@@ -28,7 +28,7 @@ class Briqpay_Request_Update extends Briqpay_Request_Post {
 	protected function get_body() {
 		$amount    = intval( round( WC()->cart->get_total( 'calculations' ) * 100 ) );
 		$order_id  = isset( $this->arguments['order_id'] ) ? $this->arguments['order_id'] : null;
-		$body_args = array(
+		$body_args = apply_filters( 'briqpay_update_args', array(
 			'sessionid'    => $this->arguments['session_id'],
 			'currency'     => get_woocommerce_currency(),
 			'locale'       => str_replace( '_', '-', strtolower( get_locale() ) ),
@@ -42,7 +42,7 @@ class Briqpay_Request_Update extends Briqpay_Request_Post {
 				'reference1' => '',
 				'reference2' => '',
 			),
-		);
+		) );
 		if ( null !== $order_id ) {
 			$order                  = wc_get_order( $order_id );
 			$body_args['reference'] = array(
