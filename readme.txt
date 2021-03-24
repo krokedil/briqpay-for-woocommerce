@@ -3,7 +3,7 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 4.0
-Tested up to: 5.6.1
+Tested up to: 5.7.0
 Requires PHP: 5.6
 WC requires at least: 3.4.0
 WC tested up to: 5.1.0
@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2021.03.02    - version 1.0.1 =
+* Enhancement   - Added seperate filters for create, update and refund requests to Billmate.
+* Enhancement   - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name
 
 = 2021.03.02    - version 1.0.1 =
 * Enhancement   - Add change payment method button.

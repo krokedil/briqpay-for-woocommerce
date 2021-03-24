@@ -10,5 +10,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.6.1",
 	"upgrade_notice" : ""
+  },
+  "1.0.2": {
+	"description" : "<ul><li>Enhancement - Added seperate filters for create, update and refund requests to Billmate.</li><li>Enhancement - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.0",
+	"upgrade_notice" : ""
   }
 }
