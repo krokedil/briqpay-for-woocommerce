@@ -23,7 +23,7 @@ class Briqpay_Request_Create extends Briqpay_Request_Post {
 	 */
 	protected function get_body() {
 		$amount = intval( round( WC()->cart->get_total( 'calculations' ) * 100 ) );
-		return array(
+		return apply_filters( 'briqpay_create_args', array(
 			'currency'     => get_woocommerce_currency(),
 			'locale'       => str_replace( '_', '-', strtolower( get_locale() ) ),
 			'country'      => WC()->customer->get_billing_country(),
@@ -32,7 +32,7 @@ class Briqpay_Request_Create extends Briqpay_Request_Post {
 			'amount'       => $amount,
 		// 'billingaddress'  => Briqpay_Helper_Customer::get_billing_data(),
 		// 'shippingaddress' => Briqpay_Helper_Customer::get_shipping_data(),
-		);
+		) );
 	}
 
 	/**
