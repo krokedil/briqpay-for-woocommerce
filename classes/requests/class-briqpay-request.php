@@ -91,7 +91,7 @@ abstract class Briqpay_Request {
 	 * @return string API base URL
 	 */
 	private function api_url_base() {
-		return 'https://playground-api.briqpay.com/';
+		return 'https://api.briqpay.com/';
 	}
 	/**
 	 * Returns test base api url.
