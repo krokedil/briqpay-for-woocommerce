@@ -26,7 +26,10 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
-= 2021.03.02    - version 1.0.1 =
+= 2021.04.13    - version 1.0.3 =
+* Fix           - Fix the live API endpoint to the correct URL.
+
+= 2021.03.02    - version 1.0.2 =
 * Enhancement   - Added seperate filters for create, update and refund requests to Billmate.
 * Enhancement   - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name
 
