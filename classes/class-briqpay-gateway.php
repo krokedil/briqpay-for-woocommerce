@@ -43,7 +43,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 				'process_admin_options',
 			)
 		);
-
+		add_action( 'woocommerce_update_options_payment_gateways_briqpay', array( $this, 'delete_briqpay_bearer_token_transient' ) );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'add_billing_org_nr' ) );
 	}
 
@@ -121,5 +121,14 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 				<?php
 			}
 		}
+	}
+
+	/**
+	 * Delete the barer token transient when payment gateway settings is saved.
+	 *
+	 * @return void
+	 */
+	public function delete_briqpay_bearer_token_transient() {
+		delete_transient( 'briqpay_bearer_token' );
 	}
 }
