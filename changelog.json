@@ -16,5 +16,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.0",
 	"upgrade_notice" : ""
+  },
+  "1.0.3": {
+	"description" : "<ul><li>Fix - Fix the live API endpoint to the correct URL.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.0",
+	"upgrade_notice" : ""
   }
 }
