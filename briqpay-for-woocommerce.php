@@ -186,6 +186,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-assets.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-logger.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-merchanturls.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-merchant-config.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-order-lines.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-confirmation.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-order-management.php';
