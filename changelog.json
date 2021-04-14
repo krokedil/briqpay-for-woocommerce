@@ -22,5 +22,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.0",
 	"upgrade_notice" : ""
+  },
+  "1.1.0": {
+	"description" : "<ul><li>Feature - Added settings for creditscoring and maxamount.</li><li>Fix - Delete bearer token (stored as WP transient) on saved plugin settings.</li><li>Fix - Coding standards fix.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.0",
+	"upgrade_notice" : ""
   }
 }
