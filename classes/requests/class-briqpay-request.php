@@ -141,14 +141,16 @@ abstract class Briqpay_Request {
 	protected function calculate_auth() {
 		$response = null;
 		if ( true === $this->generate_token ) {
-			$auth_request    = new Briqpay_Request_Auth(
+			$auth_request = new Briqpay_Request_Auth(
 				$this->arguments,
 				true
 			);
-			$response        = $auth_request->request();
-			$generated_token = $response['token'];
+			$response     = $auth_request->request();
 
-			return 'Bearer ' . $generated_token;
+			if ( ! is_wp_error( $response ) && isset( $response['token'] ) ) {
+				$generated_token = $response['token'];
+				return 'Bearer ' . $generated_token;
+			}
 		}
 		$token = get_transient( 'briqpay_bearer_token' );
 		if ( empty( $token ) ) {
