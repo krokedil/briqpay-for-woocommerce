@@ -28,5 +28,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.0",
 	"upgrade_notice" : ""
+  },
+  "1.1.1": {
+	"description" : "<ul><li>Fix - Improved CSS to display checkout correctly in mobile view.</li><li>Fix - Avoid fatal error in checkout when calculate_auth fails.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.0",
+	"upgrade_notice" : ""
   }
 }
