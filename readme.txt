@@ -2,10 +2,10 @@
 Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
-Requires at least: 4.0
+Requires at least: 5.0
 Tested up to: 5.7.0
 Requires PHP: 5.6
-WC requires at least: 3.4.0
+WC requires at least: 4.0.0
 WC tested up to: 5.1.0
 Stable tag: trunk
 License: GPLv3 or later
@@ -26,6 +26,11 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2021.04.14    - version 1.1.0 =
+* Feature       - Added settings for creditscoring and maxamount.
+* Fix           - Delete bearer token (stored as WP transient) on saved plugin settings.
+* Fix           - Coding standards fix.
+
 = 2021.04.13    - version 1.0.3 =
 * Fix           - Fix the live API endpoint to the correct URL.
 

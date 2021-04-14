@@ -83,7 +83,6 @@ class Briqpay_Confirmation {
 		$order         = wc_get_order( $order_id );
 		$session_id    = get_post_meta( $order_id, '_briqpay_session_id', true );
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order( array( 'session_id' => $session_id ) );
-		error_log( var_export( $briqpay_order, true ) );
 		// Set post meta and complete order.
 		update_post_meta( $order_id, '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
 		update_post_meta( $order_id, '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
