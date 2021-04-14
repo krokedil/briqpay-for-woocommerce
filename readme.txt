@@ -26,6 +26,10 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2021.04.14    - version 1.1.1 =
+* Fix           - Improved CSS to display checkout correctly in mobile view.
+* Fix           - Avoid fatal error in checkout when calculate_auth fails.
+
 = 2021.04.14    - version 1.1.0 =
 * Feature       - Added settings for creditscoring and maxamount.
 * Fix           - Delete bearer token (stored as WP transient) on saved plugin settings.

@@ -1,5 +1,7 @@
 
 #briqpay-iframe-wrapper {
-    width: 640px;
-    margin: auto;
+    width: 100%;
+}
+#briqpay {
+    margin: 0 auto;
 }
