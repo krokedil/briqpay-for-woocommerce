@@ -1,0 +1,47 @@
+.briqpay_hide_rules {
+	display:none;
+}
+
+.briqpay_show_rules {
+	display:block;
+}
+
+#briqpay_rules_result_wrapper {
+	z-index: 999;
+	position:fixed;
+	overflow:none;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color: rgba( 0, 0, 0, 0.5 );
+}
+
+#briqpay_rules_results{
+	margin:15% auto;
+	display:flex;
+	flex-direction: column;
+	width:425px;
+	background-color: rgba( 250, 250, 250 );
+}
+
+#briqpay_close_rules {
+	color:red;
+	cursor: pointer;
+	clear:both;
+	display:block;
+	margin: 10px 10px 0px 0px;
+	align-self: flex-end;
+}
+
+#briqpay_rules_results h3, #briqpay_rules_results h4, #briqpay_rules_results ul {
+	margin-left:10px;
+}
+
+#briqpay_rules_results h4 {
+	margin-bottom: 0;
+}
+
+#briqpay_rules_results ul {
+	margin-top:5px;
+}
