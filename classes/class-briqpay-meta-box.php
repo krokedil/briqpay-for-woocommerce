@@ -46,7 +46,26 @@ class Briqpay_Meta_Box {
 		$payment_method = get_post_meta( $order_id, '_briqpay_payment_method', true );
 		$psp_name       = get_post_meta( $order_id, '_briqpay_psp_name', true );
 		$rules_results  = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
+		$failed_rules   = $this->check_failed_rules( $rules_results );
 		include BRIQPAY_WC_PLUGIN_PATH . '/templates/briqpay-meta-box.php';
+	}
+
+	/**
+	 * Checks if any failed rules exists in the results.
+	 *
+	 * @return bool
+	 */
+	public function check_failed_rules( $rules_results ) {
+		if ( ! empty( $rules_results ) ) {
+			foreach ( $rules_results as $psp_rules ) {
+				foreach ( $psp_rules['rulesResult'] as $rules_result ) {
+					if ( isset( $rules_result['outcome'] ) && ! $rules_result['outcome'] ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 } new Briqpay_Meta_Box();
