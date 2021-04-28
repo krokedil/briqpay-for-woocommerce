@@ -19,6 +19,7 @@ class Briqpay_Assets {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 	}
 
 
@@ -133,6 +134,16 @@ class Briqpay_Assets {
 
 		wp_enqueue_script( 'briqpay' );
 		wp_enqueue_style( 'briqpay' );
+	}
+
+	/**
+	 * Enqueues admin page scripts.
+	 *
+	 * @hook admin_enqueue_scripts
+	 */
+	public function enqueue_admin_scripts() {
+		wp_register_script( 'briqpay-admin', BRIQPAY_WC_PLUGIN_URL . '/assets/js/briqpay-order-meta-box.js', true, BRIQPAY_WC_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'briqpay-admin' );
 	}
 
 } new Briqpay_Assets();

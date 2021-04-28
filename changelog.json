@@ -34,5 +34,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.0",
 	"upgrade_notice" : ""
+  },
+  "1.1.2": {
+	"description" : "<ul><li>Enhancement - We now save the second address lines for both shipping and billing addresses.</li><li>Enhancement - We also save the shipping phone and email to the WooCommerce order and display them on the admin page for the order.</li><li>Enhancement - Added a metabox which show the payment method name, the PSP name of the payment method used, and any failed credit rules that the customer experienced for the order.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.0",
+	"upgrade_notice" : ""
   }
 }

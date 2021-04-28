@@ -95,6 +95,7 @@ jQuery(function ($) {
 			$('#billing_last_name').val(addressData.billing_address.lastname);
 			$('#billing_company').val(addressData.billing_address.companyname);
 			$('#billing_address_1').val(addressData.billing_address.streetaddress);
+			$('#billing_address_2').val(addressData.billing_address.streetaddress2);
 			$('#billing_city').val(addressData.billing_address.city);
 			$('#billing_postcode').val(addressData.billing_address.zip);
 			$('#billing_phone').val(addressData.billing_address.cellno);
@@ -106,6 +107,7 @@ jQuery(function ($) {
 			$('#shipping_last_name').val(addressData.shipping_address.lastname);
 			$('#shipping_company').val(addressData.billing_address.companyname);
 			$('#shipping_address_1').val(addressData.shipping_address.streetaddress);
+			$('#shipping_address_2').val(addressData.shipping_address.streetaddress2);
 			$('#shipping_city').val(addressData.shipping_address.city);
 			$('#shipping_postcode').val(addressData.shipping_address.zip);
 
