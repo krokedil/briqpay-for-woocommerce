@@ -26,6 +26,11 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2021.04.14    - version 1.1.2 =
+* Enhancement   - We now save the second address lines for both shipping and billing addresses.
+* Enhancement   - We also save the shipping phone and email to the WooCommerce order and display them on the admin page for the order.
+* Enhancement   - Added a metabox which show the payment method name, the PSP name of the payment method used, and any failed credit rules that the customer experienced for the order.
+
 = 2021.04.14    - version 1.1.1 =
 * Fix           - Improved CSS to display checkout correctly in mobile view.
 * Fix           - Avoid fatal error in checkout when calculate_auth fails.
