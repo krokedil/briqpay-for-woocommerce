@@ -15,8 +15,6 @@ if ( ! empty( $rules_results ) && $failed_rules ) {
 	<button type="button" id="briqpay_show_rules" class="button"><?php esc_html_e( 'Show rules results' ); ?></button>
 	<div id="briqpay_rules_result_wrapper" class="briqpay_hide_rules">
 		<div id="briqpay_rules_results">
-			<div id="briqpay_close_rules"href="#"><span class="dashicons dashicons-dismiss"></span></div>
-			<h3><?php esc_html_e( 'Failed rules for this order.' ); ?></h3>
 			<?php
 			foreach ( $rules_results as $psp_rules ) {
 				?>

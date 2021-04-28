@@ -142,8 +142,6 @@ class Briqpay_Assets {
 	 * @hook admin_enqueue_scripts
 	 */
 	public function enqueue_admin_scripts() {
-		wp_register_style( 'briqpay-admin', BRIQPAY_WC_PLUGIN_URL . '/assets/css/briqpay-order-meta-box.css', false, BRIQPAY_WC_PLUGIN_VERSION );
-		wp_enqueue_style( 'briqpay-admin' );
 		wp_register_script( 'briqpay-admin', BRIQPAY_WC_PLUGIN_URL . '/assets/js/briqpay-order-meta-box.js', true, BRIQPAY_WC_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'briqpay-admin' );
 	}
