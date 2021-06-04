@@ -3,10 +3,10 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 5.7.0
+Tested up to: 5.7.2
 Requires PHP: 5.6
 WC requires at least: 4.0.0
-WC tested up to: 5.1.0
+WC tested up to: 5.3.0
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2021.06.04    - version 1.2.0 =
+* Feature       - Enable handling of autocaptured orders from Briqpay. If the order has been autocaptured by Briqpay already, we will not attempt to capture it when the order is set to completed in WooCommerce.
+
 = 2021.04.14    - version 1.1.2 =
 * Enhancement   - We now save the second address lines for both shipping and billing addresses.
 * Enhancement   - We also save the shipping phone and email to the WooCommerce order and display them on the admin page for the order.
