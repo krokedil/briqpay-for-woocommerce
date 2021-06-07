@@ -6,15 +6,15 @@
  */
 $keysForMetaBox = [
 	["title" => esc_html( 'Payment method', 'briqpay-for-woocommerce' ),
-	"value" => echo esc_html( $payment_method )],
+	"value" => esc_html( $payment_method )],
 	["title" => esc_html( 'PSP name', 'briqpay-for-woocommerce' ),
-	"value" => echo esc_html( $psp_name )]
-	]
+	"value" => esc_html( $psp_name )]
+];
 
-$keysForMetaBox = apply_filter( 'briqpay_meta_box_keys', $keysForMetaBox );
+$keysForMetaBox = apply_filters( 'briqpay_meta_box_keys', $keysForMetaBox );
 ?>
 <?php foreach($keysForMetaBox as $item){
-	echo "<p><b>".$item['title'].":".$item['value']."</b></p>";
+	echo "<p><b>".$item['title']." : ".$item['value']."</b></p>";
 }?>
 <?php
 if ( ! empty( $rules_results ) && $failed_rules ) {
