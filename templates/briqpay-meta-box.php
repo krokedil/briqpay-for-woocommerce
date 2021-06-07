@@ -4,11 +4,18 @@
  *
  * @package Briqpay_For_WooCommerce/Templates
  */
+$keysForMetaBox = [
+	["title" => esc_html( 'Payment method', 'briqpay-for-woocommerce' ),
+	"value" => echo esc_html( $payment_method )],
+	["title" => esc_html( 'PSP name', 'briqpay-for-woocommerce' ),
+	"value" => echo esc_html( $psp_name )]
+	]
 
+$keysForMetaBox = apply_filter( 'briqpay_meta_box_keys', $keysForMetaBox );
 ?>
-
-<p><b><?php esc_html_e( 'Payment method', 'briqpay-for-woocommerce' ); ?>:</b> <?php echo esc_html( $payment_method ); ?></p>
-<p><b><?php esc_html_e( 'PSP name', 'briqpay-for-woocommerce' ); ?>:</b> <?php echo esc_html( $psp_name ); ?></p>
+<?php foreach($keysForMetaBox as $item){
+	echo "<p><b>".$item['title'].":".$item['value']."</b></p>";
+}?>
 <?php
 if ( ! empty( $rules_results ) && $failed_rules ) {
 	?>
