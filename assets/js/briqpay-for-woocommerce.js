@@ -64,6 +64,7 @@ jQuery(function ($) {
 			$("form.checkout").trigger('update_checkout');
 		},
 		getBriqpayOrder: function () {
+			briqpayForWooCommerce.logToFile( 'Received purchasepressed callback from Briqpay' );
 			$.ajax({
 				type: 'POST',
 				data: {
@@ -139,6 +140,7 @@ jQuery(function ($) {
 				success: function (data) {
 					try {
 						if ('success' === data.result) {
+							briqpayForWooCommerce.logToFile( 'Successfully placed order. Sending purchaseDecision true to Briqpay' );
 							window._briqpay.checkout.purchaseDecision(true);
 						} else {
 							throw 'Result failed';
