@@ -28,15 +28,15 @@ msgstr ""
 msgid "Briqpay API Error: "
 msgstr ""
 
-#: ../classes/class-briqpay-assets.php:111
+#: ../classes/class-briqpay-assets.php:112
 msgid "Please fill in all required checkout fields."
 msgstr ""
 
-#: ../classes/class-briqpay-assets.php:113
+#: ../classes/class-briqpay-assets.php:114
 msgid "Please try again, something went wrong with processing your order."
 msgstr ""
 
-#: ../classes/class-briqpay-confirmation.php:90
+#: ../classes/class-briqpay-confirmation.php:95
 msgid "Payment via Briqpay, session ID: "
 msgstr ""
 
@@ -117,14 +117,30 @@ msgid "Test Briqpay API Password"
 msgstr ""
 
 #: ../classes/class-briqpay-fields.php:118
-msgid "Enable Order Management"
+msgid "Enable Credit scoring"
 msgstr ""
 
 #: ../classes/class-briqpay-fields.php:120
+msgid "Should the credit scoring rules be applied in purchase requests sent to Briqpay?"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:124
+msgid "Enable Max amount"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:126
+msgid "Should the max amount rules be applied in purchase requests sent to Briqpay?"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:130
+msgid "Enable Order Management"
+msgstr ""
+
+#: ../classes/class-briqpay-fields.php:132
 msgid "Enable Briqpay order capture on WooCommerce order completion."
 msgstr ""
 
-#: ../classes/class-briqpay-gateway.php:18
+#: ../classes/class-briqpay-gateway.php:18, ../classes/class-briqpay-meta-box.php:34
 msgid "Briqpay"
 msgstr ""
 
@@ -132,32 +148,36 @@ msgstr ""
 msgid "Briqpay replaces the standard WooCommerce checkout page."
 msgstr ""
 
-#: ../classes/class-briqpay-gateway.php:118
+#: ../classes/class-briqpay-gateway.php:120
 msgid "Organisation number:"
 msgstr ""
 
-#: ../classes/class-briqpay-order-management.php:56
+#: ../classes/class-briqpay-order-management.php:57
 msgid "Briqpay reservation could not be activated. Missing Briqpay session id."
 msgstr ""
 
-#: ../classes/class-briqpay-order-management.php:70
+#: ../classes/class-briqpay-order-management.php:72
+msgid "Briqpay order has been autocaptured by Briqpay."
+msgstr ""
+
+#: ../classes/class-briqpay-order-management.php:83
 msgid "Could not activate Briqpay reservation, Briqpay reservation is already activated."
 msgstr ""
 
-#: ../classes/class-briqpay-order-management.php:99
+#: ../classes/class-briqpay-order-management.php:112
 msgid "Briqpay reservation could not be activated."
 msgstr ""
 
-#: ../classes/class-briqpay-order-management.php:92
+#: ../classes/class-briqpay-order-management.php:105
 msgid "Briqpay reservation was successfully activated."
 msgstr ""
 
-#: ../classes/class-briqpay-order-management.php:139
+#: ../classes/class-briqpay-order-management.php:152
 msgid "Failed to refund the order with Briqpay"
 msgstr ""
 
 #. translators: refund amount, refund id.
-#: ../classes/class-briqpay-order-management.php:143
+#: ../classes/class-briqpay-order-management.php:156
 msgid "%1$s successfully refunded in Briqpay.. RefundID: %2$s"
 msgstr ""
 
@@ -167,4 +187,16 @@ msgstr ""
 
 #: ../includes/briqpay-functions.php:88
 msgid "Select another payment method"
+msgstr ""
+
+#: ../templates/briqpay-meta-box.php:10
+msgid "Payment method"
+msgstr ""
+
+#: ../templates/briqpay-meta-box.php:11
+msgid "PSP name"
+msgstr ""
+
+#: ../templates/briqpay-meta-box.php:22
+msgid "This method was not shown because of the following rule was triggered"
 msgstr ""
