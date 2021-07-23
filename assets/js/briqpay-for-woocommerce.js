@@ -106,7 +106,7 @@ jQuery(function ($) {
 			$('#ship-to-different-address-checkbox').prop( 'checked', true);
 			$('#shipping_first_name').val(addressData.shipping_address.firstname);
 			$('#shipping_last_name').val(addressData.shipping_address.lastname);
-			$('#shipping_company').val(addressData.billing_address.companyname);
+			$('#shipping_company').val(addressData.shipping_address.companyname);
 			$('#shipping_address_1').val(addressData.shipping_address.streetaddress);
 			$('#shipping_address_2').val(addressData.shipping_address.streetaddress2);
 			$('#shipping_city').val(addressData.shipping_address.city);
