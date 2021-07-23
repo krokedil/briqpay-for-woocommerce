@@ -52,5 +52,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.2",
 	"upgrade_notice" : ""
+  },
+  "1.2.2": {
+	"description" : "<ul><li>Fix - Fixes potential Shipping company name bug (if separate billing and shipping adress is entered by customer in checkout).</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.8",
+	"upgrade_notice" : ""
   }
 }
