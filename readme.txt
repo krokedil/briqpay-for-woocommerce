@@ -53,8 +53,8 @@ With Briqpay, you are always in control of risk exposure.
 * Fix           - Fix the live API endpoint to the correct URL.
 
 = 2021.03.02    - version 1.0.2 =
-* Enhancement   - Added seperate filters for create, update and refund requests to Billmate.
-* Enhancement   - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name
+* Enhancement   - Added seperate filters for create, update and refund requests to Briqpay.
+* Enhancement   - We now save the PSP name from Briqpay to the order in the meta field _briqpay_psp_name
 
 = 2021.03.02    - version 1.0.1 =
 * Enhancement   - Add change payment method button.
