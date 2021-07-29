@@ -63,10 +63,11 @@ class Briqpay_Confirmation {
 
 		$order = wc_get_order( $order_id );
 
-		// Check that the order status is correct before continuing.
-		if ( $order->has_status( array( 'on-hold', 'processing', 'completed' ) ) ) {
+		// Check if the order has already been paid or not.
+		if ( $order->get_date_paid() ) {
 			return;
 		}
+
 		$this->confirm_briqpay_order( $order_id );
 
 		briqpay_wc_unset_sessions();
