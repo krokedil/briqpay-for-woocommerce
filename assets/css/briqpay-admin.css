@@ -1,0 +1,9 @@
+/* Settings page design */
+@media only screen and (min-width : 769px) {
+
+    #briqpay-settings-wrapper {
+        display: grid;
+        grid-template-columns: 7fr 3fr;	
+        grid-column-gap: 30px;
+    }
+}
