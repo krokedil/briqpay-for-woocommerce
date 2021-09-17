@@ -31,8 +31,35 @@ class Briqpay_Settings_Page {
 
 			<div id="briqpay-settings-sidebar">
 
-				
-			</div>
+					<div class="briqpay-settings-sidebar-section">
+							<div class="briqpay-settings-sidebar-content">
+							<img src="https://krokedil.com/wp-content/uploads/sites/3/2021/05/partner-briqpay.png">
+							<p id="briqpay-settings-sidebar-main-text">
+								<a href="https://app.briqpay.com/" target="_blank">Log in to your Briqpay account</a> to view data and orders. <br/><br/>
+								No Briqpay account? <br/>
+								<a href="https://app.briqpay.com/" target="_blank">Register for an account here</a>.
+							</p>
+							<h1 id="briqpay-settings-sidebar-title">Get started</h1>
+								<p id="briqpay-settings-sidebar-main-text">
+									<a href="https://docs.krokedil.com/category/396-get-started" target="_blank">Documentation</a> <br/>
+									<a href="https://krokedil.com/product/briqpay-for-woocommerce/" target="_blank">Plugin site</a>
+								</p>
+						<h1 id="briqpay-settings-sidebar-title">Support</h1>
+								<p id="briqpay-settings-sidebar-main-text">
+									If you have technical questions about the plugin and can't find the answer in the plugin documentation, you are welcome to contact <a href="https://www.krokedil.com/support" target="_blank">the Krokedil support</a>.
+								</p>
+							</div>
+
+								<div id="briqpay-settings-sidebar-bottom-holder">
+									<p id="briqpay-settings-sidebar-logo-follow-up-text">
+										Developed by:
+									</p>
+									<img id="briqpay-settings-sidebar-krokedil-logo-right"
+									src="https://krokedil.se/wp-content/uploads/2020/05/webb_logo_400px.png">
+								</div>
+					</div>
+				</div>
+
 		</div>
 		<div class="save-separator"></div>
 		<?php
