@@ -33,7 +33,7 @@ class Briqpay_Settings_Page {
 
 					<div class="briqpay-settings-sidebar-section">
 							<div class="briqpay-settings-sidebar-content">
-							<img src="https://krokedil.com/wp-content/uploads/sites/3/2021/05/partner-briqpay.png">
+							<img class="briqpay-logo-img" src="<?php echo esc_url( BRIQPAY_WC_PLUGIN_URL ); ?>/assets/img/briqpay-logo-black.png">
 							<p id="briqpay-settings-sidebar-main-text">
 								<a href="https://app.briqpay.com/" target="_blank">Log in to your Briqpay account</a> to view data and orders. <br/><br/>
 								No Briqpay account? <br/>
@@ -54,8 +54,8 @@ class Briqpay_Settings_Page {
 									<p id="briqpay-settings-sidebar-logo-follow-up-text">
 										Developed by:
 									</p>
-									<img id="briqpay-settings-sidebar-krokedil-logo-right"
-									src="https://krokedil.se/wp-content/uploads/2020/05/webb_logo_400px.png">
+									<img id="briqpay-settings-sidebar-krokedil-logo-right" 
+									src="<?php echo esc_url( BRIQPAY_WC_PLUGIN_URL ); ?>/assets/img/krokedil-logo-color.png">
 								</div>
 					</div>
 				</div>
