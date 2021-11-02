@@ -34,6 +34,10 @@ class Briqpay_Logger {
 			}
 			self::$log->add( 'briqpay-for-woocommerce', wp_json_encode( $message ) );
 		}
+
+		if ( isset( $data['response']['code'] ) && ( $data['response']['code'] < 200 || $data['response']['code'] > 299 ) ) {
+			self::log_to_db( $data );
+		}
 	}
 
 	/**
@@ -115,4 +119,21 @@ class Briqpay_Logger {
 		return $stack;
 	}
 
+	/**
+	 * Logs an event in the WordPress database.
+	 *
+	 * @param array $data The data to be logged.
+	 */
+	public static function log_to_db( $data ) {
+		$logs = get_option( 'krokedil_debuglog_briqpay', array() );
+
+		if ( ! empty( $logs ) ) {
+			$logs = json_decode( $logs );
+		}
+
+		$logs   = array_slice( $logs, -14 );
+		$logs[] = $data;
+		$logs   = wp_json_encode( $logs );
+		update_option( 'krokedil_debuglog_briqpay', $logs );
+	}
 }
