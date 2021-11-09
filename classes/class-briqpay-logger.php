@@ -65,7 +65,7 @@ class Briqpay_Logger {
 	 *
 	 * @return array
 	 */
-	public static function format_log( $briqpay_order_id, $method, $title, $request_args, $response, $code ) {
+	public static function format_log( $briqpay_order_id, $method, $title, $request_url, $request_args, $response, $code ) {
 		// Unset the snippet to prevent issues in the response.
 		if ( isset( $response['snippet'] ) ) {
 			unset( $response['snippet'] );
@@ -83,6 +83,7 @@ class Briqpay_Logger {
 				'id'             => $briqpay_order_id,
 				'type'           => $method,
 				'title'          => $title,
+				'request_url'    => $request_url,
 				'request'        => $request_args,
 				'response'       => array(
 				'body' => $response,
