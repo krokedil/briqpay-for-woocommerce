@@ -208,6 +208,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-meta-box.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-api.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-templates.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-status.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/includes/briqpay-functions.php';
 
 			$this->api              = new Briqpay_API();
