@@ -28,30 +28,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<td class="help"></td>
 				<td ><strong><?php esc_html_e( 'Request', 'briqpay-for-woocommerce' ); ?></strong></td>
 				<td ><strong><?php esc_html_e( 'Response Code', 'briqpay-for-woocommerce' ); ?></strong></td>
+				<td ><strong><?php esc_html_e( 'Request URL', 'briqpay-for-woocommerce' ); ?></strong></td>
 				<td ><strong><?php esc_html_e( 'Response Message', 'briqpay-for-woocommerce' ); ?></strong></td>
-				<td ><strong><?php esc_html_e( 'Correlation ID', 'briqpay-for-woocommerce' ); ?></strong></td>
 			</tr>
 		</thead>
 		<tbody>
 		<?php
 		foreach ( $db_logs as $log ) {
-
 			$timestamp      = isset( $log['timestamp'] ) ? $log['timestamp'] : '';
 			$log_title      = isset( $log['title'] ) ? $log['title'] : '';
 			$code           = isset( $log['response']['code'] ) ? $log['response']['code'] : '';
+			$request_url    = isset( $log['request_url'] ) ? $log['request_url'] : '';
 			$body           = isset( $log['response']['body'] ) ? wp_json_encode( $log['response']['body'] ) : '';
-			$error_code     = isset( $log['response']['body']['error_code'] ) ? 'Error code: ' . $log['response']['body']['error_code'] . '.' : '';
-			$error_messages = isset( $log['response']['body']['error_messages'] ) ? 'Error messages: ' . wp_json_encode( $log['response']['body']['error_messages'] ) : '';
-			$correlation_id = isset( $log['response']['body']['correlation_id'] ) ? $log['response']['body']['correlation_id'] : '';
+			$error_messages = isset( $log['response']['body']['response']['message'] ) ? 'Error messages: ' . wp_json_encode( $log['response']['body']['response']['message'] ) : '';
 
 			?>
 			<tr>
 				<td><?php echo esc_html( $timestamp ); ?></td>
 				<td class="help"></td>
-				<td><?php echo esc_html( $log_title ); ?><span style="display: none;">, Response code: <?php echo esc_html( $code ); ?>, Response message: <?php echo esc_html( $body ); ?>, Correlation ID: <?php echo esc_html( $correlation_id ); ?></span</td>
+				<td><?php echo esc_html( $log_title ); ?>
+					<span style="display: none;">,
+						Response code: <?php echo esc_html( $code ); ?>,
+						Response url: <?php echo esc_html( $request_url ); ?>,
+						Response message: <?php echo esc_html( $body ); ?>
+					</span</td>
 				<td><?php echo esc_html( $code ); ?></td>
-				<td><?php echo esc_html( $error_code ) . ' ' . esc_html( $error_messages ); ?></td>
-				<td><?php echo esc_html( $correlation_id ); ?></td>
+				<td><?php echo esc_html( $request_url ); ?></td>
+				<td><?php echo esc_html( $error_messages ); ?></td>
 			</tr>
 			<?php
 		}
