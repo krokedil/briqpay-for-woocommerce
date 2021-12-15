@@ -49,6 +49,7 @@ class Briqpay_Order_Management {
 			return;
 		}
 
+		
 		// Check if we have a payment id.
 		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
 		if ( empty( $session_id ) ) {
@@ -56,11 +57,23 @@ class Briqpay_Order_Management {
 				__(
 					'Briqpay reservation could not be activated. Missing Briqpay session id.',
 					'briqpay-for-woocommerce'
-				)
-			);
-			$order->set_status( 'on-hold' );
-			$order->save();
-
+					)
+				);
+				$order->set_status( 'on-hold' );
+				$order->save();
+				
+				return;
+			}
+			
+		// Check if this is an autocaptured order or not.
+		$autocapture = get_post_meta( $order_id, '_briqpay_autocapture', true );
+		if( !empty( $autocapture ) && $autocapture ) {
+			$order->add_order_note(
+				__(
+					'Briqpay order has been autocaptured by Briqpay.',
+					'briqpay-for-woocommerce'
+					)
+				);
 			return;
 		}
 

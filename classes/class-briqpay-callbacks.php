@@ -43,6 +43,9 @@ class Briqpay_Callbacks {
 			if ( ! empty( $orders ) ) {
 				$order_id = $orders[0];
 			}
+
+			Briqpay_Logger::log( 'Notification callback hit for Briqpay session ID: ' . $briqpay_session_id . '. WC order ID: ' . $order_id );
+
 			if ( '' !== $order_id ) {
 				as_schedule_single_action( time() + 120, 'briqpay_wc_punted_notification', array( $order_id, $briqpay_session_id ) );
 			}
@@ -57,6 +60,9 @@ class Briqpay_Callbacks {
 	 * @param  string $session_id  Briqpay session id.
 	 */
 	public function briqpay_wc_punted_notification_cb( $order_id, $session_id ) {
+
+		Briqpay_Logger::log( 'Execute notification callback. Briqpay session ID: ' . $session_id . '. WC order ID: ' . $order_id );
+
 		// get order.
 		$order = wc_get_order( $order_id );
 

@@ -64,6 +64,7 @@ jQuery(function ($) {
 			$("form.checkout").trigger('update_checkout');
 		},
 		getBriqpayOrder: function () {
+			briqpayForWooCommerce.logToFile( 'Received purchasepressed callback from Briqpay' );
 			$.ajax({
 				type: 'POST',
 				data: {
@@ -105,7 +106,7 @@ jQuery(function ($) {
 			$('#ship-to-different-address-checkbox').prop( 'checked', true);
 			$('#shipping_first_name').val(addressData.shipping_address.firstname);
 			$('#shipping_last_name').val(addressData.shipping_address.lastname);
-			$('#shipping_company').val(addressData.billing_address.companyname);
+			$('#shipping_company').val(addressData.shipping_address.companyname);
 			$('#shipping_address_1').val(addressData.shipping_address.streetaddress);
 			$('#shipping_address_2').val(addressData.shipping_address.streetaddress2);
 			$('#shipping_city').val(addressData.shipping_address.city);
@@ -139,6 +140,7 @@ jQuery(function ($) {
 				success: function (data) {
 					try {
 						if ('success' === data.result) {
+							briqpayForWooCommerce.logToFile( 'Successfully placed order. Sending purchaseDecision true to Briqpay' );
 							window._briqpay.checkout.purchaseDecision(true);
 						} else {
 							throw 'Result failed';

@@ -40,5 +40,23 @@
 	"requires" : "4.0.0",
 	"tested" : "5.7.0",
 	"upgrade_notice" : ""
+  },
+  "1.2.0": {
+	"description" : "<ul><li>Feature- Enable handling of autocaptured orders from Briqpay. If the order has been autocaptured by Briqpay already, we will not attempt to capture it when the order is set to completed in WooCommerce.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.2",
+	"upgrade_notice" : ""
+  },
+  "1.2.1": {
+	"description" : "<ul><li>Tweak - Improved logging.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.7.2",
+	"upgrade_notice" : ""
+  },
+  "1.2.2": {
+	"description" : "<ul><li>Fix - Fixes potential Shipping company name bug (if separate billing and shipping adress is entered by customer in checkout).</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.8",
+	"upgrade_notice" : ""
   }
 }
