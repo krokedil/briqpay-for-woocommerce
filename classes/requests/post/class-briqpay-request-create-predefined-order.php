@@ -28,7 +28,7 @@ class Briqpay_Request_Create_Predefined extends Briqpay_Request_Post {
 		$newcart = array();
 		foreach ( $order->get_items() as $item_id => $item ) {
 			$newcart[] = $item;
-			var_dump($item);
+			
 		 };
 		return apply_filters(
 			'briqpay_create_args',
