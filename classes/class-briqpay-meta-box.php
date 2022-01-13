@@ -42,11 +42,23 @@ class Briqpay_Meta_Box {
 	 * @return void
 	 */
 	public function meta_box_content() {
-		$order_id       = get_the_ID();
-		$payment_method = get_post_meta( $order_id, '_briqpay_payment_method', true );
-		$psp_name       = get_post_meta( $order_id, '_briqpay_psp_name', true );
-		$rules_results  = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
-		$failed_rules   = $this->check_failed_rules( $rules_results );
+		$order_id          = get_the_ID();
+		$payment_method    = get_post_meta( $order_id, '_briqpay_payment_method', true );
+		$psp_name          = get_post_meta( $order_id, '_briqpay_psp_name', true );
+		$rules_results     = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
+		$failed_rules      = $this->check_failed_rules( $rules_results );
+		$keys_for_meta_box = array(
+			array(
+				'title' => esc_html( 'Payment method', 'briqpay-for-woocommerce' ),
+				'value' => esc_html( $payment_method ),
+			),
+			array(
+				'title' => esc_html( 'PSP name', 'briqpay-for-woocommerce' ),
+				'value' => esc_html( $psp_name ),
+			),
+		);
+
+		$keys_for_meta_box = apply_filters( 'briqpay_meta_box_keys', $keys_for_meta_box );
 		include BRIQPAY_WC_PLUGIN_PATH . '/templates/briqpay-meta-box.php';
 	}
 

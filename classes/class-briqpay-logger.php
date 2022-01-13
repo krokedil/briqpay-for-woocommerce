@@ -34,6 +34,10 @@ class Briqpay_Logger {
 			}
 			self::$log->add( 'briqpay-for-woocommerce', wp_json_encode( $message ) );
 		}
+
+		if ( isset( $data['response']['code'] ) && ( $data['response']['code'] < 200 || $data['response']['code'] > 299 ) ) {
+			self::log_to_db( $data );
+		}
 	}
 
 	/**
@@ -61,7 +65,7 @@ class Briqpay_Logger {
 	 *
 	 * @return array
 	 */
-	public static function format_log( $briqpay_order_id, $method, $title, $request_args, $response, $code ) {
+	public static function format_log( $briqpay_order_id, $method, $title, $request_url, $request_args, $response, $code ) {
 		// Unset the snippet to prevent issues in the response.
 		if ( isset( $response['snippet'] ) ) {
 			unset( $response['snippet'] );
@@ -79,6 +83,7 @@ class Briqpay_Logger {
 				'id'             => $briqpay_order_id,
 				'type'           => $method,
 				'title'          => $title,
+				'request_url'    => $request_url,
 				'request'        => $request_args,
 				'response'       => array(
 				'body' => $response,
@@ -115,4 +120,21 @@ class Briqpay_Logger {
 		return $stack;
 	}
 
+	/**
+	 * Logs an event in the WordPress database.
+	 *
+	 * @param array $data The data to be logged.
+	 */
+	public static function log_to_db( $data ) {
+		$logs = get_option( 'krokedil_debuglog_briqpay', array() );
+
+		if ( ! empty( $logs ) ) {
+			$logs = json_decode( $logs );
+		}
+
+		$logs   = array_slice( $logs, -14 );
+		$logs[] = $data;
+		$logs   = wp_json_encode( $logs );
+		update_option( 'krokedil_debuglog_briqpay', $logs );
+	}
 }

@@ -4,9 +4,9 @@ Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
 Tested up to: 5.8
-Requires PHP: 5.6
+Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 5.5.2
+WC tested up to: 6.1.0
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,6 +26,13 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.01.13    - version 1.3.0 =
+* Feature       - The 15 last failed API requests to Bripay will now be shown on the system status page.
+* Feature       - The order page meta box for Briqpay can now be modified with the filter 'briqpay_meta_box_keys'
+* Enhancement   - Add a sidebar to the settings page with documentation and support links.
+* Fix           - Fixed divide by zero error when calculating shipping taxes.
+* Fix           - Fixed an issue with already processed orders being set to processing again after the callback from Briqpay is triggered.
+
 = 2021.07.23    - version 1.2.2 =
 * Fix           - Fixes potential Shipping company name bug (if separate billing and shipping adress is entered by customer in checkout).
 
@@ -53,8 +60,8 @@ With Briqpay, you are always in control of risk exposure.
 * Fix           - Fix the live API endpoint to the correct URL.
 
 = 2021.03.02    - version 1.0.2 =
-* Enhancement   - Added seperate filters for create, update and refund requests to Billmate.
-* Enhancement   - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name
+* Enhancement   - Added seperate filters for create, update and refund requests to Briqpay.
+* Enhancement   - We now save the PSP name from Briqpay to the order in the meta field _briqpay_psp_name
 
 = 2021.03.02    - version 1.0.1 =
 * Enhancement   - Add change payment method button.
