@@ -25,13 +25,10 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 			)
 		);
 		$this->has_fields         = false;
-
 		$this->init_form_fields();
 		$this->init_settings();
-
-		$this->title       = $this->get_option( 'title' );
-		$this->description = $this->get_option( 'description' );
-
+		$this->title            = $this->get_option( 'title' );
+		$this->description      = $this->get_option( 'description' );
 		$this->enabled          = $this->get_option( 'enabled' );
 		$this->testmode         = 'yes' === $this->get_option( 'testmode' );
 		$this->logging          = 'yes' === $this->get_option( 'logging' );
