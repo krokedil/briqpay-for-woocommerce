@@ -41,7 +41,7 @@ class Briqpay_Settings_Page {
 							</p>
 							<h1 id="briqpay-settings-sidebar-title">Get started</h1>
 								<p id="briqpay-settings-sidebar-main-text">
-									<a href="https://docs.krokedil.com/category/396-get-started" target="_blank">Documentation</a> <br/>
+									<a href="https://docs.krokedil.com/briqpay-for-woocommerce/get-started/" target="_blank">Documentation</a> <br/>
 									<a href="https://krokedil.com/product/briqpay-for-woocommerce/" target="_blank">Plugin site</a>
 								</p>
 						<h1 id="briqpay-settings-sidebar-title">Support</h1>
