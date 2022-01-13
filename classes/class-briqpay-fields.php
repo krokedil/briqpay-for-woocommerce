@@ -52,7 +52,24 @@ class Briqpay_Fields {
 					'autocomplete' => 'off',
 				),
 			),
-
+			'creditscoring'              => array(
+				'title'   => __( 'Enable Credit scoring', 'briqpay-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Should the credit scoring rules be applied in purchase requests sent to Briqpay?', 'briqpay-for-woocommerce' ),
+				'default' => 'yes',
+			),
+			'maxamount'                  => array(
+				'title'   => __( 'Enable Max amount', 'briqpay-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Should the max amount rules be applied in purchase requests sent to Briqpay?', 'briqpay-for-woocommerce' ),
+				'default' => 'yes',
+			),
+			'order_management'           => array(
+				'title'   => __( 'Enable Order Management', 'briqpay-for-woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Enable Briqpay order capture on WooCommerce order completion.', 'briqpay-for-woocommerce' ),
+				'default' => 'yes',
+			),
 			'testmode'                   => array(
 				'title'       => __( 'Test mode', 'briqpay-for-woocommerce' ),
 				'label'       => __( 'Enable Test Mode', 'briqpay-for-woocommerce' ),
@@ -114,25 +131,6 @@ class Briqpay_Fields {
 					'autocomplete' => 'new-password',
 				),
 			),
-			'creditscoring'              => array(
-				'title'   => __( 'Enable Credit scoring', 'briqpay-for-woocommerce' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Should the credit scoring rules be applied in purchase requests sent to Briqpay?', 'briqpay-for-woocommerce' ),
-				'default' => 'yes',
-			),
-			'maxamount'                  => array(
-				'title'   => __( 'Enable Max amount', 'briqpay-for-woocommerce' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Should the max amount rules be applied in purchase requests sent to Briqpay?', 'briqpay-for-woocommerce' ),
-				'default' => 'yes',
-			),
-			'order_management'           => array(
-				'title'   => __( 'Enable Order Management', 'briqpay-for-woocommerce' ),
-				'type'    => 'checkbox',
-				'label'   => __( 'Enable Briqpay order capture on WooCommerce order completion.', 'briqpay-for-woocommerce' ),
-				'default' => 'yes',
-			),
-
 		);
 		return apply_filters( 'briqpay_gateway_settings', $settings );
 	}
