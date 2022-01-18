@@ -64,5 +64,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.8",
 	"upgrade_notice" : ""
+  },
+  "1.3.1": {
+	"description" : "<ul><li>Tweak - Removed 'Briqpay' from the payment method title for created orders.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.8",
+	"upgrade_notice" : ""
   }
 }
