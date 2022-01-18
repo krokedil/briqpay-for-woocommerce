@@ -91,7 +91,7 @@ class Briqpay_Confirmation {
 		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ) );
 		update_post_meta( $order_id, '_billing_org_nr', $briqpay_order['orgnr'] );
 
-		$order->set_payment_method_title( 'Briqpay - ' . $briqpay_order['purchasepaymentmethod']['name'] );
+		$order->set_payment_method_title( $briqpay_order['purchasepaymentmethod']['name'] );
 		$order->add_order_note( __( 'Payment via Briqpay, session ID: ', 'briqpay-for-woocommerce' ) . $session_id );
 		$order->payment_complete( $session_id );
 
