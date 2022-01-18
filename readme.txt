@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.01.18    - version 1.3.1 =
+* Tweak         - Removed "Briqpay" from the payment method title for created orders.
+
 = 2022.01.13    - version 1.3.0 =
 * Feature       - The 15 last failed API requests to Bripay will now be shown on the system status page.
 * Feature       - The order page meta box for Briqpay can now be modified with the filter 'briqpay_meta_box_keys'
