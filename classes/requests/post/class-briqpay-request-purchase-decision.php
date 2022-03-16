@@ -5,10 +5,9 @@
 
 
 /**
- * Class Briqpay_Request_Patch
+ * Class Briqpay_Request_Purchase_Decision
  */
-class Briqpay_Request_Patch extends Briqpay_Request_Post {
-
+class Briqpay_Request_Purchase_Decision extends Briqpay_Request_Post {
 
 	/**
 	 * Class constructor.
@@ -18,23 +17,17 @@ class Briqpay_Request_Patch extends Briqpay_Request_Post {
 	 */
 	public function __construct( $arguments, $generate_token ) {
 		parent::__construct( $arguments, $generate_token );
-		$this->log_title = 'Briqpay update reference';
+		$this->log_title = 'Briqpay purchase decision';
 	}
+
 	/**
 	 * Returns the arguments request.
 	 *
 	 * @return array
 	 */
 	protected function get_body() {
-		$order_id = $this->arguments['order_id'] ?? null;
-		$order    = wc_get_order( $order_id );
 		return array(
-			'sessionid'    => $this->arguments['session_id'],
-			'merchanturls' => Briqpay_Helper_MerchantUrls::get_urls( $order_id ),
-			'reference'    => array(
-				'reference1' => $order->get_order_number(),
-				'reference2' => strval( $order_id ),
-			),
+			'decision' => $this->arguments['decision'] ? 'allow' : 'reject',
 		);
 	}
 
@@ -44,6 +37,6 @@ class Briqpay_Request_Patch extends Briqpay_Request_Post {
 	 * @return string
 	 */
 	protected function get_request_url() {
-		return $this->get_api_url_base() . 'checkout/v1/sessions/patch';
+		return $this->get_api_url_base() . 'v2/session/' . $this->arguments['session_id'] . '/decision/purchase';
 	}
 }
