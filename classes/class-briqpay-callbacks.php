@@ -60,7 +60,6 @@ class Briqpay_Callbacks {
 	 * @param  string $session_id  Briqpay session id.
 	 */
 	public function briqpay_wc_punted_notification_cb( $order_id, $session_id ) {
-
 		Briqpay_Logger::log( 'Execute notification callback. Briqpay session ID: ' . $session_id . '. WC order ID: ' . $order_id );
 
 		// get order.
@@ -69,22 +68,19 @@ class Briqpay_Callbacks {
 		if ( ! $order ) {
 			return;
 		}
-		// Check that the order status is correct before continuing.
-		if ( $order->has_status( array( 'on-hold', 'processing', 'completed' ) ) ) {
-			return;
-		}
+
 		// get briqpay order.
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order(
 			array(
 				'session_id' => $session_id,
 			)
 		);
+
 		if ( 'purchasecomplete' !== $briqpay_order['state'] ) {
 			return;
 		}
+
 		Briqpay_Confirmation::get_instance()->confirm_briqpay_order( $order_id );
 	}
-
-
 }
 new Briqpay_Callbacks();

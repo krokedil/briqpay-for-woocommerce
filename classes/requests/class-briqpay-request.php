@@ -241,7 +241,8 @@ abstract class Briqpay_Request {
 		} else {
 			$return = json_decode( wp_remote_retrieve_body( $response ), true );
 		}
-		$this->log_response( json_decode( wp_remote_retrieve_body( $response ), true ), $request_args, $request_url );
+
+		$this->log_response( $response, $request_args, $request_url );
 		return $return;
 	}
 
@@ -254,10 +255,11 @@ abstract class Briqpay_Request {
 	 * @return void
 	 */
 	protected function log_response( $response, $request_args, $request_url ) {
-		$method     = $this->method;
-		$title      = "{$this->log_title} - URL: {$request_url}";
-		$code       = wp_remote_retrieve_response_code( $response );
+		$method = $this->method;
+		$title  = $this->log_title;
+		$code   = wp_remote_retrieve_response_code( $response );
+
 		$session_id = isset( $response['sessionid'] ) ? $response['sessionid'] : null;
-		Briqpay_Logger::format_log( $session_id, $method, $title, $request_args, $response, $code );
+		Briqpay_Logger::format_log( $session_id, $method, $title, $request_url, $request_args, $response, $code );
 	}
 }

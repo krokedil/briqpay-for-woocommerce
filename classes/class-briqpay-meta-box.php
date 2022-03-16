@@ -69,7 +69,7 @@ class Briqpay_Meta_Box {
 			<option value="email">Send to billing email</option>
 		</select>
 		<?php
-	}
+  }
 		$keys_for_meta_box = apply_filters( 'briqpay_meta_box_keys', $keys_for_meta_box );
 		include BRIQPAY_WC_PLUGIN_PATH . '/templates/briqpay-meta-box.php';
 	}

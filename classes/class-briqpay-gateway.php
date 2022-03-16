@@ -25,13 +25,10 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 			)
 		);
 		$this->has_fields         = false;
-
 		$this->init_form_fields();
 		$this->init_settings();
-
-		$this->title       = $this->get_option( 'title' );
-		$this->description = $this->get_option( 'description' );
-
+		$this->title            = $this->get_option( 'title' );
+		$this->description      = $this->get_option( 'description' );
 		$this->enabled          = $this->get_option( 'enabled' );
 		$this->testmode         = 'yes' === $this->get_option( 'testmode' );
 		$this->logging          = 'yes' === $this->get_option( 'logging' );
@@ -96,6 +93,18 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	}
 
 	/**
+	 * Admin Panel Options.
+	 * Add sidebar to the settings page.
+	 */
+	public function admin_options() {
+		ob_start();
+		parent::admin_options();
+		$parent_options = ob_get_contents();
+		ob_end_clean();
+		Briqpay_Settings_Page::render( $parent_options );
+	}
+
+	/**
 	 * Checks if method should be available.
 	 *
 	 * @return boolean
@@ -133,7 +142,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 */
 	public function add_shipping_email( $order ) {
 		if ( $this->id === $order->get_payment_method() ) {
-			$order_id  = $order->get_id();
+			$order_id       = $order->get_id();
 			$shipping_email = get_post_meta( $order_id, '_shipping_email', true );
 			if ( $shipping_email ) {
 				?>
@@ -155,7 +164,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 */
 	public function add_shipping_phone( $order ) {
 		if ( $this->id === $order->get_payment_method() ) {
-			$order_id  = $order->get_id();
+			$order_id       = $order->get_id();
 			$shipping_phone = get_post_meta( $order_id, '_shipping_phone', true );
 			if ( $shipping_phone ) {
 				?>

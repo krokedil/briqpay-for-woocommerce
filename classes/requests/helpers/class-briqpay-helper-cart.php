@@ -195,13 +195,18 @@ class Briqpay_Helper_Cart {
 				if ( $chosen_shipping === $method->id ) {
 					if ( $method->cost > 0 ) {
 
+						$taxrate = 0;
+						if ( intval( WC()->cart->shipping_total ) > 0 ) {
+							$taxrate = intval( ( WC()->cart->shipping_tax_total / WC()->cart->shipping_total ) * 10000 );
+						}
+
 						return array(
 							'producttype'  => 'shipping_fee',
 							'name'         => $method->label, // String.
 							'unitprice'    => intval( round( WC()->cart->shipping_total * 100 ) ),
 							'quantityunit' => 'pc',
 							'quantity'     => 1,
-							'taxrate'      => intval( ( WC()->cart->shipping_tax_total / WC()->cart->shipping_total ) * 10000 ),
+							'taxrate'      => $taxrate,
 							'reference'    => 'shipping|' . $method->id, // String.
 							'discount'     => 0,
 						);
