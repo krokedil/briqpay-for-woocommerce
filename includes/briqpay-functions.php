@@ -50,6 +50,12 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	return $briqpay_order;
 }
 
+function send_briqpay_hpp_link($order_id,$type){
+	$api     = BRIQPAY()->api;
+	$briqpay_order = $api->create_briqpay_hpp($order_id,$type);
+	return $briqpay_order;
+}
+
 /**
  * Echoes Briqpay Checkout iframe snippet.
  */
