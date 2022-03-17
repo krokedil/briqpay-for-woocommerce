@@ -9,7 +9,8 @@ jQuery(function ($) {
 
 		init: function () {
 			if( this.checkIfBriqpaySelected() ) {
-				window._briqpay.subscribe("purchasepressed", briqpayForWooCommerce.getBriqpayOrder);
+				window._briqpay.subscribe("purchasepressed", function() { briqpayForWooCommerce.getBriqpayOrder(1) });
+				window._briqpay.subscribe("before-purchase", function() { briqpayForWooCommerce.getBriqpayOrder(2) });
 				window._briqpay.subscribe("addressupdate", function (data) {
 					briqpayForWooCommerce.updateAddress(data);
 				})
@@ -63,7 +64,7 @@ jQuery(function ($) {
 
 			$("form.checkout").trigger('update_checkout');
 		},
-		getBriqpayOrder: function () {
+		getBriqpayOrder: function (version) {
 			briqpayForWooCommerce.logToFile( 'Received purchasepressed callback from Briqpay' );
 			$.ajax({
 				type: 'POST',
@@ -78,14 +79,14 @@ jQuery(function ($) {
 				error: function (data) {
 				},
 				complete: function (data) {
-					briqpayForWooCommerce.setAddressData(data.responseJSON.data);
+					briqpayForWooCommerce.setAddressData(data.responseJSON.data, version);
 				}
 			});
 		},
 		/*
 		 * Sets the WooCommerce form field data.
 		 */
-		setAddressData: function (addressData) {
+		setAddressData: function (addressData, version) {
 			if (0 < $('form.checkout #terms').length) {
 				$('form.checkout #terms').prop('checked', true);
 			}
@@ -118,13 +119,13 @@ jQuery(function ($) {
 				$('#shipping_country').val(addressData.shipping_address.countryCode);
 			}
 
-			briqpayForWooCommerce.submitOrder();
+			briqpayForWooCommerce.submitOrder(version);
 
 		},
 		/**
 		 * Submit the order using the WooCommerce AJAX function.
 		 */
-		submitOrder: function () {
+		submitOrder: function (version) {
 			$('.woocommerce-checkout-review-order-table').block({
 				message: null,
 				overlayCSS: {
@@ -132,6 +133,11 @@ jQuery(function ($) {
 					opacity: 0.6
 				}
 			});
+			if(version === 2) {
+				// Append version number to the form.
+				$(briqpayForWooCommerce.checkoutFormSelector).append("<input type='hidden' value='2' id='briqpay_checkout_version' name='briqpay_checkout_version'>");
+			}
+
 			$.ajax({
 				type: 'POST',
 				url: briqpayParams.submitOrder,
@@ -140,28 +146,33 @@ jQuery(function ($) {
 				success: function (data) {
 					try {
 						if ('success' === data.result) {
+							console.log('success', data);
 							briqpayForWooCommerce.logToFile( 'Successfully placed order. Sending purchaseDecision true to Briqpay' );
-							window._briqpay.checkout.purchaseDecision(true);
+							briqpayForWooCommerce.handlePurchaseResult(version, true)
 						} else {
+							console.log('not success', data);
 							throw 'Result failed';
 						}
 					} catch (err) {
 						if (data.messages) {
+							console.log('catch if', data);
 							briqpayForWooCommerce.logToFile( 'Checkout error | ' + data.messages );
-							briqpayForWooCommerce.failOrder( 'submission', data.messages );
+							briqpayForWooCommerce.failOrder( 'submission', data.messages, version );
 						} else {
-
-							// window._briqpay.checkout.purchaseDecision(false);
+							console.log('catch else', err);
+							briqpayForWooCommerce.handlePurchaseResult(version, false)
 							briqpayForWooCommerce.logToFile( 'Checkout error | No message' );
-							briqpayForWooCommerce.failOrder( 'submission', '<div class="woocommerce-error">' + 'Checkout error' + '</div>' );
+							briqpayForWooCommerce.failOrder( 'submission', '<div class="woocommerce-error">' + 'Checkout error' + '</div>', version );
 						}
 					}
 				},
 				error: function (data) {
-					briqpayForWooCommerce.failOrder();
+					console.log('error', data);
+					briqpayForWooCommerce.failOrder(null, null, version);
 				}
 			});
 		},
+
 		/**
 		 * Logs the message to the Briqpay log in WooCommerce.
 		 * @param {string} message
@@ -179,6 +190,7 @@ jQuery(function ($) {
 				}
 			);
 		},
+
 		updateBriqpayOrder: function () {
 			$.ajax({
 				type: 'POST',
@@ -197,9 +209,10 @@ jQuery(function ($) {
 				}
 			});
 		},
-		failOrder: function( event, error_message ) {
+
+		failOrder: function( event, error_message, version ) {
 			// Send false and cancel
-			window._briqpay.checkout.purchaseDecision(false);
+			briqpayForWooCommerce.handlePurchaseResult(version, false)
 
 			// Renable the form.
 			$( 'body' ).trigger( 'updated_checkout' );
@@ -217,12 +230,15 @@ jQuery(function ($) {
 				scrollTop: ( $( 'form.checkout' ).offset().top - 100 )
 			}, 1000 );
 		},
+
 		resume: function () {
 			window._briqpay.checkout.resume();
 		},
+
 		suspend: function () {
 			window._briqpay.checkout.suspend();
 		},
+
 		/**
 		 * When the customer changes from Briqpay to other payment methods.
 		 * @param {Event} e 
@@ -260,34 +276,43 @@ jQuery(function ($) {
 		maybeChangeToBriqpay: function() {
 			if ( ! briqpayForWooCommerce.preventPaymentMethodChange ) {
 
-			if ( 'briqpay' === $( this ).val() ) {
-				$( '.woocommerce-info' ).remove();
+				if ( 'briqpay' === $( this ).val() ) {
+					$( '.woocommerce-info' ).remove();
 
-				$( briqpayForWooCommerce.checkoutFormSelector ).block({
-					message: null,
-					overlayCSS: {
-						background: '#fff',
-						opacity: 0.6
-					}
-				});
+					$( briqpayForWooCommerce.checkoutFormSelector ).block({
+						message: null,
+						overlayCSS: {
+							background: '#fff',
+							opacity: 0.6
+						}
+					});
 
-				$.ajax({
-					type: 'POST',
-					data: {
-						briqpay: true,
-						nonce: briqpayParams.change_payment_method_nonce
-					},
-					dataType: 'json',
-					url: briqpayParams.change_payment_method_url,
-					success: function( data ) {},
-					error: function( data ) {},
-					complete: function( data ) {
-						window.location.href = data.responseJSON.data.redirect;
-					}
-				});
+					$.ajax({
+						type: 'POST',
+						data: {
+							briqpay: true,
+							nonce: briqpayParams.change_payment_method_nonce
+						},
+						dataType: 'json',
+						url: briqpayParams.change_payment_method_url,
+						success: function( data ) {},
+						error: function( data ) {},
+						complete: function( data ) {
+							window.location.href = data.responseJSON.data.redirect;
+						}
+					});
+				}
 			}
-		}
 		},
+		
+		handlePurchaseResult(version, success) {
+			if(version === 1) {
+				window._briqpay.checkout.purchaseDecision(success);
+			} else {
+				window._briqpay.checkout.resumeDecision();
+			}
+		},
+
 		/*
 		 * Check if Briqpay is the selected gateway.
 		 */
