@@ -18,7 +18,7 @@ class Briqpay_Meta_Box {
 	 */
 	public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
-		add_action( 'save_post', array( $this, 'briqpay_hpp_save_handler' ) );
+		// add_action( 'save_post', array( $this, 'briqpay_hpp_save_handler' ) );
 	}
 
 	/**
@@ -59,6 +59,7 @@ class Briqpay_Meta_Box {
 			),
 		);
 		$order             = wc_get_order( $order_id );
+		/*
 		if ( $order->get_status() === 'pending' && strtolower( $order->get_payment_method() ) === 'briqpay' ) {
 
 			?>
@@ -70,6 +71,7 @@ class Briqpay_Meta_Box {
 		</select>
 			<?php
 		}
+		*/
 		$keys_for_meta_box = apply_filters( 'briqpay_meta_box_keys', $keys_for_meta_box );
 		include BRIQPAY_WC_PLUGIN_PATH . '/templates/briqpay-meta-box.php';
 	}
