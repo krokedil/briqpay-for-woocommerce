@@ -27,7 +27,7 @@ With Briqpay, you are always in control of risk exposure.
 
 == Changelog ==
 = 2022.03.17    - version 1.4.0 =
-* Feature       - Add support for Bripay API v2.0.
+* Feature       - Add support for Briqpay API v2.0.
 
 = 2022.01.18    - version 1.3.1 =
 * Tweak         - Removed "Briqpay" from the payment method title for created orders.
