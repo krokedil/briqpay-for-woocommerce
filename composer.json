@@ -5,6 +5,7 @@
   "require": {
     "php": ">=7.2"
   },
+  "type": "wordpress-plugin",
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
     "phpcompatibility/phpcompatibility-wp": "^2.1",
