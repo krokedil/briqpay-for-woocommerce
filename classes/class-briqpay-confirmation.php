@@ -93,7 +93,10 @@ class Briqpay_Confirmation {
 
 		$order->set_payment_method_title( $briqpay_order['purchasepaymentmethod']['name'] );
 		$order->add_order_note( __( 'Payment via Briqpay, session ID: ', 'briqpay-for-woocommerce' ) . $session_id );
-		$order->payment_complete( $session_id );
+		if("purchasecomplete" == $briqpay_order['state']){
+			$order->payment_complete( $session_id );
+		}
+		
 
 		do_action( 'briqpay_order_confirmed', $briqpay_order, $order );
 	}
