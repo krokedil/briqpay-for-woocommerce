@@ -53,23 +53,50 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		$response = BRIQPAY()->api->patch_briqpay_order(
+		$session_id = WC()->session->get( 'briqpay_session_id' );
+		$response   = BRIQPAY()->api->patch_briqpay_order(
 			array(
-				'session_id' => WC()->session->get( 'briqpay_session_id' ),
+				'session_id' => $session_id,
 				'order_id'   => $order_id,
 			)
 		);
 		if ( is_wp_error( $response ) ) {
+			$this->maybe_handle_v2_result( false, $session_id );
 			return array(
 				'result' => 'error',
 			);
 		}
+
 		update_post_meta( $order_id, '_briqpay_session_id', $response['sessionid'] );
+
+		$v2_result = $this->maybe_handle_v2_result( true, $session_id );
+
+		if ( null !== $v2_result && is_wp_error( $v2_result ) ) {
+			return array(
+				'result' => 'error',
+			);
+		}
+
 		return array(
 			'result' => 'success',
-		// 'redirect' => $this->get_return_url( $order ),
 		);
 
+	}
+
+	/**
+	 * If the session was a v2 session, we need to send a HTTP request with the result.
+	 *
+	 * @param bool   $decision The decision.
+	 * @param string $session_id The session id.
+	 * @return void
+	 */
+	public function maybe_handle_v2_result( $decision, $session_id ) {
+		$briqpay_version = filter_input( INPUT_POST, 'briqpay_checkout_version', FILTER_SANITIZE_NUMBER_INT );
+		if ( ! empty( $briqpay_version ) && '2' === $briqpay_version ) {
+			return BRIQPAY()->api->send_purchase_decision( $decision, $session_id );
+		}
+
+		return null;
 	}
 
 	/** Process refund request.

@@ -50,9 +50,9 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	return $briqpay_order;
 }
 
-function send_briqpay_hpp_link($order_id,$type){
-	$api     = BRIQPAY()->api;
-	$briqpay_order = $api->create_briqpay_hpp($order_id,$type);
+function send_briqpay_hpp_link( $order_id, $type ) {
+	$api           = BRIQPAY()->api;
+	$briqpay_order = $api->create_briqpay_hpp( $order_id, $type );
 	return $briqpay_order;
 }
 
@@ -64,12 +64,24 @@ function briqpay_wc_show_snippet() {
 	do_action( 'briqpay_wc_show_snippet', $briqpay_order );
 	echo $briqpay_order['snippet'];//phpcs:ignore
 }
+
+/**
+ * Check if we are on the confirmation page for Briqpay.
+ *
+ * @return boolean
+ */
 function is_briqpay_confirmation() {
 	return isset( $_GET['confirm'], $_GET['briqpay_wc_order_id'] ) && 'yes' === $_GET['confirm'];//phpcs:ignore
 }
 
+/**
+ * Print the error message.
+ *
+ * @param WP_Error $wp_error The WordPress Error.
+ * @return void
+ */
 function briqpay_extract_error_message( $wp_error ) {
-	wc_print_notice( $wp_error->get_error_message(), 'error' );
+	wc_add_notice( $wp_error->get_error_message(), 'error' );
 }
 
 /**

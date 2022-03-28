@@ -27,25 +27,50 @@ class Briqpay_API {
 
 		return $this->check_for_api_error( $response );
 	}
-	public function create_predefined_briqpay_order($order_id) {
-		$request  = new Briqpay_Request_Create_Predefined($order_id);
+
+	/**
+	 * Create a predefined Briqpay Order.
+	 *
+	 * @param int $order_id The WooCommerce Order Id.
+	 * @return mixed
+	 */
+	public function create_predefined_briqpay_order( $order_id ) {
+		$request  = new Briqpay_Request_Create_Predefined( $order_id );
 		$response = $request->request();
 
 		return $this->check_for_api_error( $response );
 	}
-	public function create_briqpay_hpp($order_id ,$type){
-		$briqpay_order = $this->create_predefined_briqpay_order($order_id);
 
-		 $this->patch_briqpay_order(
+	/**
+	 * Create a Hosted Payment Page order with Briqpay.
+	 *
+	 * @param int $order_id The WooCommerce order id.
+	 * @return void
+	 */
+	public function create_briqpay_hpp( $order_id, $type ) {
+		$briqpay_order = $this->create_predefined_briqpay_order( $order_id );
+
+		$this->patch_briqpay_order(
 			array(
 				'session_id' => $briqpay_order['sessionid'],
 				'order_id'   => $order_id,
-			)); 
-			$order                  = wc_get_order( $order_id );
-		$email = $order->get_billing_email();
-		 $phone = $order->get_billing_phone();
-		 $destination = $type === "email" ? $email : $phone;
-		$request  = new Briqpay_Request_Create_HPP(array("session_id"=>$briqpay_order['sessionid'],"destination_type" =>$type,"destination" =>  $destination ),true);
+			)
+		);
+
+		$order       = wc_get_order( $order_id );
+		$email       = $order->get_billing_email();
+		$phone       = $order->get_billing_phone();
+		$destination = $type === 'email' ? $email : $phone;
+
+		$request = new Briqpay_Request_Create_HPP(
+			array(
+				'session_id'       => $briqpay_order['sessionid'],
+				'destination_type' => $type,
+				'destination'      => $destination,
+			),
+			true
+		);
+
 		$response = $request->request();
 
 		return $this->check_for_api_error( $response );
@@ -110,6 +135,22 @@ class Briqpay_API {
 	public function refund_briqpay_order( array $args = array() ) {
 		$response = ( new Briqpay_Request_Refund( $args, true ) )->request();
 		return $response;
+	}
+
+	/**
+	 * Sends a purchase decision for the v2 iFrame.
+	 *
+	 * @param bool $decision True if approved, false if declined.
+	 * @return mixed
+	 */
+	public function send_purchase_decision( $decision, $session_id ) {
+		$args     = array(
+			'decision'   => $decision,
+			'session_id' => $session_id,
+		);
+		$request  = new Briqpay_Request_Purchase_Decision( $args, true );
+		$response = $request->request();
+		return $this->check_for_api_error( $response );
 	}
 
 	/**

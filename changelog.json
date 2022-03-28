@@ -70,5 +70,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.8",
 	"upgrade_notice" : ""
+  },
+  "1.4.0": {
+	"description" : "<ul><li>Feature - Add support for Briqpay API v2.0.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.9.2",
+	"upgrade_notice" : ""
   }
 }
