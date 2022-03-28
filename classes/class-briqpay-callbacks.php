@@ -76,7 +76,7 @@ class Briqpay_Callbacks {
 			)
 		);
 
-		if ( 'purchasecomplete' !== $briqpay_order['state'] ) {
+		if ( 'purchasecomplete' !== $briqpay_order['state'] &&  'paymentprocessing' !== $briqpay_order['state'] ) {
 			return;
 		}
 
