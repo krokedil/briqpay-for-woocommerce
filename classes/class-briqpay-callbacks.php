@@ -76,10 +76,12 @@ class Briqpay_Callbacks {
 			)
 		);
 
-		if ( 'purchasecomplete' !== $briqpay_order['state'] &&  'paymentprocessing' !== $briqpay_order['state'] ) {
+		if ( 'purchasecomplete' !== $briqpay_order['state'] &&  
+		'paymentprocessing' !== $briqpay_order['state'] &&  
+		'purchaserejected' !== $briqpay_order['state']  ) {
 			return;
 		}
-		if( 'paymentrejected' !== $briqpay_order['state'] )
+		if( 'purchaserejected' === $briqpay_order['state'] )
 		{
 			$order->add_order_note(
 				__(
