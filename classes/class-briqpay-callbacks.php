@@ -79,6 +79,19 @@ class Briqpay_Callbacks {
 		if ( 'purchasecomplete' !== $briqpay_order['state'] &&  'paymentprocessing' !== $briqpay_order['state'] ) {
 			return;
 		}
+		if( 'paymentrejected' !== $briqpay_order['state'] )
+		{
+			$order->add_order_note(
+				__(
+					'Payment could not be completed by the underlying PSP',
+					'briqpay-for-woocommerce'
+					)
+				);
+				$order->set_status( 'on-hold' );
+				$order->save();
+				
+				return;
+		}
 
 		Briqpay_Confirmation::get_instance()->confirm_briqpay_order( $order_id );
 	}
