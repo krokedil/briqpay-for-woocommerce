@@ -11,6 +11,7 @@ jQuery(function ($) {
 			if( this.checkIfBriqpaySelected() ) {
 				window._briqpay.subscribe("purchasepressed", function() { briqpayForWooCommerce.getBriqpayOrder(1) });
 				window._briqpay.subscribe("before-purchase", function() { briqpayForWooCommerce.getBriqpayOrder(2) });
+				window._briqpay.subscribe("paymentProcessCancelled", function() { briqpayForWooCommerce.unlockCheckout(); })
 				window._briqpay.subscribe("addressupdate", function (data) {
 					briqpayForWooCommerce.updateAddress(data);
 				})
@@ -215,10 +216,7 @@ jQuery(function ($) {
 			briqpayForWooCommerce.handlePurchaseResult(version, false)
 
 			// Renable the form.
-			$( 'body' ).trigger( 'updated_checkout' );
-			$( briqpayForWooCommerce.checkoutFormSelector ).removeClass( 'processing' );
-			$( briqpayForWooCommerce.checkoutFormSelector ).unblock();
-			$( '.woocommerce-checkout-review-order-table' ).unblock();
+			briqpayForWooCommerce.unlockCheckout();
 
 			// Print error messages, and trigger checkout_error, and scroll to notices.
 			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();
@@ -324,6 +322,16 @@ jQuery(function ($) {
 				}
 			} 
 			return false;
+		},
+
+		/**
+		 * Unlock the WooCommerce checkout for the customer.
+		 */
+		unlockCheckout: function() {
+			$( 'body' ).trigger( 'updated_checkout' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).removeClass( 'processing' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).unblock();
+			$( '.woocommerce-checkout-review-order-table' ).unblock();
 		},
 	};
 
