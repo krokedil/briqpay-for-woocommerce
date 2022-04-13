@@ -35,7 +35,7 @@ class Briqpay_Request_Create_HPP extends Briqpay_Request_Post {
 				),
 				'config'            => array(
 					'showcart' => true,
-					'logoUrl'  => 'https://krokedil.se/wp-content/uploads/2020/05/webb_logo_400px.png',
+					'logoUrl'  => apply_filters( 'biqpay_hpp_logo_url', '' ),
 				),
 			)
 		);
