@@ -76,5 +76,11 @@
 	"requires" : "4.0.0",
 	"tested" : "5.9.2",
 	"upgrade_notice" : ""
+  },
+  "1.5.0": {
+	"description" : "<ul><li>Feature - Adds support for hosted payment pages through email or SMS.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "5.9.3",
+	"upgrade_notice" : ""
   }
 }
