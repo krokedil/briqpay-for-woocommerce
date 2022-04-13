@@ -50,6 +50,7 @@ class Briqpay_Helper_Cart {
 
 		return $formatted_cart_items;
 	}
+
 	/**
 	 * Gets formatted cart items from order.
 	 *
@@ -59,25 +60,21 @@ class Briqpay_Helper_Cart {
 	public static function get_order_items( $order_items = null ) {
 		$formatted_cart_items = array();
 
-		
-
 		// Get cart items.
 		foreach ( $order_items as $order_item ) {
-			$formatted_cart_items[] =  array(
-				'producttype'  =>  $order_item->get_type() ,
+			$formatted_cart_items[] = array(
+				'producttype'  => $order_item->get_type(),
 				'reference'    => $order_item->get_product()->get_sku(), // String.
-				'name'         => $order_item->get_name() , // String.
+				'name'         => $order_item->get_name(), // String.
 				'quantity'     => $order_item->get_quantity(), // Float.
 				'quantityunit' => 'pc',
-				
-				'unitprice'    =>  intval( round( $order_item->get_subtotal(), 2 ) * 100 ) , // Float.
-				'taxrate'      => intval(round(($order_item->get_subtotal_tax() / $order_item->get_subtotal()) * 10000)), // Float.
+				'unitprice'    => intval( round( $order_item->get_subtotal(), 2 ) * 100 ), // Float.
+				'taxrate'      => intval( round( ( $order_item->get_subtotal_tax() / $order_item->get_subtotal() ) * 10000 ) ), // Float.
 				'discount'     => 0,
 			);
 		}
 
 		// Get cart fees.
-		
 
 		// missing shipping?
 

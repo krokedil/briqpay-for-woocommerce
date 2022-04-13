@@ -146,12 +146,12 @@ class Briqpay_Ajax extends WC_AJAX {
 			exit;
 		}
 		$available_gateways = WC()->payment_gateways()->get_available_payment_gateways();
-		$switch_to_klarna   = isset( $_POST['briqpay'] ) ? sanitize_text_field( wp_unslash( $_POST['briqpay'] ) ) : '';
+		$switch_to_briqpay  = isset( $_POST['briqpay'] ) ? sanitize_text_field( wp_unslash( $_POST['briqpay'] ) ) : '';
 
-		if ( 'false' === $switch_to_klarna ) {
-			// Set chosen payment method to first gateway that is not Klarna Checkout for WooCommerce.
+		if ( 'false' === $switch_to_briqpay ) {
+			// Set chosen payment method to first gateway that is not Briqpay for WooCommerce.
 			$first_gateway = reset( $available_gateways );
-			if ( 'kco' !== $first_gateway->id ) {
+			if ( 'briqpay' !== $first_gateway->id ) {
 				WC()->session->set( 'chosen_payment_method', $first_gateway->id );
 			} else {
 				$second_gateway = next( $available_gateways );

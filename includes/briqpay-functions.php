@@ -50,7 +50,14 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	return $briqpay_order;
 }
 
-function send_briqpay_hpp_link( $order_id, $type ) {
+/**
+ * Create a Briqpay HPP Order.
+ *
+ * @param int    $order_id The WooCommerce order id.
+ * @param string $type The type of HPP. Email or SMS.
+ * @return array
+ */
+function create_hpp_order( $order_id, $type ) {
 	$api           = BRIQPAY()->api;
 	$briqpay_order = $api->create_briqpay_hpp( $order_id, $type );
 	return $briqpay_order;
@@ -81,6 +88,9 @@ function is_briqpay_confirmation() {
  * @return void
  */
 function briqpay_extract_error_message( $wp_error ) {
+	if ( is_admin() ) {
+		return;
+	}
 	wc_add_notice( $wp_error->get_error_message(), 'error' );
 }
 
