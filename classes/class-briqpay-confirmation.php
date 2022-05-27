@@ -91,12 +91,18 @@ class Briqpay_Confirmation {
 		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ) );
 		update_post_meta( $order_id, '_billing_org_nr', $briqpay_order['orgnr'] );
 
+		$purchase_payment_method = $briqpay_order['purchasepaymentmethod'];
+		if ( isset( $purchase_payment_method['pspSupportedOrderOperations'] ) ) {
+			if ( true === $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] ) {
+				update_post_meta( $order_id, '_briqpay_psp_updateOrderSupported', $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] );
+			}
+		}
+
 		$order->set_payment_method_title( $briqpay_order['purchasepaymentmethod']['name'] );
 		$order->add_order_note( __( 'Payment via Briqpay, session ID: ', 'briqpay-for-woocommerce' ) . $session_id );
-		if("purchasecomplete" == $briqpay_order['state']){
+		if ( 'purchasecomplete' == $briqpay_order['state'] ) {
 			$order->payment_complete( $session_id );
 		}
-		
 
 		do_action( 'briqpay_order_confirmed', $briqpay_order, $order );
 	}
