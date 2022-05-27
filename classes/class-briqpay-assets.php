@@ -124,6 +124,9 @@ class Briqpay_Assets {
 			'update_order_nonce'          => wp_create_nonce( 'briqpay_wc_update_checkout' ),
 			'change_payment_method_url'   => WC_AJAX::get_endpoint( 'briqpay_wc_change_payment_method' ),
 			'change_payment_method_nonce' => wp_create_nonce( 'briqpay_wc_change_payment_method' ),
+
+			'update_order_orm'            => WC_AJAX::get_endpoint( 'update_order_orm' ),
+			'update_order_orm_url_nonce'  => wp_create_nonce( 'update_order_orm' ),
 		);
 
 		if ( version_compare( WC_VERSION, '3.9', '>=' ) ) {
@@ -143,7 +146,16 @@ class Briqpay_Assets {
 	 * @hook admin_enqueue_scripts
 	 */
 	public function enqueue_admin_scripts() {
+
 		wp_register_script( 'briqpay-admin', BRIQPAY_WC_PLUGIN_URL . '/assets/js/briqpay-order-meta-box.js', true, BRIQPAY_WC_PLUGIN_VERSION, true );
+		wp_localize_script(
+			'briqpay-admin',
+			'briqpayParamsMeta',
+			array(
+				'update_order_orm'           => WC_AJAX::get_endpoint( 'update_order_orm' ),
+				'update_order_orm_url_nonce' => wp_create_nonce( 'update_order_orm' ),
+			)
+		);
 		wp_enqueue_script( 'briqpay-admin' );
 	}
 
