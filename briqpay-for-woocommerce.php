@@ -204,6 +204,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-refund.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-patch.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-purchase-decision.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/post/class-briqpay-request-orm-update.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-customer.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/requests/helpers/class-briqpay-helper-cart.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-callbacks.php';
