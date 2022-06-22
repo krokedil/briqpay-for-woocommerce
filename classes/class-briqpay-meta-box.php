@@ -44,19 +44,22 @@ class Briqpay_Meta_Box {
 	 * @return void
 	 */
 	public function meta_box_content() {
-		$order_id          = get_the_ID();
-		$payment_method    = get_post_meta( $order_id, '_briqpay_payment_method', true );
-		$psp_name          = get_post_meta( $order_id, '_briqpay_psp_name', true );
-		$hpp_session_id    = get_post_meta( $order_id, '_briqpay_hpp_session_id', true );
-		$rules_results     = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
-		$failed_rules      = $this->check_failed_rules( $rules_results );
+		$order_id             = get_the_ID();
+		$payment_method       = get_post_meta( $order_id, '_briqpay_payment_method', true );
+		$psp_name             = get_post_meta( $order_id, '_briqpay_psp_name', true );
+		$hpp_session_id       = get_post_meta( $order_id, '_briqpay_hpp_session_id', true );
+		$rules_results        = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
+		$failed_rules         = $this->check_failed_rules( $rules_results );
+		$title_payment_method = __( 'Payment method', 'briqpay-for-woocommerce' );
+		$title_psp_name       = __( 'PSP name', 'briqpay-for-woocommerce' );
+
 		$keys_for_meta_box = array(
 			array(
-				'title' => esc_html( 'Payment method', 'briqpay-for-woocommerce' ),
+				'title' => esc_html( $title_payment_method ),
 				'value' => esc_html( $payment_method ),
 			),
 			array(
-				'title' => esc_html( 'PSP name', 'briqpay-for-woocommerce' ),
+				'title' => esc_html( $title_psp_name ),
 				'value' => esc_html( $psp_name ),
 			),
 		);
