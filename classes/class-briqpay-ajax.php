@@ -174,6 +174,8 @@ class Briqpay_Ajax extends WC_AJAX {
 	}
 
 	/**
+	 * Updates a completed order.
+	 *
 	 * @return void
 	 */
 	public static function update_order_orm() {
@@ -204,7 +206,7 @@ class Briqpay_Ajax extends WC_AJAX {
 
 		$response = BRIQPAY()->api->update_briqpay_order_orm( $order_id );
 		if ( ! is_wp_error( $response ) ) {
-			$order->add_order_note( 'Briqpay order updated.' );
+			$order->add_order_note( 'Briqpay order successfully synced.' );
 		} else {
 			$order_note = 'Could not update Briqpay order lines.';
 			$errors     = $response->get_error_messages();

@@ -33,26 +33,10 @@ class Briqpay_Meta_Box {
 			$order    = wc_get_order( $order_id );
 			if ( 'briqpay' === $order->get_payment_method() ) {
 				add_meta_box( 'briqpay_meta_box', __( 'Briqpay', 'briqpay-for-woocommerce' ), array( $this, 'meta_box_content' ), 'shop_order', 'side', 'core' );
-				if ( get_post_meta( $order_id, '_briqpay_psp_updateOrderSupported', true ) ) {
-					add_meta_box( 'briqpay_meta_box_update_order', __( 'Briqpay - sync order', 'briqpay-for-woocommerce' ), array( $this, 'meta_box_content_update_order' ), 'shop_order', 'side', 'core' );
-				}
 			}
 		}
 	}
 
-	/**
-	 *
-	 * Sync order from Woo to Briqpay
-	 *
-	 * @return void
-	 */
-	public function meta_box_content_update_order() {
-		?>
-		<div>
-			<button class="button-primary sync-btn-briqpay">Sync order to Briqpay</button>
-		</div>
-		<?php
-	}
 
 	/**
 	 * Adds content for the meta box.

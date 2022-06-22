@@ -30,7 +30,9 @@ class Briqpay_Request_ORM_Update extends Briqpay_Request_Post {
 		return apply_filters(
 			'briqpay_update_orm_order',
 			array(
-				'cart' => Briqpay_Helper_Order_Lines::get_order_lines( $order ),
+				'sessionid' => get_post_meta( $order->get_id(), '_briqpay_session_id', true ),
+				'amount'    => Briqpay_Helper_Order_Lines::get_order_amount( $order, false ),
+				'cart'      => Briqpay_Helper_Order_Lines::get_order_lines( $order ),
 			)
 		);
 	}

@@ -163,7 +163,17 @@ class Briqpay_API {
 	 * @return array|mixed
 	 */
 	public function update_briqpay_order_orm( $order_id ) {
-		$request  = new Briqpay_Request_ORM_Update( array( 'order_id' => $order_id ), true );
+		$request  = new Briqpay_Request_ORM_Update(
+			array(
+				'order_id'   => $order_id,
+				'session_id' => get_post_meta(
+					$order_id,
+					'_briqpay_session_id',
+					true
+				),
+			),
+			true
+		);
 		$response = $request->request();
 		return $this->check_for_api_error( $response );
 	}
