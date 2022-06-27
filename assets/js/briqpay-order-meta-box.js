@@ -24,35 +24,33 @@ jQuery(function ($) {
 
 		init: function () {
 			$('body').on('click', '#briqpay_show_rules', briqpayAdmin.toggleRules );
+			$('body').on('click', '.sync-btn-briqpay', briqpayAdmin.syncOrderBtn );
 
-			if ($(".sync-btn-briqpay")) {
-				var btn = document.querySelector('.sync-btn-briqpay');
+		},
 
-				btn.addEventListener('click', function(e) {
-					e.preventDefault();
-					$.ajax({
-						type: 'POST',
-						data: {
-							id: briqpayAdmin.getUrlParameter('post'),
-							nonce: briqpayParamsMeta.update_order_orm_url_nonce,
-						},
-						dataType: 'json',
-						url: briqpayParamsMeta.update_order_orm,
-						success: function (data) {
-							if(data.success) {
-								window.location.reload();
-							}
-						},
-						error: function (data) {
-							console.log(data);
-						},
-						complete: function (data) {
+		syncOrderBtn:function(e) {
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				data: {
+					id: briqpayAdmin.getUrlParameter('post'),
+					nonce: briqpayParamsMeta.update_order_orm_url_nonce,
+				},
+				dataType: 'json',
+				url: briqpayParamsMeta.update_order_orm,
+				success: function (data) {
+					if(data.success) {
+						window.location.reload();
+					}
+				},
+				error: function (data) {
+					console.log(data);
+				},
+				complete: function (data) {
 
-						}
-					});
-				});
-			}
-		}
+				}
+			});
+		},
 	}
 	briqpayAdmin.init();
 });
