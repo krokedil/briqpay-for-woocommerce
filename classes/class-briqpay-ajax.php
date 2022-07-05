@@ -29,7 +29,7 @@ class Briqpay_Ajax extends WC_AJAX {
 			'briqpay_wc_log_js'                => true,
 			'briqpay_wc_update_checkout'       => true,
 			'briqpay_wc_change_payment_method' => true,
-			'update_order_orm'                 => false,
+			'update_order_orm'                 => true,
 		);
 		foreach ( $ajax_events as $ajax_event => $nopriv ) {
 			add_action( 'wp_ajax_woocommerce_' . $ajax_event, array( __CLASS__, $ajax_event ) );
