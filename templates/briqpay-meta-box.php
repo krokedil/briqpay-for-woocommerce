@@ -21,7 +21,7 @@ if ( $order->get_status() === 'pending' && strtolower( $order->get_payment_metho
 		<p><b><?php echo esc_html( $item['title'] ); ?></b>: <?php echo esc_html( $item['value'] ); ?></p>
 		<?php
 	}
-	if ( get_post_meta( $order_id, '_briqpay_psp_updateOrderSupported', true ) ) {
+	if ( get_post_meta( $order_id, '_briqpay_psp_update_order_supported', true ) ) {
 		?>
 		<div>
 			<button class="button-primary sync-btn-briqpay">Sync order to Briqpay</button>

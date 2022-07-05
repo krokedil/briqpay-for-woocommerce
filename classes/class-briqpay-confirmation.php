@@ -94,7 +94,7 @@ class Briqpay_Confirmation {
 		$purchase_payment_method = $briqpay_order['purchasepaymentmethod'];
 		if ( isset( $purchase_payment_method['pspSupportedOrderOperations'] ) ) {
 			if ( true === $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] ) {
-				update_post_meta( $order_id, '_briqpay_psp_updateOrderSupported', $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] );
+				update_post_meta( $order_id, '_briqpay_psp_update_order_supported', $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] );
 			}
 		}
 
