@@ -154,6 +154,30 @@ class Briqpay_API {
 		return $this->check_for_api_error( $response );
 	}
 
+
+	/**
+	 * Update a completed order ( On hold )
+	 *
+	 * @param int $order_id The WooCommerce order id.
+	 *
+	 * @return array|mixed
+	 */
+	public function update_briqpay_order_orm( $order_id ) {
+		$request  = new Briqpay_Request_ORM_Update(
+			array(
+				'order_id'   => $order_id,
+				'session_id' => get_post_meta(
+					$order_id,
+					'_briqpay_session_id',
+					true
+				),
+			),
+			true
+		);
+		$response = $request->request();
+		return $this->check_for_api_error( $response );
+	}
+
 	/**
 	 * Checks for WP Errors and returns either the response as array or a false.
 	 *
