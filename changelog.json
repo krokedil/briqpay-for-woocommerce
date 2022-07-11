@@ -84,7 +84,7 @@
 	"upgrade_notice" : ""
   },
   "1.6.0": {
-	"description" : "<ul><li>Feature - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a \"Sync order to Briqpay\" button in the Briqpay order metabox. Only avilable for payment methods flagged as updateOrderSupported.</li></ul>",
+	"description" : "<ul><li>Feature - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a \"Sync order to Briqpay\" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.</li></ul>",
 	"requires" : "4.0.0",
 	"tested" : "6.0",
 	"upgrade_notice" : ""

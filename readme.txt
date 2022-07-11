@@ -27,7 +27,7 @@ With Briqpay, you are always in control of risk exposure.
 
 == Changelog ==
 = 2022.07.11    - version 1.6.0 =
-* Feature       - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a "Sync order to Briqpay" button in the Briqpay order metabox. Only avilable for payment methods flagged as updateOrderSupported.
+* Feature       - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a "Sync order to Briqpay" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.
 
 = 2022.04.13    - version 1.5.0 =
 * Feature       - Adds support for hosted payment pages through email or SMS.
