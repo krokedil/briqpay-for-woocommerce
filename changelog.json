@@ -88,5 +88,11 @@
 	"requires" : "4.0.0",
 	"tested" : "6.0",
 	"upgrade_notice" : ""
+  },
+  "1.6.1": {
+	"description" : "<ul><li>Tweak - Adds support for updating customer address in Sync order feature.</li><li>Tweak - Only display sync order button if Woo order status is On hold or Processing.</li><li>Fix - Display error message next to \"Sync order\" button if ajax request result in error.</li><li>Fix - Don't try to set session_id in Woo session if create_briqpay_order request results in a WP_Error.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "6.0",
+	"upgrade_notice" : ""
   }
 }

@@ -7,7 +7,7 @@ Tested up to: 6.0
 Requires PHP: 7.0
 WC requires at least: 4.0.0
 WC tested up to: 6.6.1
-Stable tag: 1.5.0
+Stable tag: 1.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,12 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.07.13    - version 1.6.1 =
+* Tweak         - Adds support for updating customer address in Sync order feature.
+* Tweak         - Only display sync order button if Woo order status is On hold or Processing.
+* Fix           - Display error message next to "Sync order" button if ajax request result in error.
+* Fix           - Don't try to set session_id in Woo session if create_briqpay_order request results in a WP_Error.
+
 = 2022.07.11    - version 1.6.0 =
 * Feature       - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a "Sync order to Briqpay" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.
 
