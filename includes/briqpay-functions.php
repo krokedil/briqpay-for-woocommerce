@@ -42,7 +42,7 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 
 	$briqpay_order = $api->create_briqpay_order();
 
-	if ( ! $briqpay_order ) {
+	if ( is_wp_error( $briqpay_order ) || ! isset( $briqpay_order['sessionid'] ) ) {
 		return;
 	}
 	$session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
