@@ -179,29 +179,30 @@ class Briqpay_Ajax extends WC_AJAX {
 	 * @return void
 	 */
 	public static function update_order_orm() {
+
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_key( $_POST['nonce'] ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'update_order_orm' ) ) {
 			wp_send_json_error( 'bad_nonce' );
 			exit;
 		}
+
 		$settings = get_option( 'woocommerce_briqpay_settings' );
 		$order_id = filter_input( INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT );
 		$order    = wc_get_order( $order_id );
 		if ( 'yes' !== $settings['order_management'] ) {
-			return;
+			wp_send_json_error( 'Briqpay order management is not activated.' );
+			wp_die();
 		}
 
 		if ( empty( $order->get_date_paid() ) ) {
-			return;
+			wp_send_json_error( 'Can not sync Briqpay order since it has not been marked as paid yet.' );
+			wp_die();
 		}
 
 		// Not going to do this for non-briqpay orders.
 		if ( 'briqpay' !== $order->get_payment_method() ) {
-			return;
-		}
-		// Changes are only possible if order is an allowed order status.
-		if ( 'on-hold' !== $order->get_status() ) {
-			return;
+			wp_send_json_error( 'Payment method is not Briqpay' );
+			wp_die();
 		}
 
 		$response = BRIQPAY()->api->update_briqpay_order_orm( $order_id );
@@ -214,6 +215,8 @@ class Briqpay_Ajax extends WC_AJAX {
 				$order_note .= ' ' . $error['reason'] . '.';
 				$order->add_order_note( $order_note );
 			}
+			wp_send_json_error( 'Could not update Briqpay order.' );
+			wp_die();
 		}
 		wp_send_json_success();
 		wp_die();
