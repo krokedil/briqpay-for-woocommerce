@@ -30,6 +30,7 @@ jQuery(function ($) {
 
 		syncOrderBtn:function(e) {
 			e.preventDefault();
+			$('.sync-btn-briqpay').addClass( 'disabled' );
 			$.ajax({
 				type: 'POST',
 				data: {
@@ -39,12 +40,17 @@ jQuery(function ($) {
 				dataType: 'json',
 				url: briqpayParamsMeta.update_order_orm,
 				success: function (data) {
+					console.log(data);
 					if(data.success) {
 						window.location.reload();
+					} else {
+						$('.sync-btn-briqpay').removeClass( 'disabled' );
+						$('.briqpay_sync_wrapper').append( '<div><i>' + data.data + '</i></div>' );
 					}
 				},
 				error: function (data) {
 					console.log(data);
+					console.log(data.statusText);
 				},
 				complete: function (data) {
 
