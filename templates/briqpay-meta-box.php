@@ -21,9 +21,9 @@ if ( $order->get_status() === 'pending' && strtolower( $order->get_payment_metho
 		<p><b><?php echo esc_html( $item['title'] ); ?></b>: <?php echo esc_html( $item['value'] ); ?></p>
 		<?php
 	}
-	if ( get_post_meta( $order_id, '_briqpay_psp_update_order_supported', true ) ) {
+	if ( get_post_meta( $order_id, '_briqpay_psp_update_order_supported', true ) && ( 'on-hold' === $order->get_status() || 'processing' === $order->get_status() ) ) {
 		?>
-		<div>
+		<div class="briqpay_sync_wrapper">
 			<button class="button-primary sync-btn-briqpay"><?php esc_html_e( 'Sync order to Briqpay', 'briqpay-for-woocommerce' ); ?></button>
 		</div>
 		<?php
