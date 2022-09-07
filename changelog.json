@@ -94,5 +94,11 @@
 	"requires" : "4.0.0",
 	"tested" : "6.0",
 	"upgrade_notice" : ""
+  },
+  "1.6.2": {
+	"description" : "<ul><li>Tweak - Sync order to Briqpay button now displayed for all order statuses except Completed.</li></ul>",
+	"requires" : "4.0.0",
+	"tested" : "6.0.2",
+	"upgrade_notice" : ""
   }
 }

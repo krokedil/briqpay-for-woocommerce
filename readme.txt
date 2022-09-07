@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.0.2
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 6.6.1
-Stable tag: 1.6.1
+WC tested up to: 6.8.2
+Stable tag: 1.6.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.09.07    - version 1.6.2 =
+* Tweak         - Sync order to Briqpay button now displayed for all order statuses except Completed.
+
 = 2022.07.13    - version 1.6.1 =
 * Tweak         - Adds support for updating customer address in Sync order feature.
 * Tweak         - Only display sync order button if Woo order status is On hold or Processing.
