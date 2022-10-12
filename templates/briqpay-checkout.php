@@ -27,6 +27,15 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 	return;
 }
+$show_snippet = false;
+$settings     = get_option( 'woocommerce_briqpay_settings' );
+if ( 'yes' === $settings['testmode'] ) {
+	if ( ! empty( $settings['test_merchant_id'] ) && ! empty( $settings['test_shared_secret'] ) ) {
+		$show_snippet = true;
+	}
+} elseif ( ! empty( $settings['merchant_id'] ) && ! empty( $settings['shared_secret'] ) ) {
+	$show_snippet = true;
+}
 ?>
 <form name="checkout" class="checkout woocommerce-checkout">
 	<?php do_action( 'briqpay_wc_before_wrapper' ); ?>
@@ -38,7 +47,9 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		</div>
 		<div id="briqpay-iframe-wrapper">
 			<?php do_action( 'briqpay_wc_before_snippet' ); ?>
-			<?php briqpay_wc_show_snippet(); ?>
+			<?php
+			( true === $show_snippet ) ? briqpay_wc_show_snippet() : wc_print_notice( 'The Briqpay Credentials are incorrect! Please enter the valid credentials and try again.', 'error' );
+			?>
 			<?php do_action( 'briqpay_wc_after_snippet' ); ?>
 		</div>
 	</div>

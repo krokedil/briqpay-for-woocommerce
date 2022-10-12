@@ -1,5 +1,8 @@
 /* global briqpayParams */
 jQuery(function ($) {
+	if (window.briqpayForWooCommerce === undefined || window.briqpayForWooCommerce === null) {
+		return false;
+	}
 	var briqpayForWooCommerce = {
 		bodyEl: $('body'),
 		checkoutFormSelector: 'form.checkout',
