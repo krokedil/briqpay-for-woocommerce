@@ -124,3 +124,22 @@ function briqpay_wc_show_another_gateway_button() {
 		<?php
 	}
 }
+
+/**
+ *
+ * Checks if credentials are empty
+ *
+ * @return bool
+ */
+function validate_credentials() {
+	$settings = get_option( 'woocommerce_briqpay_settings' );
+	if ( 'yes' === $settings['testmode'] ) {
+		if ( ! empty( $settings['test_merchant_id'] ) && ! empty( $settings['test_shared_secret'] ) ) {
+			return true;
+		}
+	} elseif ( ! empty( $settings['merchant_id'] ) && ! empty( $settings['shared_secret'] ) ) {
+		return true;
+	}
+
+	return false;
+}
