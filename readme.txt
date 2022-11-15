@@ -26,6 +26,11 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.11.15     - version 1.6.3 =
+* Fix            - Log the session id for each request.
+* Fix            - Fix errors and warring when credentials are incorrect or empty
+* Feature        - Add order id to the filter (briqpay_capture_args)
+
 = 2022.09.07    - version 1.6.2 =
 * Tweak         - Sync order to Briqpay button now displayed for all order statuses except Completed.
 
