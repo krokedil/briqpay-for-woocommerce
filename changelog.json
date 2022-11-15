@@ -100,5 +100,11 @@
 	"requires" : "4.0.0",
 	"tested" : "6.0.2",
 	"upgrade_notice" : ""
-  }
+  },
+    "1.6.3": {
+      "description": "<ul><li>Fix - Log the session id for each request.</li><li>Fix - Fix errors and warring when credentials are incorrect or empty</li><li>Feature - Add order id to the filter (briqpay_capture_args)</li></ul>",
+      "requires" : "4.0.0",
+      "tested" : "6.0.2",
+      "upgrade_notice" : ""
+    }
 }

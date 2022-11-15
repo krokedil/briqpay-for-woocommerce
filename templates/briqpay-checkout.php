@@ -12,6 +12,11 @@
  *
  * @var $checkout WC_Checkout
  */
+
+$validate_credentials = validate_credentials();
+if ( false === $validate_credentials ) {
+	wc_add_notice( __( 'The Briqpay Credentials are incorrect! Please enter the valid credentials and try again.', 'briqpay-for-woocommerce' ), 'error' );
+}
 wc_print_notices();
 
 do_action( 'woocommerce_before_checkout_form', WC()->checkout() );
@@ -38,7 +43,11 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		</div>
 		<div id="briqpay-iframe-wrapper">
 			<?php do_action( 'briqpay_wc_before_snippet' ); ?>
-			<?php briqpay_wc_show_snippet(); ?>
+			<?php
+			if ( true === $validate_credentials ) {
+				briqpay_wc_show_snippet();
+			}
+			?>
 			<?php do_action( 'briqpay_wc_after_snippet' ); ?>
 		</div>
 	</div>
