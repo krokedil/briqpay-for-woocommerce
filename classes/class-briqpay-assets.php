@@ -167,7 +167,7 @@ class Briqpay_Assets {
 		if ( 'woocommerce_page_wc-settings' !== $hook ) {
 			return;
 		}
-		$section = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_STRING );
+		$section = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		if ( empty( $section ) || 'briqpay' !== $section ) {
 			return;

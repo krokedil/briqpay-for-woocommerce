@@ -97,7 +97,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 *
 		 * @return void
 		 */
-		private function __wakeup() {
+		public function __wakeup() {
 			wc_doing_it_wrong( __FUNCTION__, __( 'Nope' ), '1.0' );
 		}
 
@@ -233,9 +233,14 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			return $methods;
 		}
 
+		/**
+		 * Checks for an updated version with kernl.
+		 *
+		 * @return void
+		 */
 		public function check_version() {
 			require 'kernl-update-checker/kernl-update-checker.php';
-			$update_checker = Puc_v4_Factory::buildUpdateChecker(
+			Puc_v4_Factory::buildUpdateChecker(
 				'https://kernl.us/api/v1/updates/603e1c23b163b9779f3c63b0/',
 				__FILE__,
 				'briqpay-for-woocommerce'

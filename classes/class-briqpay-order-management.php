@@ -218,7 +218,7 @@ class Briqpay_Order_Management {
 	 * @return void
 	 */
 	public function save_org_nr_to_order( $post_id ) {
-		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_STRING );
+		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_SPECIAL_CHARS );
 		update_post_meta( $post_id, '_billing_org_nr', $org_number );
 
 	}
