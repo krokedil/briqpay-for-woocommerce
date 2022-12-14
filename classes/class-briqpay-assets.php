@@ -161,6 +161,8 @@ class Briqpay_Assets {
 
 	/**
 	 * Loads admin CSS file.
+	 *
+	 * @param string $hook The current admin page.
 	 */
 	public function enqueue_admin_css( $hook ) {
 
