@@ -88,7 +88,7 @@ class Briqpay_Confirmation {
 		update_post_meta( $order_id, '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
 		update_post_meta( $order_id, '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
 		update_post_meta( $order_id, '_briqpay_autocapture', $briqpay_order['purchasepaymentmethod']['autocapture'] );
-		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ) );
+		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ?? array() ) );
 		update_post_meta( $order_id, '_billing_org_nr', $briqpay_order['orgnr'] );
 
 		$purchase_payment_method = $briqpay_order['purchasepaymentmethod'];
