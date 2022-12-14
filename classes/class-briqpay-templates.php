@@ -135,7 +135,7 @@ class Briqpay_Templates {
 	public function check_that_briqpay_template_has_loaded() {
 		if ( is_checkout() && array_key_exists( 'briqpay', WC()->payment_gateways->get_available_payment_gateways() )
 		// && 'briqpay' === briqpay_wc_get_selected_payment_method()
-		&& ( method_exists( WC()->cart, 'needs_payment' ) && WC()->cart->needs_payment() ) ) {
+		&& ( method_exists( WC()->cart ?? new stdClass(), 'needs_payment' ) && WC()->cart->needs_payment() ) ) {
 
 			// Get checkout object.
 			$checkout = WC()->checkout();
@@ -216,7 +216,7 @@ class Briqpay_Templates {
 	 */
 	public function briqpay_wc_unrequire_wc_billing_state_field( $fields ) {
 		// If we dont have a WC->session set, then return.
-		if ( null === WC()->session || ! method_exists( WC()->session, 'get' ) ) {
+		if ( ! method_exists( WC()->session ?? new stdClass(), 'get' ) ) {
 			return $fields;
 		}
 
@@ -237,7 +237,7 @@ class Briqpay_Templates {
 	 */
 	public function briqpay_wc_unrequire_wc_shipping_state_field( $fields ) {
 		// If we dont have a WC->session set, then return.
-		if ( null === WC()->session || ! method_exists( WC()->session, 'get' ) ) {
+		if ( ! method_exists( WC()->session ?? new stdClass(), 'get' ) ) {
 			return $fields;
 		}
 

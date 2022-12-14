@@ -76,7 +76,7 @@ class Briqpay_Assets {
 		}
 
 		$email_exists = 'no';
-		if ( method_exists( WC()->customer, 'get_billing_email' ) && ! empty( WC()->customer->get_billing_email() ) ) {
+		if ( method_exists( WC()->customer ?? new stdClass(), 'get_billing_email' ) && ! empty( WC()->customer->get_billing_email() ) ) {
 			if ( email_exists( WC()->customer->get_billing_email() ) ) {
 				// Email exist in a user account.
 				$email_exists = 'yes';
