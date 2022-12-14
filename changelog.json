@@ -1,110 +1,116 @@
 {
-	"1.0.0" : {
-		"description" : "<ul><li>Initial release of the plugin</li></ul>",
-		"requires" : "4.0.0",
-		"tested" : "5.6.1",
-		"upgrade_notice" : ""
-  },
-  "1.0.1": {
-	"description" : "<ul><li>Enhancement - Add change payment method button.</li><li>Enhancement - We now save and display the org nr in the order.</li><li>Fix - We now save the company name to the order.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.6.1",
-	"upgrade_notice" : ""
-  },
-  "1.0.2": {
-	"description" : "<ul><li>Enhancement - Added seperate filters for create, update and refund requests to Billmate.</li><li>Enhancement - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.0",
-	"upgrade_notice" : ""
-  },
-  "1.0.3": {
-	"description" : "<ul><li>Fix - Fix the live API endpoint to the correct URL.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.0",
-	"upgrade_notice" : ""
-  },
-  "1.1.0": {
-	"description" : "<ul><li>Feature - Added settings for creditscoring and maxamount.</li><li>Fix - Delete bearer token (stored as WP transient) on saved plugin settings.</li><li>Fix - Coding standards fix.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.0",
-	"upgrade_notice" : ""
-  },
-  "1.1.1": {
-	"description" : "<ul><li>Fix - Improved CSS to display checkout correctly in mobile view.</li><li>Fix - Avoid fatal error in checkout when calculate_auth fails.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.0",
-	"upgrade_notice" : ""
-  },
-  "1.1.2": {
-	"description" : "<ul><li>Enhancement - We now save the second address lines for both shipping and billing addresses.</li><li>Enhancement - We also save the shipping phone and email to the WooCommerce order and display them on the admin page for the order.</li><li>Enhancement - Added a metabox which show the payment method name, the PSP name of the payment method used, and any failed credit rules that the customer experienced for the order.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.0",
-	"upgrade_notice" : ""
-  },
-  "1.2.0": {
-	"description" : "<ul><li>Feature- Enable handling of autocaptured orders from Briqpay. If the order has been autocaptured by Briqpay already, we will not attempt to capture it when the order is set to completed in WooCommerce.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.2",
-	"upgrade_notice" : ""
-  },
-  "1.2.1": {
-	"description" : "<ul><li>Tweak - Improved logging.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.7.2",
-	"upgrade_notice" : ""
-  },
-  "1.2.2": {
-	"description" : "<ul><li>Fix - Fixes potential Shipping company name bug (if separate billing and shipping adress is entered by customer in checkout).</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.8",
-	"upgrade_notice" : ""
-  },
-  "1.3.0": {
-	"description" : "<ul><li>Feature - The 15 last failed API requests to Bripay will now be shown on the system status page..</li><li>Feature - The order page meta box for Briqpay can now be modified with the filter 'briqpay_meta_box_keys'.</li><li>Enhancement - Add a sidebar to the settings page with documentation and support links..</li><li>Fix - Fixed divide by zero error when calculating shipping taxes..</li><li>Fix - Fixed an issue with already processed orders being set to processing again after the callback from Briqpay is triggered..</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.8",
-	"upgrade_notice" : ""
-  },
-  "1.3.1": {
-	"description" : "<ul><li>Tweak - Removed 'Briqpay' from the payment method title for created orders.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.8",
-	"upgrade_notice" : ""
-  },
-  "1.4.0": {
-	"description" : "<ul><li>Feature - Add support for Briqpay API v2.0.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.9.2",
-	"upgrade_notice" : ""
-  },
-  "1.5.0": {
-	"description" : "<ul><li>Feature - Adds support for hosted payment pages through email or SMS.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "5.9.3",
-	"upgrade_notice" : ""
-  },
-  "1.6.0": {
-	"description" : "<ul><li>Feature - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a \"Sync order to Briqpay\" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "6.0",
-	"upgrade_notice" : ""
-  },
-  "1.6.1": {
-	"description" : "<ul><li>Tweak - Adds support for updating customer address in Sync order feature.</li><li>Tweak - Only display sync order button if Woo order status is On hold or Processing.</li><li>Fix - Display error message next to \"Sync order\" button if ajax request result in error.</li><li>Fix - Don't try to set session_id in Woo session if create_briqpay_order request results in a WP_Error.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "6.0",
-	"upgrade_notice" : ""
-  },
-  "1.6.2": {
-	"description" : "<ul><li>Tweak - Sync order to Briqpay button now displayed for all order statuses except Completed.</li></ul>",
-	"requires" : "4.0.0",
-	"tested" : "6.0.2",
-	"upgrade_notice" : ""
-  },
-    "1.6.3": {
-      "description": "<ul><li>Fix - Log the session id for each request.</li><li>Fix - Fix errors and warring when credentials are incorrect or empty</li><li>Feature - Add order id to the filter (briqpay_capture_args)</li></ul>",
-      "requires" : "4.0.0",
-      "tested" : "6.0.2",
-      "upgrade_notice" : ""
-    }
+	"1.0.0": {
+		"description": "<ul><li>Initial release of the plugin</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.6.1",
+		"upgrade_notice": ""
+	},
+	"1.0.1": {
+		"description": "<ul><li>Enhancement - Add change payment method button.</li><li>Enhancement - We now save and display the org nr in the order.</li><li>Fix - We now save the company name to the order.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.6.1",
+		"upgrade_notice": ""
+	},
+	"1.0.2": {
+		"description": "<ul><li>Enhancement - Added seperate filters for create, update and refund requests to Billmate.</li><li>Enhancement - We now save the PSP name from Billmate to the order in the meta field _briqpay_psp_name</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.0",
+		"upgrade_notice": ""
+	},
+	"1.0.3": {
+		"description": "<ul><li>Fix - Fix the live API endpoint to the correct URL.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.0",
+		"upgrade_notice": ""
+	},
+	"1.1.0": {
+		"description": "<ul><li>Feature - Added settings for creditscoring and maxamount.</li><li>Fix - Delete bearer token (stored as WP transient) on saved plugin settings.</li><li>Fix - Coding standards fix.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.0",
+		"upgrade_notice": ""
+	},
+	"1.1.1": {
+		"description": "<ul><li>Fix - Improved CSS to display checkout correctly in mobile view.</li><li>Fix - Avoid fatal error in checkout when calculate_auth fails.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.0",
+		"upgrade_notice": ""
+	},
+	"1.1.2": {
+		"description": "<ul><li>Enhancement - We now save the second address lines for both shipping and billing addresses.</li><li>Enhancement - We also save the shipping phone and email to the WooCommerce order and display them on the admin page for the order.</li><li>Enhancement - Added a metabox which show the payment method name, the PSP name of the payment method used, and any failed credit rules that the customer experienced for the order.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.0",
+		"upgrade_notice": ""
+	},
+	"1.2.0": {
+		"description": "<ul><li>Feature- Enable handling of autocaptured orders from Briqpay. If the order has been autocaptured by Briqpay already, we will not attempt to capture it when the order is set to completed in WooCommerce.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.2",
+		"upgrade_notice": ""
+	},
+	"1.2.1": {
+		"description": "<ul><li>Tweak - Improved logging.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.7.2",
+		"upgrade_notice": ""
+	},
+	"1.2.2": {
+		"description": "<ul><li>Fix - Fixes potential Shipping company name bug (if separate billing and shipping adress is entered by customer in checkout).</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.8",
+		"upgrade_notice": ""
+	},
+	"1.3.0": {
+		"description": "<ul><li>Feature - The 15 last failed API requests to Bripay will now be shown on the system status page..</li><li>Feature - The order page meta box for Briqpay can now be modified with the filter 'briqpay_meta_box_keys'.</li><li>Enhancement - Add a sidebar to the settings page with documentation and support links..</li><li>Fix - Fixed divide by zero error when calculating shipping taxes..</li><li>Fix - Fixed an issue with already processed orders being set to processing again after the callback from Briqpay is triggered..</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.8",
+		"upgrade_notice": ""
+	},
+	"1.3.1": {
+		"description": "<ul><li>Tweak - Removed 'Briqpay' from the payment method title for created orders.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.8",
+		"upgrade_notice": ""
+	},
+	"1.4.0": {
+		"description": "<ul><li>Feature - Add support for Briqpay API v2.0.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.9.2",
+		"upgrade_notice": ""
+	},
+	"1.5.0": {
+		"description": "<ul><li>Feature - Adds support for hosted payment pages through email or SMS.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "5.9.3",
+		"upgrade_notice": ""
+	},
+	"1.6.0": {
+		"description": "<ul><li>Feature - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a \"Sync order to Briqpay\" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "6.0",
+		"upgrade_notice": ""
+	},
+	"1.6.1": {
+		"description": "<ul><li>Tweak - Adds support for updating customer address in Sync order feature.</li><li>Tweak - Only display sync order button if Woo order status is On hold or Processing.</li><li>Fix - Display error message next to \"Sync order\" button if ajax request result in error.</li><li>Fix - Don't try to set session_id in Woo session if create_briqpay_order request results in a WP_Error.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "6.0",
+		"upgrade_notice": ""
+	},
+	"1.6.2": {
+		"description": "<ul><li>Tweak - Sync order to Briqpay button now displayed for all order statuses except Completed.</li></ul>",
+		"requires": "4.0.0",
+		"tested": "6.0.2",
+		"upgrade_notice": ""
+	},
+	"1.6.3": {
+		"description": "<ul><li>Fix - Log the session id for each request.</li><li>Fix - Fix errors and warring when credentials are incorrect or empty</li><li>Feature - Add order id to the filter (briqpay_capture_args)</li></ul>",
+		"requires": "4.0.0",
+		"tested": "6.0.2",
+		"upgrade_notice": ""
+	},
+	"1.6.4": {
+		"description": "<ul><li>Fix - Fixed compatability with PHP 8.x and higher.</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.1.1",
+		"upgrade_notice": ""
+	}
 }

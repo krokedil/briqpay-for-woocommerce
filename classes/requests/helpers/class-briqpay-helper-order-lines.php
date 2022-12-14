@@ -271,7 +271,7 @@ class Briqpay_Helper_Order_Lines {
 	/**
 	 * Returns a product type.
 	 *
-	 * @param WC_Order_Item $order_item WC order item.
+	 * @param WC_Order_Item_Product $order_item WC order item.
 	 *
 	 * @return string
 	 */

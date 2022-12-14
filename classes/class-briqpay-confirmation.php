@@ -45,8 +45,8 @@ class Briqpay_Confirmation {
 	 * Confirm order
 	 */
 	public function briqpay_confirm_order() {
-		$briqpay_confirm = filter_input( INPUT_GET, 'briqpay_confirm', FILTER_SANITIZE_STRING );
-		$order_key       = filter_input( INPUT_GET, 'key', FILTER_SANITIZE_STRING );
+		$briqpay_confirm = filter_input( INPUT_GET, 'briqpay_confirm', FILTER_SANITIZE_SPECIAL_CHARS );
+		$order_key       = filter_input( INPUT_GET, 'key', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		// Return if we dont have our parameters set.
 		if ( empty( $briqpay_confirm ) || empty( $order_key ) ) {
@@ -88,7 +88,7 @@ class Briqpay_Confirmation {
 		update_post_meta( $order_id, '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
 		update_post_meta( $order_id, '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
 		update_post_meta( $order_id, '_briqpay_autocapture', $briqpay_order['purchasepaymentmethod']['autocapture'] );
-		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ) );
+		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ?? array() ) );
 		update_post_meta( $order_id, '_billing_org_nr', $briqpay_order['orgnr'] );
 
 		$purchase_payment_method = $briqpay_order['purchasepaymentmethod'];

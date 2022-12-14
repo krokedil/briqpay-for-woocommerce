@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 6.0.2
+Tested up to: 6.1.1
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 6.8.2
-Stable tag: 1.6.2
+WC tested up to: 7.2.0
+Stable tag: 1.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Briqpay for WooCommerce is an embedded checkout for B2B sales where you as a merchant can offer the payment method you prefer, locally or globally, including your own invoice.
 
 == Why choose Briqpay? ==
-You have identified that you have different customers who prefer different payment methods. You may want to include your own billing to a greater extent to provide a higher level of service or reduce high transaction fees. 
+You have identified that you have different customers who prefer different payment methods. You may want to include your own billing to a greater extent to provide a higher level of service or reduce high transaction fees.
 Briqpay also has credit information services in the platform so that you can control payment methods on creditworthiness, amounts, product, etc., which makes it possible to offer new customers to buy against an invoice or other payment method.
 With Briqpay, you are always in control of risk exposure.
 
@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.12.14     - version 1.6.4 =
+* Fix            - Fixed compatability with PHP 8.x and higher.
+
 = 2022.11.15     - version 1.6.3 =
 * Fix            - Log the session id for each request.
 * Fix            - Fix errors and warring when credentials are incorrect or empty

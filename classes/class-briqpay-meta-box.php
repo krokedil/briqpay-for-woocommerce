@@ -75,7 +75,7 @@ class Briqpay_Meta_Box {
 	 * @return void
 	 */
 	public function briqpay_hpp_save_handler( $post_id ) {
-		$hpp = filter_input( INPUT_POST, 'briqpay_hpp_send_field', FILTER_SANITIZE_STRING );
+		$hpp = filter_input( INPUT_POST, 'briqpay_hpp_send_field', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		if ( empty( $hpp ) ) {
 			return;

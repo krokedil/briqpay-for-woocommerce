@@ -29,7 +29,7 @@ class Briqpay_Callbacks {
 	 */
 	public function notification_cb() {
 		$order_id           = '';
-		$briqpay_session_id = filter_input( INPUT_GET, 'sessionid', FILTER_SANITIZE_STRING );
+		$briqpay_session_id = filter_input( INPUT_GET, 'sessionid', FILTER_SANITIZE_SPECIAL_CHARS );
 		if ( ! empty( $briqpay_session_id ) ) {
 			$query_args = array(
 				'fields'       => 'ids',
@@ -76,8 +76,8 @@ class Briqpay_Callbacks {
 			)
 		);
 
-		if ( 'purchasecomplete' !== $briqpay_order['state'] &&  
-		'paymentprocessing' !== $briqpay_order['state'] &&  
+		if ( 'purchasecomplete' !== $briqpay_order['state'] &&
+		'paymentprocessing' !== $briqpay_order['state'] &&
 		'purchaserejected' !== $briqpay_order['state']  ) {
 			return;
 		}
@@ -91,7 +91,7 @@ class Briqpay_Callbacks {
 				);
 				$order->set_status( 'on-hold' );
 				$order->save();
-				
+
 				return;
 		}
 

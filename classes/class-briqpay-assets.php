@@ -76,7 +76,7 @@ class Briqpay_Assets {
 		}
 
 		$email_exists = 'no';
-		if ( method_exists( WC()->customer, 'get_billing_email' ) && ! empty( WC()->customer->get_billing_email() ) ) {
+		if ( method_exists( WC()->customer ?? new stdClass(), 'get_billing_email' ) && ! empty( WC()->customer->get_billing_email() ) ) {
 			if ( email_exists( WC()->customer->get_billing_email() ) ) {
 				// Email exist in a user account.
 				$email_exists = 'yes';
@@ -161,13 +161,15 @@ class Briqpay_Assets {
 
 	/**
 	 * Loads admin CSS file.
+	 *
+	 * @param string $hook The current admin page.
 	 */
 	public function enqueue_admin_css( $hook ) {
 
 		if ( 'woocommerce_page_wc-settings' !== $hook ) {
 			return;
 		}
-		$section = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_STRING );
+		$section = filter_input( INPUT_GET, 'section', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		if ( empty( $section ) || 'briqpay' !== $section ) {
 			return;
