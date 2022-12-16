@@ -42,7 +42,7 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 
 	$briqpay_order = $api->create_briqpay_order();
 
-	if ( ! $briqpay_order ) {
+	if ( is_wp_error( $briqpay_order ) || ! isset( $briqpay_order['sessionid'] ) ) {
 		return;
 	}
 	$session->set( 'briqpay_session_id', $briqpay_order['sessionid'] );
@@ -50,7 +50,14 @@ function briqpay_create_or_update_order( int $order_id = 0 ) {
 	return $briqpay_order;
 }
 
-function send_briqpay_hpp_link( $order_id, $type ) {
+/**
+ * Create a Briqpay HPP Order.
+ *
+ * @param int    $order_id The WooCommerce order id.
+ * @param string $type The type of HPP. Email or SMS.
+ * @return array
+ */
+function create_hpp_order( $order_id, $type ) {
 	$api           = BRIQPAY()->api;
 	$briqpay_order = $api->create_briqpay_hpp( $order_id, $type );
 	return $briqpay_order;
@@ -81,6 +88,9 @@ function is_briqpay_confirmation() {
  * @return void
  */
 function briqpay_extract_error_message( $wp_error ) {
+	if ( is_admin() ) {
+		return;
+	}
 	wc_add_notice( $wp_error->get_error_message(), 'error' );
 }
 
@@ -113,4 +123,23 @@ function briqpay_wc_show_another_gateway_button() {
 		</p>
 		<?php
 	}
+}
+
+/**
+ *
+ * Checks if credentials are empty
+ *
+ * @return bool
+ */
+function validate_credentials() {
+	$settings = get_option( 'woocommerce_briqpay_settings' );
+	if ( 'yes' === $settings['testmode'] ) {
+		if ( ! empty( $settings['test_merchant_id'] ) && ! empty( $settings['test_shared_secret'] ) ) {
+			return true;
+		}
+	} elseif ( ! empty( $settings['merchant_id'] ) && ! empty( $settings['shared_secret'] ) ) {
+		return true;
+	}
+
+	return false;
 }

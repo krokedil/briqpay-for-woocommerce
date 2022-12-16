@@ -54,7 +54,7 @@ class Briqpay_Settings_Page {
 									<p id="briqpay-settings-sidebar-logo-follow-up-text">
 										Developed by:
 									</p>
-									<img id="briqpay-settings-sidebar-krokedil-logo-right" 
+									<img id="briqpay-settings-sidebar-krokedil-logo-right"
 									src="<?php echo esc_url( BRIQPAY_WC_PLUGIN_URL ); ?>/assets/img/krokedil-logo-color.png">
 								</div>
 					</div>

@@ -26,6 +26,9 @@ class Briqpay_Order_Management {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_order_status_completed', array( $this, 'activate_reservation' ) );
+		add_filter( 'woocommerce_get_checkout_payment_url', array( $this, 'replace_payment_url' ), 10, 2 );
+		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'add_order_org_number_field' ) );
+		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'save_org_nr_to_order' ), 45, 2 );
 		$this->settings = get_option( 'woocommerce_briqpay_settings' );
 	}
 
@@ -49,7 +52,6 @@ class Briqpay_Order_Management {
 			return;
 		}
 
-		
 		// Check if we have a payment id.
 		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
 		if ( empty( $session_id ) ) {
@@ -57,23 +59,23 @@ class Briqpay_Order_Management {
 				__(
 					'Briqpay reservation could not be activated. Missing Briqpay session id.',
 					'briqpay-for-woocommerce'
-					)
-				);
+				)
+			);
 				$order->set_status( 'on-hold' );
 				$order->save();
-				
+
 				return;
-			}
-			
+		}
+
 		// Check if this is an autocaptured order or not.
 		$autocapture = get_post_meta( $order_id, '_briqpay_autocapture', true );
-		if( !empty( $autocapture ) && $autocapture ) {
+		if ( ! empty( $autocapture ) && $autocapture ) {
 			$order->add_order_note(
 				__(
 					'Briqpay order has been autocaptured by Briqpay.',
 					'briqpay-for-woocommerce'
-					)
-				);
+				)
+			);
 			return;
 		}
 
@@ -121,7 +123,11 @@ class Briqpay_Order_Management {
 
 
 	/**
+	 * Process refunds for Briqpay.
 	 *
+	 * @param int   $order_id The WooCommerce order id.
+	 * @param float $amount The amount to be refunded.
+	 * @return bool
 	 */
 	public function refund( $order_id, $amount ) {
 		$query_args = array(
@@ -160,5 +166,60 @@ class Briqpay_Order_Management {
 
 	}
 
+	/**
+	 * Maybe replaces the payment URL for HPP orders.
+	 *
+	 * @param string   $url The Order payment url.
+	 * @param WC_Order $order The WooCommerce order.
+	 * @return string
+	 */
+	public function replace_payment_url( $url, $order ) {
+		if ( 'briqpay' !== $order->get_payment_method() ) {
+			return $url;
+		}
 
+		$hpp_url = get_post_meta( $order->get_id(), '_briqpay_hpp_url', true );
+
+		if ( ! empty( $hpp_url ) ) {
+			$url = $hpp_url;
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Shows the Organization Number for the order.
+	 *
+	 * @param WC_Order $order The WooCommerce order.
+	 * @return void
+	 */
+	public function add_order_org_number_field( $order ) {
+		?>
+		<div class="order_data_column" style="clear:both; float:none; width:100%;">
+				<div class="edit_address">
+					<?php
+						woocommerce_wp_text_input(
+							array(
+								'id'            => '_billing_org_nr',
+								'label'         => __( 'Billing Organization Number', 'briqpay-for-woocommerce' ),
+								'wrapper_class' => '_billing_company_field',
+							)
+						);
+					?>
+				</div>
+			</div>
+		<?php
+	}
+
+	/**
+	 * Saves the Billing org number.
+	 *
+	 * @param int $post_id WordPress post id.
+	 * @return void
+	 */
+	public function save_org_nr_to_order( $post_id ) {
+		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_SPECIAL_CHARS );
+		update_post_meta( $post_id, '_billing_org_nr', $org_number );
+
+	}
 }

@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 5.9.2
+Tested up to: 6.1.1
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 6.3.1
-Stable tag: 1.4.0
+WC tested up to: 7.2.0
+Stable tag: 1.6.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Briqpay for WooCommerce is an embedded checkout for B2B sales where you as a merchant can offer the payment method you prefer, locally or globally, including your own invoice.
 
 == Why choose Briqpay? ==
-You have identified that you have different customers who prefer different payment methods. You may want to include your own billing to a greater extent to provide a higher level of service or reduce high transaction fees. 
+You have identified that you have different customers who prefer different payment methods. You may want to include your own billing to a greater extent to provide a higher level of service or reduce high transaction fees.
 Briqpay also has credit information services in the platform so that you can control payment methods on creditworthiness, amounts, product, etc., which makes it possible to offer new customers to buy against an invoice or other payment method.
 With Briqpay, you are always in control of risk exposure.
 
@@ -26,6 +26,29 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2022.12.14     - version 1.6.4 =
+* Fix            - Fixed compatability with PHP 8.x and higher.
+
+= 2022.11.15     - version 1.6.3 =
+* Fix            - Log the session id for each request.
+* Fix            - Fix errors and warring when credentials are incorrect or empty
+* Feature        - Add order id to the filter (briqpay_capture_args)
+
+= 2022.09.07    - version 1.6.2 =
+* Tweak         - Sync order to Briqpay button now displayed for all order statuses except Completed.
+
+= 2022.07.13    - version 1.6.1 =
+* Tweak         - Adds support for updating customer address in Sync order feature.
+* Tweak         - Only display sync order button if Woo order status is On hold or Processing.
+* Fix           - Display error message next to "Sync order" button if ajax request result in error.
+* Fix           - Don't try to set session_id in Woo session if create_briqpay_order request results in a WP_Error.
+
+= 2022.07.11    - version 1.6.0 =
+* Feature       - Add support for edit order from WooCommerce to Briqpay before order is captured. This is done via a "Sync order to Briqpay" button in the Briqpay order metabox. Only available for payment methods flagged as updateOrderSupported.
+
+= 2022.04.13    - version 1.5.0 =
+* Feature       - Adds support for hosted payment pages through email or SMS.
+
 = 2022.03.17    - version 1.4.0 =
 * Feature       - Add support for Briqpay API v2.0.
 

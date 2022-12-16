@@ -11,9 +11,12 @@ class Briqpay_Request_Create_HPP extends Briqpay_Request_Post {
 
 	/**
 	 * Class constructor.
+	 *
+	 * @param array $args The request args.
+	 * @param bool  $new_token If we need to create a new token.
 	 */
-	public function __construct($args,$new_token) {
-		parent::__construct($args,$new_token);
+	public function __construct( $args, $new_token ) {
+		parent::__construct( $args, $new_token );
 		$this->log_title = 'Create a HPP session';
 	}
 	/**
@@ -22,13 +25,18 @@ class Briqpay_Request_Create_HPP extends Briqpay_Request_Post {
 	 * @return array
 	 */
 	protected function get_body() {
-	
 		return apply_filters(
 			'briqpay_create_hpp_args',
 			array(
-				'checkoutsessionid'       => $this->arguments["session_id"],
-				'deliverymethod'         => array( "type" => $this->arguments["destination_type"], "destination" => $this->arguments["destination"]),
-				'config' => array("showcart" => true, "logoUrl" =>"https://test.com")
+				'checkoutsessionid' => $this->arguments['session_id'],
+				'deliverymethod'    => array(
+					'type'        => $this->arguments['destination_type'],
+					'destination' => $this->arguments['destination'],
+				),
+				'config'            => array(
+					'showcart' => true,
+					'logoUrl'  => apply_filters( 'biqpay_hpp_logo_url', '' ),
+				),
 			)
 		);
 	}

@@ -259,7 +259,8 @@ abstract class Briqpay_Request {
 		$title  = $this->log_title;
 		$code   = wp_remote_retrieve_response_code( $response );
 
-		$session_id = isset( $response['sessionid'] ) ? $response['sessionid'] : null;
+		$body       = json_decode( $response['body'], true );
+		$session_id = $body['sessionid'] ?? null;
 		Briqpay_Logger::format_log( $session_id, $method, $title, $request_url, $request_args, $response, $code );
 	}
 }

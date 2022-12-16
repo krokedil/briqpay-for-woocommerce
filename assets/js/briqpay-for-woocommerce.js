@@ -9,18 +9,21 @@ jQuery(function ($) {
 
 		init: function () {
 			if( this.checkIfBriqpaySelected() ) {
-				window._briqpay.subscribe("purchasepressed", function() { briqpayForWooCommerce.getBriqpayOrder(1) });
-				window._briqpay.subscribe("before-purchase", function() { briqpayForWooCommerce.getBriqpayOrder(2) });
-				window._briqpay.subscribe("addressupdate", function (data) {
-					briqpayForWooCommerce.updateAddress(data);
-				})
-				// Update Checkout.
-				briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
-				briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
-					briqpayForWooCommerce.suspend();
-				});
-				$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
-				briqpayForWooCommerce.bodyEl.on( 'click', briqpayForWooCommerce.selectAnotherSelector, briqpayForWooCommerce.changeFromBriqpay );
+				if (window.hasOwnProperty('_briqpay')) {
+					window._briqpay.subscribe("purchasepressed", function() { briqpayForWooCommerce.getBriqpayOrder(1) });
+					window._briqpay.subscribe("before-purchase", function() { briqpayForWooCommerce.getBriqpayOrder(2) });
+					window._briqpay.subscribe("paymentProcessCancelled", function() { briqpayForWooCommerce.unlockCheckout(); })
+					window._briqpay.subscribe("addressupdate", function (data) {
+						briqpayForWooCommerce.updateAddress(data);
+					})
+					// Update Checkout.
+					briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
+					briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
+						briqpayForWooCommerce.suspend();
+					});
+					$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
+					briqpayForWooCommerce.bodyEl.on( 'click', briqpayForWooCommerce.selectAnotherSelector, briqpayForWooCommerce.changeFromBriqpay );
+				}
 			}
 			briqpayForWooCommerce.bodyEl.on( 'change', 'input[name="payment_method"]', briqpayForWooCommerce.maybeChangeToBriqpay );
 
@@ -215,10 +218,7 @@ jQuery(function ($) {
 			briqpayForWooCommerce.handlePurchaseResult(version, false)
 
 			// Renable the form.
-			$( 'body' ).trigger( 'updated_checkout' );
-			$( briqpayForWooCommerce.checkoutFormSelector ).removeClass( 'processing' );
-			$( briqpayForWooCommerce.checkoutFormSelector ).unblock();
-			$( '.woocommerce-checkout-review-order-table' ).unblock();
+			briqpayForWooCommerce.unlockCheckout();
 
 			// Print error messages, and trigger checkout_error, and scroll to notices.
 			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();
@@ -324,6 +324,16 @@ jQuery(function ($) {
 				}
 			} 
 			return false;
+		},
+
+		/**
+		 * Unlock the WooCommerce checkout for the customer.
+		 */
+		unlockCheckout: function() {
+			$( 'body' ).trigger( 'updated_checkout' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).removeClass( 'processing' );
+			$( briqpayForWooCommerce.checkoutFormSelector ).unblock();
+			$( '.woocommerce-checkout-review-order-table' ).unblock();
 		},
 	};
 
