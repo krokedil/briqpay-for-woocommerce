@@ -24,12 +24,15 @@ class Briqpay_Helper_Merchant_Config {
 	 *
 	 * @return array
 	 */
-	public static function get_config( $order_id = null ) {
+	public static function get_config( $order_id = null, $purchase_decision_enabled = true ) {
 		$settings = get_option( 'woocommerce_briqpay_settings' );
 		$config   = array(
 			'creditscoring' => isset( $settings['creditscoring'] ) && 'yes' === $settings['creditscoring'] ? true : false,
 			'maxamount'     => isset( $settings['maxamount'] ) && 'yes' === $settings['maxamount'] ? true : false,
+			'payment'       => array(
+				'purchaseDecision' => array( 'enabled' => $purchase_decision_enabled ),
+			),
 		);
-		return apply_filters( 'briqpay_merchant_config', $config );
+			return apply_filters( 'briqpay_merchant_config', $config );
 	}
 }
