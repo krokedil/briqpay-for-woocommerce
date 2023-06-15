@@ -33,6 +33,6 @@ class Briqpay_Helper_Merchant_Config {
 				'purchaseDecision' => array( 'enabled' => $purchase_decision_enabled ),
 			),
 		);
-			return apply_filters( 'briqpay_merchant_config', $config );
+		return apply_filters( 'briqpay_merchant_config', $config );
 	}
 }
