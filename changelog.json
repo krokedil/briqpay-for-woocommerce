@@ -112,5 +112,11 @@
 		"requires": "5.0.0",
 		"tested": "6.1.1",
 		"upgrade_notice": ""
+	},
+	"1.6.5": {
+		"description": "<ul><li>Enhancement - Added separate filter for predefined order creation arguments to Briqpay. You can now use the filter 'briqpay_predefined_order_create_args' instead of 'briqpay_create_args' to specifically target hosted payment page orders.</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.2.2",
+		"upgrade_notice": ""
 	}
 }
