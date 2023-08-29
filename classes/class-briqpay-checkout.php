@@ -35,6 +35,7 @@ class Briqpay_Checkout
 		$session_id = WC()->session->get( 'briqpay_session_id' );
 		if ( empty( $session_id ) ) {
 			Briqpay_Logger::log( 'Missing WC session briqpay_session_id during update Briqpay order sequence.' );
+			WC()->session->reload_checkout = true;
 			return;
 		}
 
