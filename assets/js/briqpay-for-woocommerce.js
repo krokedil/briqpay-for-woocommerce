@@ -17,10 +17,13 @@ jQuery(function ($) {
 						briqpayForWooCommerce.updateAddress(data);
 					})
 					// Update Checkout.
-					briqpayForWooCommerce.bodyEl.on('updated_checkout', briqpayForWooCommerce.updateBriqpayOrder);
 					briqpayForWooCommerce.bodyEl.on('update_checkout', function () {
 						briqpayForWooCommerce.suspend();
 					});
+					briqpayForWooCommerce.bodyEl.on('updated_checkout', function () {
+						briqpayForWooCommerce.resume();
+					});
+
 					$(document).ready( briqpayForWooCommerce.moveExtraCheckoutFields() );
 					briqpayForWooCommerce.bodyEl.on( 'click', briqpayForWooCommerce.selectAnotherSelector, briqpayForWooCommerce.changeFromBriqpay );
 				}
@@ -193,26 +196,6 @@ jQuery(function ($) {
 				}
 			);
 		},
-
-		updateBriqpayOrder: function () {
-			$.ajax({
-				type: 'POST',
-				url: briqpayParams.update_order_url,
-				data: {
-					nonce: briqpayParams.update_order_nonce
-				},
-				dataType: 'json',
-				success: function (data) {
-				},
-				error: function (data) {
-				},
-				complete: function (data) {
-					let result = data.responseJSON;
-					briqpayForWooCommerce.resume();
-				}
-			});
-		},
-
 		failOrder: function( event, error_message, version ) {
 			// Send false and cancel
 			briqpayForWooCommerce.handlePurchaseResult(version, false)
