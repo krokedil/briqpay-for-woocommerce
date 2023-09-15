@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Briqpay_Checkout
 {
     public function __construct() {
-        add_action( 'woocommerce_after_calculate_totals', array( $this, 'update_briqpay_order' ), 9999 );
+        add_action( 'woocommerce_after_calculate_totals', array( $this, 'update_briqpay_order' ), 99999 );
     }
 
     /**
