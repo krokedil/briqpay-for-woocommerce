@@ -118,5 +118,11 @@
 		"requires": "5.0.0",
 		"tested": "6.2.2",
 		"upgrade_notice": ""
+	},
+	"1.6.6": {
+		"description": "<ul><li>Tweak - Improved handling of checkout update events.</li><li>Tweak - Better handling if session ID is missing between update calls.</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.2.2",
+		"upgrade_notice": ""
 	}
 }
