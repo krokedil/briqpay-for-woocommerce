@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 6.2.2
+Tested up to: 6.3.1
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 7.8.0
-Stable tag: 1.6.5
+WC tested up to: 8.1.1
+Stable tag: 1.6.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,10 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2023.10.31     - version 1.6.6 =
+* Tweak          - Improved handling of checkout update events.
+* Tweak          - Better handling if session ID is missing between update calls.
+
 = 2023.06.15     - version 1.6.5 =
 * Enhancement    - Added separate filter for predefined order creation arguments to Briqpay. You can now use the filter 'briqpay_predefined_order_create_args' instead of 'briqpay_create_args' to specifically target hosted payment page orders.
 * Fix            - Changed how we handle errors to prevent error notices.

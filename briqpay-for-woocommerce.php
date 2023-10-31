@@ -5,12 +5,12 @@
  * Description: Briqpay for WooCommerce.
  * Author: Krokedil
  * Author URI: https://krokedil.com/
- * Version: 1.6.5
+ * Version: 1.6.6
  * Text Domain: briqpay-for-woocommerce
  * Domain Path: /languages
  *
  * WC requires at least: 4.0.0
- * WC tested up to: 7.8.0
+ * WC tested up to: 8.1.1
  *
  * Copyright (c) 2021-2023 Krokedil
  *
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'BRIQPAY_WC_MAIN_FILE', __FILE__ );
 define( 'BRIQPAY_WC_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'BRIQPAY_WC_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
-define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.6.5' );
+define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.6.6' );
 
 if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 	/**
@@ -211,6 +211,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-ajax.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-meta-box.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-api.php';
+			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-checkout.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-templates.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/classes/class-briqpay-status.php';
 			include_once BRIQPAY_WC_PLUGIN_PATH . '/includes/briqpay-functions.php';
