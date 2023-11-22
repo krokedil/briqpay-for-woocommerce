@@ -70,7 +70,7 @@ class Briqpay_Order_Management {
 		}
 
 		// Check if this is an autocaptured order or not.
-		$autocapture = get_post_meta( $order_id, '_briqpay_autocapture', true );
+		$autocapture = $order->get_meta_data( '_briqpay_autocapture', true );
 		if ( ! empty( $autocapture ) && $autocapture ) {
 			$order->add_order_note(
 				__(
@@ -82,7 +82,7 @@ class Briqpay_Order_Management {
 		}
 
 		// If this reservation was already activated, do nothing.
-		if ( get_post_meta( $order_id, '_capture_id_', true ) ) {
+		if ( $order->get_meta_data( '_capture_id_', true ) ) {
 			$order->add_order_note(
 				__(
 					'Could not activate Briqpay reservation, Briqpay reservation is already activated.',
@@ -152,7 +152,7 @@ class Briqpay_Order_Management {
 
 		$args     = array(
 			'order_id'   => $refund_order_id,
-			'session_id' => get_post_meta( $order_id, '_briqpay_session_id', true ),
+			'session_id' => $order->get_meta_data( '_briqpay_session_id', true ),
 		);
 		$response = BRIQPAY()->api->refund_briqpay_order( $args );
 
@@ -180,7 +180,7 @@ class Briqpay_Order_Management {
 			return $url;
 		}
 
-		$hpp_url = get_post_meta( $order->get_id(), '_briqpay_hpp_url', true );
+		$hpp_url = $order->get_meta_data( '_briqpay_hpp_url', true );
 
 		if ( ! empty( $hpp_url ) ) {
 			$url = $hpp_url;

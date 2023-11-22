@@ -149,7 +149,8 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	public function add_billing_org_nr( $order ) {
 		if ( $this->id === $order->get_payment_method() ) {
 			$order_id = $order->get_id();
-			$org_nr   = get_post_meta( $order_id, '_billing_org_nr', true );
+			// Martin behöver hjälp
+			$org_nr = get_post_meta( $order_id, '_billing_org_nr', true );
 			if ( $org_nr ) {
 				?>
 				<p>
@@ -170,7 +171,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	public function add_shipping_email( $order ) {
 		if ( $this->id === $order->get_payment_method() ) {
 			$order_id       = $order->get_id();
-			$shipping_email = get_post_meta( $order_id, '_shipping_email', true );
+			$shipping_email = $order->get_meta_data( '_shipping_email', true );
 			if ( $shipping_email ) {
 				?>
 				<p>
