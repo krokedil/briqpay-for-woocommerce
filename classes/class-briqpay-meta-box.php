@@ -44,10 +44,12 @@ class Briqpay_Meta_Box {
 	 * @return void
 	 */
 	public function meta_box_content() {
-		$order_id             = get_the_ID();
-		$payment_method       = get_post_meta( $order_id, '_briqpay_payment_method', true );
-		$psp_name             = get_post_meta( $order_id, '_briqpay_psp_name', true );
-		$hpp_session_id       = get_post_meta( $order_id, '_briqpay_hpp_session_id', true );
+		$order_id       = get_the_ID();
+		$order          = wc_get_order( $order_id );
+		$payment_method = $order->get_meta_data( '_briqpay_payment_method', true );
+		$psp_name       = $order->get_meta_data( '_briqpay_psp_name', true );
+		$hpp_session_id = $order->get_meta_data( '_briqpay_hpp_session_id', true );
+		// Martin behöver hjälp
 		$rules_results        = json_decode( get_post_meta( $order_id, '_briqpay_rules_result', true ), true );
 		$failed_rules         = $this->check_failed_rules( $rules_results );
 		$title_payment_method = __( 'Payment method', 'briqpay-for-woocommerce' );
@@ -63,7 +65,6 @@ class Briqpay_Meta_Box {
 				'value' => esc_html( $psp_name ),
 			),
 		);
-		$order             = wc_get_order( $order_id );
 		$keys_for_meta_box = apply_filters( 'briqpay_meta_box_keys', $keys_for_meta_box );
 		include BRIQPAY_WC_PLUGIN_PATH . '/templates/briqpay-meta-box.php';
 	}

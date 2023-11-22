@@ -54,6 +54,8 @@ class Briqpay_Order_Management {
 
 		// Check if we have a payment id.
 		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
+		// $session_id = $order->get_meta_data( '_briqpay_session_id', true );
+		// Martin behöver hjälp
 		if ( empty( $session_id ) ) {
 			$order->add_order_note(
 				__(

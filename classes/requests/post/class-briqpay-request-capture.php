@@ -32,6 +32,8 @@ class Briqpay_Request_Capture extends Briqpay_Request_Post {
 			'briqpay_capture_args',
 			array(
 				'sessionid' => get_post_meta( $this->arguments['order_id'], '_briqpay_session_id', true ),
+				// Martin behöver hjälp
+				// 'sessionid' => $order->get_meta_data( '_briqpay_session_id', true ),
 				'amount'    => Briqpay_Helper_Order_Lines::get_order_amount( $order ),
 				'cart'      => Briqpay_Helper_Order_Lines::get_order_lines( $order ),
 			),

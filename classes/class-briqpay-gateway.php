@@ -53,6 +53,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
+		$order      = wc_get_order( $order_id );
 		$session_id = WC()->session->get( 'briqpay_session_id' );
 		$response   = BRIQPAY()->api->patch_briqpay_order(
 			array(
@@ -66,8 +67,10 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 				'result' => 'error',
 			);
 		}
-
-		update_post_meta( $order_id, '_briqpay_session_id', $response['sessionid'] );
+		// Martin behöver hjälp
+		// update_post_meta( $order_id, '_briqpay_session_id', $response['sessionid'] );
+		$order->update_meta_data( '_briqpay_session_id', $response['sessionid'] );
+		$order->save();
 
 		$v2_result = $this->maybe_handle_v2_result( true, $session_id );
 
@@ -80,7 +83,6 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 		return array(
 			'result' => 'success',
 		);
-
 	}
 
 	/**
@@ -192,7 +194,7 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 	public function add_shipping_phone( $order ) {
 		if ( $this->id === $order->get_payment_method() ) {
 			$order_id       = $order->get_id();
-			$shipping_phone = get_post_meta( $order_id, '_shipping_phone', true );
+			$shipping_phone = $order->get_meta( '_shipping_phone', true );
 			if ( $shipping_phone ) {
 				?>
 				<p>

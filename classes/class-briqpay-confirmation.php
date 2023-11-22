@@ -79,7 +79,9 @@ class Briqpay_Confirmation {
 			return;
 		}
 
-		$session_id    = get_post_meta( $order_id, '_briqpay_session_id', true );
+		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
+		// Martin behöver hjälp
+		// $session_id    = $order->get_meta_data( '_briqpay_session_id', true );
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order( array( 'session_id' => $session_id ) );
 
 		// Set post meta and complete order.
