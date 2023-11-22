@@ -89,8 +89,8 @@ class Briqpay_Meta_Box {
 			return;
 		}
 
-		update_post_meta( $post_id, '_briqpay_hpp_session_id', $hpp_order['hppsessionid'] );
-		update_post_meta( $post_id, '_briqpay_hpp_url', $hpp_order['paymenturl'] );
+		$order->update_meta_data( '_briqpay_hpp_session_id', $hpp_order['hppsessionid'] );
+		$order->update_meta_data( '_briqpay_hpp_url', $hpp_order['paymenturl'] );
 
 		$order->add_order_note( __( 'Hosted payment page created with Briqpay.', 'briqpay-for-woocommerce' ) . "<br /><a href='{$hpp_order['paymenturl']}' target='_blank'>{$hpp_order['paymenturl']}</a>" );
 		$order->save();
@@ -119,5 +119,4 @@ class Briqpay_Meta_Box {
 		}
 		return false;
 	}
-
 } new Briqpay_Meta_Box();

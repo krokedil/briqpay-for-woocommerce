@@ -83,18 +83,21 @@ class Briqpay_Confirmation {
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order( array( 'session_id' => $session_id ) );
 
 		// Set post meta and complete order.
-		update_post_meta( $order_id, '_shipping_phone', $briqpay_order['shippingaddress']['cellno'] );
-		update_post_meta( $order_id, '_shipping_email', $briqpay_order['shippingaddress']['email'] );
-		update_post_meta( $order_id, '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
-		update_post_meta( $order_id, '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
-		update_post_meta( $order_id, '_briqpay_autocapture', $briqpay_order['purchasepaymentmethod']['autocapture'] );
-		update_post_meta( $order_id, '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ?? array() ) );
-		update_post_meta( $order_id, '_billing_org_nr', $briqpay_order['orgnr'] );
+		$order->update_meta_data( '_shipping_phone', $briqpay_order['shippingaddress']['cellno'] );
+		$order->update_meta_data( '_shipping_email', $briqpay_order['shippingaddress']['email'] );
+		$order->update_meta_data( '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
+		$order->update_meta_data( '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
+		$order->update_meta_data( '_briqpay_autocapture', $briqpay_order['purchasepaymentmethod']['autocapture'] );
+		$order->update_meta_data( '_briqpay_rules_result', wp_json_encode( $briqpay_order['rulesresult'] ?? array() ) );
+		$order->update_meta_data( '_billing_org_nr', $briqpay_order['orgnr'] );
+		$order->save();
 
 		$purchase_payment_method = $briqpay_order['purchasepaymentmethod'];
 		if ( isset( $purchase_payment_method['pspSupportedOrderOperations'] ) ) {
 			if ( true === $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] ) {
-				update_post_meta( $order_id, '_briqpay_psp_update_order_supported', $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] );
+				$order->update_meta_data( '_briqpay_psp_update_order_supported', $purchase_payment_method['pspSupportedOrderOperations']['updateOrderSupported'] );
+				$order->save();
+
 			}
 		}
 
@@ -106,7 +109,6 @@ class Briqpay_Confirmation {
 
 		do_action( 'briqpay_order_confirmed', $briqpay_order, $order );
 	}
-
 }
 
 Briqpay_Confirmation::get_instance();

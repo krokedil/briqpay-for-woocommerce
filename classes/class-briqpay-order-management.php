@@ -102,13 +102,14 @@ class Briqpay_Order_Management {
 
 		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 			$capture_id = $response['captureid'];
-			update_post_meta( $order_id, '_capture_id_', $capture_id );
+			$order->update_meta_data( '_capture_id_', $capture_id );
 			$order->add_order_note(
 				__(
 					'Briqpay reservation was successfully activated.',
 					'briqpay-for-woocommerce'
 				)
 			);
+			$order->save();
 		} else {
 			$order->add_order_note(
 				__(
@@ -163,7 +164,6 @@ class Briqpay_Order_Management {
 		$formatted_text = sprintf( $text, wc_price( $amount ), $response['refundid'] );
 		$order->add_order_note( $formatted_text );
 		return true;
-
 	}
 
 	/**
@@ -218,8 +218,9 @@ class Briqpay_Order_Management {
 	 * @return void
 	 */
 	public function save_org_nr_to_order( $post_id ) {
+		$order      = wc_get_order( $post_id );
 		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_SPECIAL_CHARS );
-		update_post_meta( $post_id, '_billing_org_nr', $org_number );
-
+		$order->update_meta_data( '_billing_org_nr', $org_number );
+		$order->save();
 	}
 }
