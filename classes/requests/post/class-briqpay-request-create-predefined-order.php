@@ -39,7 +39,7 @@ class Briqpay_Request_Create_Predefined_Order extends Briqpay_Request_Post {
 				'merchantconfig'  => Briqpay_Helper_Merchant_Config::get_config( $order_id, false ),
 				'cart'            => Briqpay_Helper_Order_Lines::get_order_lines( $order, false ),
 				'amount'          => $amount,
-				'orgnr'           => get_post_meta( $order_id, '_billing_org_nr', true ),
+				'orgnr'           => $order->get_meta_data( '_billing_org_nr', true ),
 				'billingaddress'  => Briqpay_Helper_Customer::get_billing_data_order( $order ),
 				'shippingaddress' => Briqpay_Helper_Customer::get_shipping_data_order( $order ),
 			)

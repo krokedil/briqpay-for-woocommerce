@@ -165,11 +165,11 @@ class Briqpay_API {
 	 * @return array|mixed
 	 */
 	public function update_briqpay_order_orm( $order_id ) {
+		$order    = wc_get_order( $order_id );
 		$request  = new Briqpay_Request_ORM_Update(
 			array(
 				'order_id'   => $order_id,
-				'session_id' => get_post_meta(
-					$order_id,
+				'session_id' => $order->get_meta(
 					'_briqpay_session_id',
 					true
 				),
