@@ -67,8 +67,6 @@ class Briqpay_Gateway extends WC_Payment_Gateway {
 				'result' => 'error',
 			);
 		}
-		// Martin behöver hjälp
-		// update_post_meta( $order_id, '_briqpay_session_id', $response['sessionid'] );
 		$order->update_meta_data( '_briqpay_session_id', $response['sessionid'] );
 		$order->save();
 
