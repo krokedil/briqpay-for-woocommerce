@@ -10,7 +10,7 @@
  * Domain Path: /languages
  *
  * WC requires at least: 4.0.0
- * WC tested up to: 8.1.1
+ * WC tested up to: 8.4.0
  *
  * Copyright (c) 2021-2023 Krokedil
  *
@@ -218,7 +218,6 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 
 			$this->api              = new Briqpay_API();
 			$this->order_management = new Briqpay_Order_Management();
-
 		}
 
 		/**
@@ -247,7 +246,6 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 				'briqpay-for-woocommerce'
 			);
 		}
-
 	}
 	Briqpay_For_WooCommerce::get_instance();
 }
