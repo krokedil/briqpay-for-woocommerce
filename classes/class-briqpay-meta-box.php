@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 /**
  * Meta box class.
  */
@@ -27,13 +29,25 @@ class Briqpay_Meta_Box {
 	 * @param string $post_type The WordPress post type.
 	 * @return void
 	 */
-	public function add_meta_box( $post_type ) {
-		if ( 'shop_order' === $post_type ) {
-			$order_id = get_the_ID();
-			$order    = wc_get_order( $order_id );
-			if ( 'briqpay' === $order->get_payment_method() ) {
-				add_meta_box( 'briqpay_meta_box', __( 'Briqpay', 'briqpay-for-woocommerce' ), array( $this, 'meta_box_content' ), 'shop_order', 'side', 'core' );
-			}
+
+
+	public function add_meta_box() {
+		$screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' ) && wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
+
+		$order_id = get_the_ID();
+		$order    = wc_get_order( $order_id );
+
+		if ( 'briqpay' === $order->get_payment_method() ) {
+			add_meta_box(
+				'briqpay_meta_box',
+				__( 'Briqpay', 'briqpay-for-woocommerce' ),
+				array( $this, 'meta_box_content' ),
+				$screen,
+				'side',
+				'core'
+			);
 		}
 	}
 
