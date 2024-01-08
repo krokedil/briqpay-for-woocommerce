@@ -26,7 +26,8 @@ class Briqpay_Request_ORM_Update extends Briqpay_Request_Post {
 	 * @return array
 	 */
 	protected function get_body() {
-		$order = wc_get_order( $this->arguments['order_id'] );
+		$order_id = $this->arguments['order_id'];
+		$order    = wc_get_order( $order_id );
 		return apply_filters(
 			'briqpay_update_orm_order',
 			array(
@@ -35,7 +36,8 @@ class Briqpay_Request_ORM_Update extends Briqpay_Request_Post {
 				'billingaddress'  => Briqpay_Helper_Customer::get_billing_data_order( $order ),
 				'shippingaddress' => Briqpay_Helper_Customer::get_shipping_data_order( $order ),
 				'cart'            => Briqpay_Helper_Order_Lines::get_order_lines( $order ),
-			)
+			),
+			$order_id
 		);
 	}
 
