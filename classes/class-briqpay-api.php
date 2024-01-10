@@ -48,9 +48,11 @@ class Briqpay_API {
 	 * @return array
 	 */
 	public function create_briqpay_hpp( $order_id, $type ) {
+		$order         = wc_get_order( $order_id );
 		$briqpay_order = $this->create_predefined_briqpay_order( $order_id );
 
-		update_post_meta( $order_id, '_briqpay_session_id', $briqpay_order['sessionid'] );
+		$order->update_meta_data( '_briqpay_session_id', $briqpay_order['sessionid'] );
+		$order->save();
 
 		$this->patch_briqpay_order(
 			array(
@@ -163,11 +165,11 @@ class Briqpay_API {
 	 * @return array|mixed
 	 */
 	public function update_briqpay_order_orm( $order_id ) {
+		$order    = wc_get_order( $order_id );
 		$request  = new Briqpay_Request_ORM_Update(
 			array(
 				'order_id'   => $order_id,
-				'session_id' => get_post_meta(
-					$order_id,
+				'session_id' => $order->get_meta(
 					'_briqpay_session_id',
 					true
 				),
