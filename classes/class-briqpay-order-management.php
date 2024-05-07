@@ -53,7 +53,7 @@ class Briqpay_Order_Management {
 		}
 
 		// Check if we have a payment id.
-		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
+		$session_id = $order->get_meta( '_briqpay_session_id' );
 		if ( empty( $session_id ) ) {
 			$order->add_order_note(
 				__(
@@ -68,7 +68,7 @@ class Briqpay_Order_Management {
 		}
 
 		// Check if this is an autocaptured order or not.
-		$autocapture = get_post_meta( $order_id, '_briqpay_autocapture', true );
+		$autocapture = $order->get_meta( '_briqpay_autocapture' );
 		if ( ! empty( $autocapture ) && $autocapture ) {
 			$order->add_order_note(
 				__(
@@ -130,26 +130,12 @@ class Briqpay_Order_Management {
 	 * @return bool
 	 */
 	public function refund( $order_id, $amount ) {
-		$query_args = array(
-			'fields'         => 'id=>parent',
-			'post_type'      => 'shop_order_refund',
-			'post_status'    => 'any',
-			'posts_per_page' => - 1,
-		);
-
-		$refunds         = get_posts( $query_args );
-		$refund_order_id = array_search( $order_id, $refunds, true );
-		if ( is_array( $refund_order_id ) ) {
-			foreach ( $refund_order_id as $key => $value ) {
-				$refund_order_id = $value;
-				break;
-			}
-		}
-		$order = wc_get_order( $order_id );
+		$order        = wc_get_order( $order_id );
+		$refund_order = $order->get_refunds()[0];
 
 		$args     = array(
-			'order_id'   => $refund_order_id,
-			'session_id' => get_post_meta( $order_id, '_briqpay_session_id', true ),
+			'order_id'   => $refund_order->get_id(),
+			'session_id' => $order->get_meta( '_briqpay_session_id' ),
 		);
 		$response = BRIQPAY()->api->refund_briqpay_order( $args );
 
@@ -163,7 +149,6 @@ class Briqpay_Order_Management {
 		$formatted_text = sprintf( $text, wc_price( $amount ), $response['refundid'] );
 		$order->add_order_note( $formatted_text );
 		return true;
-
 	}
 
 	/**
@@ -220,6 +205,5 @@ class Briqpay_Order_Management {
 	public function save_org_nr_to_order( $post_id ) {
 		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_SPECIAL_CHARS );
 		update_post_meta( $post_id, '_billing_org_nr', $org_number );
-
 	}
 }
