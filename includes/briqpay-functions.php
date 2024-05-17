@@ -224,20 +224,21 @@ function briqpay_is_order_type( $post = null ) {
 }
 
 /**
- * Get a order id from the merchant reference.
+ * Get Woo order ID from session ID.
  *
- * @param string $merchant_reference The merchant reference from Briqpay.
- * @return int The WC order ID or 0 if no match was found.
+ * @param string $session_id The session ID from Briqpay.
+ * @return int The Woo order ID or 0 if no match was found.
  */
 function briqpay_get_order_id_by_session_id( $session_id ) {
 	$key    = '_briqpay_session_id';
 	$orders = wc_get_orders(
 		array(
-			'meta_key'   => $key,
-			'meta_value' => $session_id,
-			'limit'      => 1,
-			'orderby'    => 'date',
-			'order'      => 'DESC',
+			'meta_key'     => $key,
+			'meta_value'   => $session_id,
+			'meta_compare' => '=',
+			'orderby'      => 'date',
+			'order'        => 'DESC',
+			'limit'        => 1,
 		)
 	);
 
