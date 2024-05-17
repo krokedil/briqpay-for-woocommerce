@@ -31,7 +31,7 @@ class Briqpay_Request_ORM_Update extends Briqpay_Request_Post {
 		return apply_filters(
 			'briqpay_update_orm_order',
 			array(
-				'sessionid'       => $order->get_meta( '_briqpay_session_id' ),
+				'sessionid'       => is_object( $order ) ? $order->get_meta( '_briqpay_session_id' ) : '',
 				'amount'          => Briqpay_Helper_Order_Lines::get_order_amount( $order, false ),
 				'billingaddress'  => Briqpay_Helper_Customer::get_billing_data_order( $order ),
 				'shippingaddress' => Briqpay_Helper_Customer::get_shipping_data_order( $order ),
