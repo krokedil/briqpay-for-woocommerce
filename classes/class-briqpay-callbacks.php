@@ -31,22 +31,10 @@ class Briqpay_Callbacks {
 		$order_id           = '';
 		$briqpay_session_id = filter_input( INPUT_GET, 'sessionid', FILTER_SANITIZE_SPECIAL_CHARS );
 		if ( ! empty( $briqpay_session_id ) ) {
-			$query_args = array(
-				'fields'       => 'ids',
-				'post_type'    => wc_get_order_types(),
-				'post_status'  => array_keys( wc_get_order_statuses() ),
-				'meta_key'     => '_briqpay_session_id', // phpcs:ignore WordPress.DB.SlowDBQuery -- Slow DB Query is ok here, we need to limit to our meta key.
-				'meta_value'   => $briqpay_session_id, // phpcs:ignore WordPress.DB.SlowDBQuery -- Slow DB Query is ok here, we need to limit to our meta key.
-				'date_created' => '>' . ( time() - HOUR_IN_SECONDS ),
-			);
-			$orders     = get_posts( $query_args );
-			if ( ! empty( $orders ) ) {
-				$order_id = $orders[0];
-			}
-
+			$order_id = briqpay_get_order_id_by_session_id( $briqpay_session_id );
 			Briqpay_Logger::log( 'Notification callback hit for Briqpay session ID: ' . $briqpay_session_id . '. WC order ID: ' . $order_id );
 
-			if ( '' !== $order_id ) {
+			if ( ! empty( $order_id ) ) {
 				as_schedule_single_action( time() + 120, 'briqpay_wc_punted_notification', array( $order_id, $briqpay_session_id ) );
 			}
 		}
@@ -78,17 +66,16 @@ class Briqpay_Callbacks {
 
 		if ( 'purchasecomplete' !== $briqpay_order['state'] &&
 		'paymentprocessing' !== $briqpay_order['state'] &&
-		'purchaserejected' !== $briqpay_order['state']  ) {
+		'purchaserejected' !== $briqpay_order['state'] ) {
 			return;
 		}
-		if( 'purchaserejected' === $briqpay_order['state'] )
-		{
+		if ( 'purchaserejected' === $briqpay_order['state'] ) {
 			$order->add_order_note(
 				__(
 					'Payment could not be completed by the underlying PSP',
 					'briqpay-for-woocommerce'
-					)
-				);
+				)
+			);
 				$order->set_status( 'on-hold' );
 				$order->save();
 

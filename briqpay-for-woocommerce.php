@@ -218,6 +218,20 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 
 			$this->api              = new Briqpay_API();
 			$this->order_management = new Briqpay_Order_Management();
+
+			add_action( 'before_woocommerce_init', array( $this, 'declare_wc_compatibility' ) );
+		}
+
+		/**
+		 * Declare compatibility with WooCommerce features.
+		 *
+		 * @return void
+		 */
+		public function declare_wc_compatibility() {
+			// Declare HPOS compatibility.
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			}
 		}
 
 		/**
