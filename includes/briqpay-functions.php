@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
+
 /**
  * Gets a Briqpay order. Either creates or updates existing order
  *
@@ -103,10 +105,8 @@ function briqpay_extract_error_message( $wp_error ) {
 		if ( function_exists( 'wc_add_notice' ) ) {
 			wc_add_notice( $error_message, 'error' );
 		}
-	} else {
-		if ( function_exists( 'wc_print_notice' ) ) {
+	} elseif ( function_exists( 'wc_print_notice' ) ) {
 			wc_print_notice( $error_message, 'error' );
-		}
 	}
 }
 
@@ -158,4 +158,94 @@ function validate_credentials() {
 	}
 
 	return false;
+}
+
+/**
+ * Similar to WP's get_the_ID() with HPOS support. Used for retrieving the current order/post ID.
+ *
+ * Unlike get_the_ID() function, if `id` is missing, we'll default to the `post` query parameter when HPOS is disabled.
+ *
+ * @return int|false the order ID or false.
+ */
+//phpcs:ignore
+function briqpay_get_the_ID() {
+	$hpos_enabled = briqpay_is_hpos_enabled();
+	$order_id     = $hpos_enabled ? filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) : get_the_ID();
+	if ( empty( $order_id ) ) {
+		if ( ! $hpos_enabled ) {
+			$order_id = absint( filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT ) );
+			return empty( $order_id ) ? false : $order_id;
+		}
+		return false;
+	}
+
+	return absint( $order_id );
+}
+
+/**
+ * Whether HPOS is enabled.
+ *
+ * @return bool true if HPOS is enabled, otherwise false.
+ */
+function briqpay_is_hpos_enabled() {
+	// CustomOrdersTableController was introduced in WC 6.4.
+	if ( class_exists( CustomOrdersTableController::class ) ) {
+		return wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled();
+	}
+
+	return false;
+}
+
+/**
+ * Retrieves the post type of the current post or of a given post.
+ *
+ * Compatible with HPOS.
+ *
+ * @param int|WP_Post|WC_Order|null $post Order ID, post object or order object.
+ * @return string|null|false Return type of passed id, post or order object on success, false or null on failure.
+ */
+function briqpay_get_post_type( $post = null ) {
+	if ( ! briqpay_is_hpos_enabled() ) {
+		return get_post_type( $post );
+	}
+
+	return ! class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) ? false : Automattic\WooCommerce\Utilities\OrderUtil::get_order_type( $post );
+}
+
+
+/**
+ * Retrieves the post type of the current post or of a given post.
+ *
+ * @param int|WP_Post|WC_Order|null $post Order ID, post object or order object.
+ * @return true if order type, otherwise false.
+ */
+function briqpay_is_order_type( $post = null ) {
+	return in_array( briqpay_get_post_type( $post ), array( 'woocommerce_page_wc-orders', 'shop_order' ), true );
+}
+
+/**
+ * Get Woo order ID from session ID.
+ *
+ * @param string $session_id The session ID from Briqpay.
+ * @return int The Woo order ID or 0 if no match was found.
+ */
+function briqpay_get_order_id_by_session_id( $session_id ) {
+	$key    = '_briqpay_session_id';
+	$orders = wc_get_orders(
+		array(
+			'meta_key'     => $key,
+			'meta_value'   => $session_id,
+			'meta_compare' => '=',
+			'orderby'      => 'date',
+			'order'        => 'DESC',
+			'limit'        => 1,
+		)
+	);
+
+	$order = reset( $orders );
+	if ( empty( $order ) || $session_id !== $order->get_meta( $key ) ) {
+		return 0;
+	}
+
+	return $order->get_id() ?? 0;
 }

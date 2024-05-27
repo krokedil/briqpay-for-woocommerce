@@ -34,12 +34,12 @@ class Briqpay_Request_Create_Predefined_Order extends Briqpay_Request_Post {
 			array(
 				'currency'        => get_woocommerce_currency(),
 				'locale'          => str_replace( '_', '-', strtolower( get_locale() ) ),
-				'country'         => $order->get_billing_country(),
+				'country'         => is_object( $order ) ? $order->get_billing_country() : '',
 				'merchanturls'    => Briqpay_Helper_MerchantUrls::get_urls( $order_id ),
 				'merchantconfig'  => Briqpay_Helper_Merchant_Config::get_config( $order_id, false ),
 				'cart'            => Briqpay_Helper_Order_Lines::get_order_lines( $order, false ),
 				'amount'          => $amount,
-				'orgnr'           => get_post_meta( $order_id, '_billing_org_nr', true ),
+				'orgnr'           => is_object( $order ) ? $order->get_meta( '_billing_org_nr' ) : '',
 				'billingaddress'  => Briqpay_Helper_Customer::get_billing_data_order( $order ),
 				'shippingaddress' => Briqpay_Helper_Customer::get_shipping_data_order( $order ),
 			)

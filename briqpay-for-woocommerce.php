@@ -5,14 +5,14 @@
  * Description: Briqpay for WooCommerce.
  * Author: Krokedil
  * Author URI: https://krokedil.com/
- * Version: 1.6.6
+ * Version: 1.7.0
  * Text Domain: briqpay-for-woocommerce
  * Domain Path: /languages
  *
  * WC requires at least: 4.0.0
- * WC tested up to: 8.1.1
+ * WC tested up to: 8.5.1
  *
- * Copyright (c) 2021-2023 Krokedil
+ * Copyright (c) 2021-2024 Krokedil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'BRIQPAY_WC_MAIN_FILE', __FILE__ );
 define( 'BRIQPAY_WC_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'BRIQPAY_WC_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
-define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.6.6' );
+define( 'BRIQPAY_WC_PLUGIN_VERSION', '1.7.0' );
 
 if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 	/**
@@ -219,6 +219,19 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 			$this->api              = new Briqpay_API();
 			$this->order_management = new Briqpay_Order_Management();
 
+			add_action( 'before_woocommerce_init', array( $this, 'declare_wc_compatibility' ) );
+		}
+
+		/**
+		 * Declare compatibility with WooCommerce features.
+		 *
+		 * @return void
+		 */
+		public function declare_wc_compatibility() {
+			// Declare HPOS compatibility.
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			}
 		}
 
 		/**
@@ -247,7 +260,6 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 				'briqpay-for-woocommerce'
 			);
 		}
-
 	}
 	Briqpay_For_WooCommerce::get_instance();
 }

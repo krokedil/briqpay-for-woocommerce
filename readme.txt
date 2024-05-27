@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 6.3.1
+Tested up to: 6.5.3
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 8.1.1
-Stable tag: 1.6.6
+WC tested up to: 8.8.3
+Stable tag: 1.7.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,10 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2024.05.27     - version 1.7.0 =
+* Feature        - Added support for WooCommerce's "High-Performance Order Storage" ("HPOS").
+* Tweak          - Updated the 'briqpay_update_orm_order' action filter to include the WooCommerce order ID.
+
 = 2023.10.31     - version 1.6.6 =
 * Tweak          - Improved handling of checkout update events.
 * Tweak          - Better handling if session ID is missing between update calls.

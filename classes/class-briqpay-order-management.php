@@ -53,7 +53,7 @@ class Briqpay_Order_Management {
 		}
 
 		// Check if we have a payment id.
-		$session_id = get_post_meta( $order_id, '_briqpay_session_id', true );
+		$session_id = $order->get_meta( '_briqpay_session_id' );
 		if ( empty( $session_id ) ) {
 			$order->add_order_note(
 				__(
@@ -68,7 +68,7 @@ class Briqpay_Order_Management {
 		}
 
 		// Check if this is an autocaptured order or not.
-		$autocapture = get_post_meta( $order_id, '_briqpay_autocapture', true );
+		$autocapture = $order->get_meta( '_briqpay_autocapture' );
 		if ( ! empty( $autocapture ) && $autocapture ) {
 			$order->add_order_note(
 				__(
@@ -80,7 +80,7 @@ class Briqpay_Order_Management {
 		}
 
 		// If this reservation was already activated, do nothing.
-		if ( get_post_meta( $order_id, '_capture_id_', true ) ) {
+		if ( $order->get_meta( '_capture_id_' ) ) {
 			$order->add_order_note(
 				__(
 					'Could not activate Briqpay reservation, Briqpay reservation is already activated.',
@@ -102,7 +102,7 @@ class Briqpay_Order_Management {
 
 		if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 			$capture_id = $response['captureid'];
-			update_post_meta( $order_id, '_capture_id_', $capture_id );
+			$order->update_meta_data( '_capture_id_', $capture_id );
 			$order->add_order_note(
 				__(
 					'Briqpay reservation was successfully activated.',
@@ -117,8 +117,8 @@ class Briqpay_Order_Management {
 				)
 			);
 			$order->set_status( 'on-hold' );
-			$order->save();
 		}
+		$order->save();
 	}
 
 
@@ -130,26 +130,12 @@ class Briqpay_Order_Management {
 	 * @return bool
 	 */
 	public function refund( $order_id, $amount ) {
-		$query_args = array(
-			'fields'         => 'id=>parent',
-			'post_type'      => 'shop_order_refund',
-			'post_status'    => 'any',
-			'posts_per_page' => - 1,
-		);
-
-		$refunds         = get_posts( $query_args );
-		$refund_order_id = array_search( $order_id, $refunds, true );
-		if ( is_array( $refund_order_id ) ) {
-			foreach ( $refund_order_id as $key => $value ) {
-				$refund_order_id = $value;
-				break;
-			}
-		}
-		$order = wc_get_order( $order_id );
+		$order        = wc_get_order( $order_id );
+		$refund_order = $order->get_refunds()[0];
 
 		$args     = array(
-			'order_id'   => $refund_order_id,
-			'session_id' => get_post_meta( $order_id, '_briqpay_session_id', true ),
+			'order_id'   => $refund_order->get_id(),
+			'session_id' => $order->get_meta( '_briqpay_session_id' ),
 		);
 		$response = BRIQPAY()->api->refund_briqpay_order( $args );
 
@@ -159,11 +145,10 @@ class Briqpay_Order_Management {
 			return false;
 		}
 		// translators: refund amount, refund id.
-		$text           = __( '%1$s successfully refunded in Briqpay.. RefundID: %2$s', 'briqpay-for-woocommerce' );
+		$text           = __( '%1$s successfully refunded in Briqpay. RefundID: %2$s', 'briqpay-for-woocommerce' );
 		$formatted_text = sprintf( $text, wc_price( $amount ), $response['refundid'] );
 		$order->add_order_note( $formatted_text );
 		return true;
-
 	}
 
 	/**
@@ -178,7 +163,7 @@ class Briqpay_Order_Management {
 			return $url;
 		}
 
-		$hpp_url = get_post_meta( $order->get_id(), '_briqpay_hpp_url', true );
+		$hpp_url = $order->get_meta( '_briqpay_hpp_url' );
 
 		if ( ! empty( $hpp_url ) ) {
 			$url = $hpp_url;
@@ -219,7 +204,8 @@ class Briqpay_Order_Management {
 	 */
 	public function save_org_nr_to_order( $post_id ) {
 		$org_number = filter_input( INPUT_POST, '_billing_org_nr', FILTER_SANITIZE_SPECIAL_CHARS );
-		update_post_meta( $post_id, '_billing_org_nr', $org_number );
-
+		$order      = wc_get_order( $post_id );
+		$order->update_meta_data( '_billing_org_nr', $org_number );
+		$order->save();
 	}
 }
