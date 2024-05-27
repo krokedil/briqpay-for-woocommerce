@@ -124,5 +124,11 @@
 		"requires": "5.0.0",
 		"tested": "6.2.2",
 		"upgrade_notice": ""
+	},
+	"1.7.0": {
+		"description": "<ul><li>Feature - Added support for WooCommerce's \"High-Performance Order Storage\" (\"HPOS\").</li><li>Updated the 'briqpay_update_orm_order' action filter to include the WooCommerce order ID.</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.5.3",
+		"upgrade_notice": ""
 	}
 }
