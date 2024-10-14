@@ -18,7 +18,7 @@ class Briqpay_Meta_Box {
 	 */
 	public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ), 10, 2 );
-		add_action( 'save_post', array( $this, 'briqpay_hpp_save_handler' ) );
+		add_action( 'woocommerce_process_shop_order_meta', array( $this, 'briqpay_hpp_save_handler' ) );
 	}
 
 	/**
