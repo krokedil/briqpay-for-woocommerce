@@ -73,6 +73,12 @@ class Briqpay_Meta_Box {
 	 * @return void
 	 */
 	public function briqpay_hpp_save_handler( $post_id ) {
+
+		// Only run from the admin dashboard on order update.
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		$hpp = filter_input( INPUT_POST, 'briqpay_hpp_send_field', FILTER_SANITIZE_SPECIAL_CHARS );
 
 		if ( empty( $hpp ) ) {
