@@ -140,7 +140,9 @@ class Briqpay_Helper_Cart {
 		if ( 0 === intval( $cart_item['line_total'] ) ) {
 			return 0;
 		}
-		return intval( round( $cart_item['line_tax'] / $cart_item['line_total'], 2 ) * 10000 );
+		$tax_data    = $cart_item['line_tax_data']['total'];
+		$tax_rate_id = array_keys( $tax_data )[0];
+		return intval( WC_Tax::get_rate_percent_value( $tax_rate_id ) * 100 );
 	}
 
 	/**
