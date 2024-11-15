@@ -188,6 +188,7 @@ class Briqpay_Order_Management {
 								'id'            => '_billing_org_nr',
 								'label'         => __( 'Billing Organization Number', 'briqpay-for-woocommerce' ),
 								'wrapper_class' => '_billing_company_field',
+								'value'         => $order->get_meta( '_billing_org_nr' ),
 							)
 						);
 					?>
