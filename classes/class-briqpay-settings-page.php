@@ -33,7 +33,7 @@ class Briqpay_Settings_Page {
 
 					<div class="briqpay-settings-sidebar-section">
 							<div class="briqpay-settings-sidebar-content">
-							<img class="briqpay-logo-img" src="<?php echo esc_url( BRIQPAY_WC_PLUGIN_URL ); ?>/assets/img/briqpay-logo-black.png">
+							<img class="briqpay-logo-img" src="<?php echo esc_url( BRIQPAY_WC_PLUGIN_URL ); ?>/assets/img/briqpay-logo-color.png">
 							<p id="briqpay-settings-sidebar-main-text">
 								<a href="https://app.briqpay.com/" target="_blank">Log in to your Briqpay account</a> to view data and orders. <br/><br/>
 								No Briqpay account? <br/>
