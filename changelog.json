@@ -130,5 +130,11 @@
 		"requires": "5.0.0",
 		"tested": "6.5.3",
 		"upgrade_notice": ""
+	},
+	"1.8.0": {
+		"description": "<ul><li>Feature - Added support for pay for order.</li><li>Fix - Addressed PHP deprecation warnings.</li><li>Fix - Fixed an issue where if an order was updated in the WooCommerce admin, the billing organization number (_billing_org_nr) field would be unintentionally overwritten.</li><li>Fix - Fixed a rounding error that caused incorrect tax calculation. Thanks @vilhelmjosander!</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.7.0",
+		"upgrade_notice": ""
 	}
 }
