@@ -9,6 +9,26 @@
  * Class Briqpay_Gateway
  */
 class Briqpay_Gateway extends WC_Payment_Gateway {
+	/**
+	 * Bool if we should use test mode or not.
+	 *
+	 * @var bool
+	 */
+	public $testmode;
+
+	/**
+	 * Bool if we should log or not.
+	 *
+	 * @var bool
+	 */
+	public $logging;
+
+	/**
+	 * Bool if we should manage orders or not.
+	 *
+	 * @var bool
+	 */
+	public $order_management;
 
 	/**
 	 * Class constructor.

@@ -137,10 +137,12 @@ class Briqpay_Helper_Cart {
 	 * @return float
 	 */
 	public static function get_product_tax_rate( $cart_item ) {
-		if ( 0 === intval( $cart_item['line_total'] ) ) {
+		if ( 0 === intval( $cart_item['line_total'] ) || 'no' === get_option( 'woocommerce_calc_taxes' ) || empty( $cart_item['line_tax_data']['total'] ) ) {
 			return 0;
 		}
-		return intval( round( $cart_item['line_tax'] / $cart_item['line_total'], 2 ) * 10000 );
+		$tax_data    = $cart_item['line_tax_data']['total'];
+		$tax_rate_id = array_keys( $tax_data )[0];
+		return intval( WC_Tax::get_rate_percent_value( $tax_rate_id ) * 100 );
 	}
 
 	/**
