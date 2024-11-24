@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a958e61b3a88dc496dd440e8890c8d9a",
-    "packages": [],
+    "content-hash": "86ae9498fb264843ea9128701eea328b",
+    "packages": [
+        {
+            "name": "kernl/kernl-update-checker",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vital101/plugin-update-checker.git",
+                "reference": "b71d26752d88848ae92932e1e2cdf3e86e15e383"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vital101/plugin-update-checker/zipball/b71d26752d88848ae92932e1e2cdf3e86e15e383",
+                "reference": "b71d26752d88848ae92932e1e2cdf3e86e15e383",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "load-v4p13.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Slingerland",
+                    "email": "jack@kernl.us",
+                    "homepage": "https://kernl.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The WordPress plugin and theme update checker for https://kernl.us",
+            "homepage": "https://github.com/vital101/plugin-update-checker",
+            "keywords": [
+                "automatic updates",
+                "plugin updates",
+                "theme updates",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/vital101/plugin-update-checker/tree/4.0.1"
+            },
+            "time": "2023-06-01T00:26:22+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",

@@ -3,7 +3,8 @@
   "description": "",
   "prefer-stable" : true,
   "require": {
-    "php": ">=7.2"
+    "php": ">=7.2",
+    "kernl/kernl-update-checker": "^4.0"
   },
   "type": "wordpress-plugin",
   "require-dev": {
