@@ -18,3 +18,9 @@ README.md
 composer.json
 composer.lock
 readme.dev.txt
+yarn.lock
+phpcs.xml.dist
+.git/
+.git/**/*
+.github/
+.github/**/*
