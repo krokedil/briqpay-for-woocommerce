@@ -142,5 +142,11 @@
 		"requires": "5.0.0",
 		"tested": "6.7.0",
 		"upgrade_notice": ""
+	},
+	"1.8.2": {
+		"description": "<ul><li>Fix - Addressed various deprecation warnings.</li><li>Tweak - Added a GitHub action for deploying to zip-file.</li></ul>",
+		"requires": "5.0.0",
+		"tested": "6.7.0",
+		"upgrade_notice": ""
 	}
 }

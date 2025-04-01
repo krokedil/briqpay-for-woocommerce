@@ -7,7 +7,7 @@ Tested up to: 6.7
 Requires PHP: 7.0
 WC requires at least: 4.0.0
 WC tested up to: 9.4.1
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,10 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2025.04.01     - version 1.8.2 =
+* Fix            - Addressed various deprecation warnings.
+* Tweak          - Added a GitHub action for deploying to zip-file.
+
 = 2024.11.18     - version 1.8.1 =
 * Tweak          - Updated the Briqpay logo in the settings page.
 
