@@ -83,7 +83,7 @@ class Briqpay_Confirmation {
 		$briqpay_order = BRIQPAY()->api->get_briqpay_order( array( 'session_id' => $session_id ) );
 
 		// Set post meta and complete order.
-		$order->set_shipping_phone( '_shipping_phone', $briqpay_order['shippingaddress']['cellno'] );
+		$order->set_shipping_phone( $briqpay_order['shippingaddress']['cellno'] );
 		$order->update_meta_data( '_shipping_email', $briqpay_order['shippingaddress']['email'] );
 		$order->update_meta_data( '_briqpay_payment_method', $briqpay_order['purchasepaymentmethod']['name'] );
 		$order->update_meta_data( '_briqpay_psp_name', $briqpay_order['purchasepaymentmethod']['pspname'] );
