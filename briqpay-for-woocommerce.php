@@ -253,7 +253,7 @@ if ( ! class_exists( 'Briqpay_For_WooCommerce' ) ) {
 		 * @return void
 		 */
 		public function check_version() {
-			require 'kernl-update-checker/kernl-update-checker.php';
+			require __DIR__ . '/vendor/autoload.php';
 			Puc_v4_Factory::buildUpdateChecker(
 				'https://kernl.us/api/v1/updates/603e1c23b163b9779f3c63b0/',
 				__FILE__,
