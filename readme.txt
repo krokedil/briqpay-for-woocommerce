@@ -3,11 +3,11 @@ Contributors: krokedil
 Tags: woocommerce, briqpay, ecommerce, e-commerce, checkout
 Donate link: https://krokedil.com
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8.1
 Requires PHP: 7.0
 WC requires at least: 4.0.0
-WC tested up to: 9.4.1
-Stable tag: 1.8.2
+WC tested up to: 9.8.3
+Stable tag: 1.8.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,9 @@ With Briqpay, you are always in control of risk exposure.
 4. Read more about the configuration process in the [plugin documentation](https://docs.krokedil.com/category/396-get-started).
 
 == Changelog ==
+= 2025.05.06     - version 1.8.3 =
+* Fix            - Resolved an issue where the shipping phone number was not being set correctly.
+
 = 2025.04.01     - version 1.8.2 =
 * Fix            - Addressed various deprecation warnings.
 * Tweak          - Added a GitHub action for deploying to zip-file.
